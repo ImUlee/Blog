@@ -1,0 +1,373 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>让 iOS 与 Windows 实现剪贴板共享 | 有理。</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="shortcut icon" href="https://banana7.cn/favicon.ico?v=1">
+<link rel="stylesheet" href="/media/katex.min.css">
+<link href="/media/remixicon/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="/media/fonts.css">
+<link rel="stylesheet" href="/media/animate.min.css">
+<!-- 适配Safari书签页和iOS桌面图标 --> 
+<link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="有理Ulee">
+<link rel="bookmark" href="/media/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/media/apple-touch-icon.png" >
+
+
+<link rel="stylesheet" href="https://banana7.cn/styles/main.css">
+
+<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?4faae41facfc71bcdb431a4f9471d6cb";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <!-- <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i> -->
+        
+        <a href="https://banana7.cn">
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">有理。</h1>
+        </a>
+        <div class="top1block" style="margin-left: auto;">
+          
+            
+          
+            
+          
+            
+              <a href="https://music.163.com/#/song?id=461518855" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-netease-cloud-music-line"></i>
+              </a>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a href="/post/about"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-profile-line"></i>
+              </a>
+            
+          
+            
+              <a href="/archives"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-archive-line"></i>
+              </a>
+            
+          
+            
+              <a href="/atom.xml" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-rss-line"></i>
+              </a>
+            
+          
+        </div>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80">项目地址</a></li>
+<li><a href="#windows-%E7%AB%AF">Windows 端</a></li>
+<li><a href="#ios-%E7%AB%AF">iOS 端</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"><a class="rss" href="https://banana7.cn/post/theme/">主题</a> </div>
+    <a class="rss" href="https://banana7.cn/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">让 iOS 与 Windows 实现剪贴板共享</h1>
+        
+        <div class="text-sm text-gray-700 lg:my-8">
+          
+            2022-03-20
+          
+        </div>
+        
+        
+        <div class="post-content yue">
+          <p>clipboard-online 是一款可以帮你在 💻Windows 和 📱iOS 之间分享剪切板的应用</p>
+<!-- more -->
+<h2 id="项目地址">项目地址</h2>
+<ul>
+<li>
+<p><a href="https://github.com/YanxinTang/clipboard-online">Github/clipboard-online</a></p>
+</li>
+<li>
+<p>不止于剪贴板，支持图片媒体互传<br>
+iPhone 通过相册内捷径快速将图片媒体传输到 Windows</p>
+</li>
+</ul>
+<h2 id="windows-端">Windows 端</h2>
+<ol>
+<li>下载 <a href="https://github.com/YanxinTang/clipboard-online/releases">clipboard-online</a></li>
+<li>放在常用磁盘内，首次运行会在目录下生成 <code>temp/config.json/log.txt</code></li>
+<li>修改 <code>config.json</code> 配置文件</li>
+</ol>
+<pre><code>{
+  &quot;port&quot;: &quot;8086&quot;,
+  ## 修改authkey项的token
+  &quot;authkey&quot;: &quot;token&quot;,
+  &quot;authkeyExpiredTimeout&quot;: 30,
+  &quot;logLevel&quot;: &quot;warning&quot;,
+  &quot;tempDir&quot;: &quot;./temp&quot;,
+  &quot;reserveHistory&quot;: false,
+  ## 修改通知推送
+  &quot;notify&quot;: {
+    &quot;copy&quot;: true,
+    &quot;paste&quot;: true
+  }
+}
+</code></pre>
+<h2 id="ios-端">iOS 端</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">链接</th>
+<th style="text-align:center">二维码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">从 PC 复制到 iOS</td>
+<td style="text-align:center"><a href="https://www.icloud.com/shortcuts/f463a1e431c94c60b8a5c65305eb819f">https://www.icloud.com/shortcuts/f463a1e431c94c60b8a5c65305eb819f</a></td>
+<td style="text-align:center"><img src="https://pic.banana7.cn/img/202203211214466.png" alt="" loading="lazy"></td>
+</tr>
+<tr>
+<td style="text-align:center">从 iOS 粘贴到 PC</td>
+<td style="text-align:center"><a href="https://www.icloud.com/shortcuts/90e7a2af70df4707a17dece8c263afc5">https://www.icloud.com/shortcuts/90e7a2af70df4707a17dece8c263afc5</a></td>
+<td style="text-align:center"><img src="https://pic.banana7.cn/img/202203211214735.png" alt="" loading="lazy"></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>添加捷径到你的 iPhone 里。</li>
+<li>修改捷径、在 <code>词典</code> 中添加本地局域网 <code>SSID</code> &amp; <code>PC IP</code></li>
+<li>修改文本框内为上方配置文件中 <code>authkey</code> 项的 <code>token</code></li>
+</ol>
+
+        </div>
+
+        
+          <div class="tag-container">
+            
+              <a href="https://banana7.cn/tag/rgARBNakO/" class="tag">
+                iOS
+              </a>
+            
+              <a href="https://banana7.cn/tag/Zlrgw2c7jj/" class="tag">
+                经验
+              </a>
+            
+          </div>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://banana7.cn/post/Af1kpEzQ8/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  解决 VideoStation、PhotoStation、Moments 无法生成缩略图
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://banana7.cn/post/ji-yi-ci-griade-shi-yong-valine-ping-lun-xi-tong/">
+                <h3 class="post-title">
+                  记一次 Griade 部署 Valine 评论系统
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+          
+        </div>
+        
+
+        
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://banana7.cn/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+    
+     <div class="site-info">
+      <div class="py-4 text-gray-700"><a class="rss" href="https://banana7.cn/post/theme/">主题</a> | <a class="rss" href="https://banana7.cn/atom.xml" target="_blank">订阅</a> </div>
+    </div>  
+  </body>
+</html>

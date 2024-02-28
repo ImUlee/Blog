@@ -1,0 +1,363 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>降已刷入 U-Boot 引导的 Redmi AX6 恢复官方系统 | 有理。</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="shortcut icon" href="https://banana7.cn/favicon.ico?v=1">
+<link rel="stylesheet" href="/media/katex.min.css">
+<link href="/media/remixicon/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="/media/fonts.css">
+<link rel="stylesheet" href="/media/animate.min.css">
+<!-- 适配Safari书签页和iOS桌面图标 --> 
+<link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="有理Ulee">
+<link rel="bookmark" href="/media/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/media/apple-touch-icon.png" >
+
+
+<link rel="stylesheet" href="https://banana7.cn/styles/main.css">
+
+<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?4faae41facfc71bcdb431a4f9471d6cb";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <!-- <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i> -->
+        
+        <a href="https://banana7.cn">
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">有理。</h1>
+        </a>
+        <div class="top1block" style="margin-left: auto;">
+          
+            
+          
+            
+          
+            
+              <a href="https://music.163.com/#/song?id=461518855" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-netease-cloud-music-line"></i>
+              </a>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a href="/post/about"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-profile-line"></i>
+              </a>
+            
+          
+            
+              <a href="/archives"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-archive-line"></i>
+              </a>
+            
+          
+            
+              <a href="/atom.xml" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-rss-line"></i>
+              </a>
+            
+          
+        </div>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%91%98%E6%8A%84">摘抄</a></li>
+<li><a href="#%E5%88%B7%E5%9B%9E%E5%AE%98%E6%96%B9%E5%88%86%E5%8C%BA%E8%A1%A8">刷回官方分区表</a></li>
+<li><a href="#%E6%81%A2%E5%A4%8D%E5%AE%98%E6%96%B9%E7%B3%BB%E7%BB%9F">恢复官方系统</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"><a class="rss" href="https://banana7.cn/post/theme/">主题</a> </div>
+    <a class="rss" href="https://banana7.cn/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">降已刷入 U-Boot 引导的 Redmi AX6 恢复官方系统</h1>
+        
+        <div class="text-sm text-gray-700 lg:my-8">
+          
+            2023-06-28
+          
+        </div>
+        
+        
+        <div class="post-content yue">
+          <p>如果因为某些原因导致你想刷回官方版本系统，那么可以参考这篇文章..</p>
+<!-- more -->
+<h2 id="摘抄">摘抄</h2>
+<ul>
+<li><a href="https://www.right.com.cn/forum/forum.php?mod=viewthread&amp;tid=8236039&amp;highlight=uboot">[AX3600] ax6 ax3600刷uboot后恢复官方系统方法</a></li>
+</ul>
+<h2 id="刷回官方分区表">刷回官方分区表</h2>
+<p>操作之前说明：全程连接有线操作</p>
+<ol>
+<li>SSH 连接路由器执行 <code>cat /proc/mtd</code>，查看 <code>mtd1</code> 和 <code>mtd7</code> 的分区是否存在</li>
+</ol>
+<pre><code>root@lede:~# cat /proc/mtd
+dev: size erasesize name
+mtd0: 00100000 00020000 “0:sbl1”
+mtd1: 00100000 00020000 “0:mibib” //查看此分区是否存在
+mtd2: 00300000 00020000 “0:qsee”
+mtd3: 00080000 00020000 “0:devcfg”
+mtd4: 00080000 00020000 “0:rpm”
+mtd5: 00080000 00020000 “0:cdt”
+mtd6: 00080000 00020000 “0:appsblenv”
+mtd7: 00100000 00020000 “0:appsbl” //查看此分区是否存在
+mtd8: 00080000 00020000 “0:art”
+mtd9: 00080000 00020000 “bdata”
+mtd10: 00080000 00020000 “crash”
+mtd11: 00080000 00020000 “crash_syslog”
+mtd12: 023c0000 00020000 “rootfs”
+mtd13: 023c0000 00020000 “rootfs_1”
+mtd14: 01ec0000 00020000 “overlay”
+mtd15: 00080000 00020000 “rsvd0”
+root@lede:~#
+</code></pre>
+<ol start="2">
+<li>下载 <a href="https://banana7.lanzout.com/i3aaD10peu1c">mibib.bin、appsbl.bin</a> 文件，通过 <code>Winscp</code> 上传至 <code>/tmp</code> 文件夹内</li>
+<li>执行下方指令刷写分区表</li>
+</ol>
+<pre><code>mtd erase /dev/mtd1
+mtd write /tmp/mibib.bin /dev/mtd1
+mtd erase /dev/mtd7
+mtd write /tmp/appsbl.bin /dev/mtd7
+</code></pre>
+<ol start="4">
+<li>建议刷写后等待一分钟，保证能够完整写入后再<strong>断电重启！</strong></li>
+</ol>
+<blockquote>
+<p>冷知识：刷入任何分区表都需要断电重启，刷 U-Boot 也同理。</p>
+</blockquote>
+<h2 id="恢复官方系统">恢复官方系统</h2>
+<ol>
+<li>有线连接路由器并将电脑 iPv4 地址指定为 <code>192.168.31.100</code></li>
+<li>下载 <a href="https://bigota.miwifi.com/xiaoqiang/tools/MIWIFIRepairTool.x86.zip">小米路由器修复工具</a>，并退出电脑杀毒软件包含 Windows Defender 防火墙</li>
+<li>打开小米路由修复工具，按住路由器 <code>reset</code> 开机后修复工具选择 192.168.31.100 的网卡，将修复工具进入救砖待机界面，等待检测到路由器</li>
+<li><strong>再次断电</strong>，重新按住 <code>reset</code> 键插电橙灯闪烁后松手</li>
+<li>等待修复工具检测到路由器后会开始上传固件，<strong>等待蓝灯闪烁等待1分钟断电</strong>，重新插电即可恢复到官方系统。</li>
+</ol>
+
+        </div>
+
+        
+          <div class="tag-container">
+            
+              <a href="https://banana7.cn/tag/lu-you-qi/" class="tag">
+                路由器
+              </a>
+            
+          </div>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://banana7.cn/post/Yff_Z9DeY/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  华为悦盒 ec6108v9 刷入 Ubuntu 并补上 WiFi 驱动
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://banana7.cn/post/R_MbjrT8R/">
+                <h3 class="post-title">
+                  为 Redmi AX6 刷入不死 U-Boot 引导
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+          
+        </div>
+        
+
+        
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://banana7.cn/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+    
+     <div class="site-info">
+      <div class="py-4 text-gray-700"><a class="rss" href="https://banana7.cn/post/theme/">主题</a> | <a class="rss" href="https://banana7.cn/atom.xml" target="_blank">订阅</a> </div>
+    </div>  
+  </body>
+</html>

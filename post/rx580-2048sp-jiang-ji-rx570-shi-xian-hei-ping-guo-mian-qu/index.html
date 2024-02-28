@@ -1,0 +1,344 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>在 RX580 2048sp 刷入 570 VBIOS 实现黑苹果免驱 | 有理。</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="shortcut icon" href="https://banana7.cn/favicon.ico?v=1">
+<link rel="stylesheet" href="/media/katex.min.css">
+<link href="/media/remixicon/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="/media/fonts.css">
+<link rel="stylesheet" href="/media/animate.min.css">
+<!-- 适配Safari书签页和iOS桌面图标 --> 
+<link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="有理Ulee">
+<link rel="bookmark" href="/media/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/media/apple-touch-icon.png" >
+
+
+<link rel="stylesheet" href="https://banana7.cn/styles/main.css">
+
+<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?4faae41facfc71bcdb431a4f9471d6cb";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <!-- <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i> -->
+        
+        <a href="https://banana7.cn">
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">有理。</h1>
+        </a>
+        <div class="top1block" style="margin-left: auto;">
+          
+            
+          
+            
+          
+            
+              <a href="https://music.163.com/#/song?id=461518855" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-netease-cloud-music-line"></i>
+              </a>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a href="/post/about"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-profile-line"></i>
+              </a>
+            
+          
+            
+              <a href="/archives"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-archive-line"></i>
+              </a>
+            
+          
+            
+              <a href="/atom.xml" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-rss-line"></i>
+              </a>
+            
+          
+        </div>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%8F%82%E8%80%83%E6%91%98%E6%8A%84">参考&amp;摘抄</a></li>
+<li><a href="#%E6%98%BE%E5%8D%A1%E7%89%B9%E6%80%A7">显卡特性</a></li>
+<li><a href="#%E5%88%B7%E5%85%A5-vbios">刷入 Vbios</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"><a class="rss" href="https://banana7.cn/post/theme/">主题</a> </div>
+    <a class="rss" href="https://banana7.cn/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">在 RX580 2048sp 刷入 570 VBIOS 实现黑苹果免驱</h1>
+        
+        <div class="text-sm text-gray-700 lg:my-8">
+          
+            2020-05-22
+          
+        </div>
+        
+        
+        <div class="post-content yue">
+          <p>RX580 2048SP 版本并不是完整的 RX580 ，没办法直接免驱黑苹果，但是可以刷 570 的 VBiOS 让系统识别为 570，进而做到免驱显卡。</p>
+<!-- more -->
+<h2 id="参考摘抄">参考&amp;摘抄</h2>
+<ul>
+<li><a href="http://bbs.pcbeta.com/viewthread-1822790-1-1.html">AMD 蓝宝石RX580 2048SP 4g 刷显卡bios降RX570 黑果免驱</a></li>
+<li><a href="https://www.applex.net/threads/amd-rx580-2048sp-biosrx570.93377/">AMD 蓝宝石RX580 2048SP 刷显卡bios降RX570 黑果免驱—细节补充</a></li>
+</ul>
+<h2 id="显卡特性">显卡特性</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类 型</th>
+<th style="text-align:center">参 数</th>
+<th style="text-align:center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">盈通 RX580 2048sp 大地之神 8G</td>
+<td style="text-align:center">dvi接口*2 版本</td>
+<td style="text-align:center">新版显卡是dvi*1 / DP*3</td>
+</tr>
+</tbody>
+</table>
+<h2 id="刷入-vbios">刷入 Vbios</h2>
+<ol>
+<li>进入 Atiflash 文件夹右击打开终端或命令行执行<br>
+<code>cd C:\Users\Administrator\Desktop\Atiflash   // 替换你下载的 Atiflash 文件夹路径</code></li>
+<li>依次执行下方命令</li>
+</ol>
+<pre><code>amdvbflash.exe -unlockrom 0   // 解锁显卡BIOS
+ROM Unlocked   // 返回意思：BIOS 解锁成功
+amdvbflash -f -p 0 XXXX.rom    // 替换要刷入的 ROM 名称
+Restart System To Complete VBIOS Update    // VBIOS 升级成功 重启完成
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://banana7.cn/post-images/1600831416236.PNG" alt="" loading="lazy"></figure>
+<ul>
+<li>ROM 需要放在刷 Atiflash 文件夹目录下！</li>
+<li>重启后如遇设备管理器不显示显卡，更新驱动即可。</li>
+</ul>
+
+        </div>
+
+        
+          <div class="tag-container">
+            
+              <a href="https://banana7.cn/tag/vcIDnq2k4/" class="tag">
+                黑苹果
+              </a>
+            
+              <a href="https://banana7.cn/tag/Zlrgw2c7jj/" class="tag">
+                经验
+              </a>
+            
+          </div>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://banana7.cn/post/ios124-jailbreakandcydiaanddeb/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  iOS JailBreak 越狱源/插件推荐 [iOS14]
+                </h3>
+              </a>
+            </div>
+          
+
+          
+          
+        </div>
+        
+
+        
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://banana7.cn/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+    
+     <div class="site-info">
+      <div class="py-4 text-gray-700"><a class="rss" href="https://banana7.cn/post/theme/">主题</a> | <a class="rss" href="https://banana7.cn/atom.xml" target="_blank">订阅</a> </div>
+    </div>  
+  </body>
+</html>
