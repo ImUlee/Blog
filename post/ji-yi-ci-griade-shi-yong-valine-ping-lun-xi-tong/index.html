@@ -1,0 +1,495 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>记一次 Griade 部署 Valine 评论系统 | 有理。</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="shortcut icon" href="https://blog.banana7.cn/favicon.ico?v=1">
+<link rel="stylesheet" href="/media/katex.min.css">
+<link href="/media/remixicon/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="/media/fonts.css">
+<link rel="stylesheet" href="/media/animate.min.css">
+<!-- 适配Safari书签页和iOS桌面图标 --> 
+<link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="有理Ulee">
+<link rel="bookmark" href="/media/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/media/apple-touch-icon.png" >
+
+
+<link rel="stylesheet" href="https://blog.banana7.cn/styles/main.css">
+
+<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?4faae41facfc71bcdb431a4f9471d6cb";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <!-- <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i> -->
+        
+        <a href="https://blog.banana7.cn">
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">有理。</h1>
+        </a>
+        <div class="top1block" style="margin-left: auto;">
+          
+            
+          
+            
+          
+            
+              <a href="https://music.163.com/#/song?id=461518855" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-netease-cloud-music-line"></i>
+              </a>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a href="/post/about"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-profile-line"></i>
+              </a>
+            
+          
+            
+              <a href="/archives"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-archive-line"></i>
+              </a>
+            
+          
+            
+              <a href="/atom.xml" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-rss-line"></i>
+              </a>
+            
+          
+        </div>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+<li><a href="#leancloud-%E6%B3%A8%E5%86%8C%E9%83%A8%E7%BD%B2%E9%85%8D%E7%BD%AE">Leancloud 注册&amp;部署&amp;配置</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE%E6%B5%81%E7%A8%8B">配置流程</a>
+<ul>
+<li><a href="#%E5%8F%98%E9%87%8F%E8%AF%B4%E6%98%8E">变量说明</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA">主题添加评论</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E5%8F%AF%E5%BC%80%E5%90%AF%E5%85%B3%E9%97%AD%E7%89%88%E6%9C%AC%E8%AF%84%E8%AE%BA">添加可开启关闭版本评论</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"><a class="rss" href="https://banana7.cn/post/theme/">主题</a> </div>
+    <a class="rss" href="https://blog.banana7.cn/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">记一次 Griade 部署 Valine 评论系统</h1>
+        
+        <div class="text-sm text-gray-700 lg:my-8">
+          
+            2021-04-16
+          
+        </div>
+        
+        
+        <div class="post-content yue">
+          <p>为静态博客Griade上面部署Valine评论系统 带有后台管理以及邮件通知</p>
+<!-- more -->
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://kveln.cn/post/qE678A4ce/">为你的Gridea博客加上Valine评论系统 - kveln's blog</a></li>
+<li><a href="https://deserts.io/diy-a-comment-system/">Valine: 独立博客评论系统 - Deserts</a><br>
+<br></li>
+</ul>
+<h2 id="leancloud-注册部署配置">Leancloud 注册&amp;部署&amp;配置</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">版本</th>
+<th style="text-align:center">链接</th>
+<th style="text-align:center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">国内版</td>
+<td style="text-align:center"><a href="https://Leancloud.cn/"> Leancloud.cn </a></td>
+<td style="text-align:center">域名需备案</td>
+</tr>
+<tr>
+<td style="text-align:center">国际版</td>
+<td style="text-align:center"><a href="https://console.leancloud.app/"> console.Leancloud.app </a></td>
+<td style="text-align:center">免备案</td>
+</tr>
+</tbody>
+</table>
+<h2 id="配置流程">配置流程</h2>
+<ol>
+<li>登录注册后进入控制台，创建应用 &gt; <code>选择开发版</code></li>
+<li>点击创建的应用，进入设置 &gt; 应用凭证 &gt; 记录 Credentials下 <code>AppID/AppKey</code></li>
+<li>设置 &gt; 域名绑定 &gt; 在<code>云引擎、ClientEngine 域名</code>下绑定自己的评论后台域名</li>
+<li>云引擎 &gt; WEB &gt; 部署 &gt; 部署项目 &gt; Git部署 填入<code>https://github.com/DesertsP/Valine-Admin.git </code></li>
+<li>云引擎 &gt; WEB &gt; 设置 &gt; 自定义环境变量 &gt; 添加新变量（见下表）</li>
+<li>配置完变量后，点击部署内重启！重启后生效</li>
+<li>评论管理 进入绑定域名<code>http://Domain /sign-up</code></li>
+<li><a href="https://deserts.io/valine-admin-document/#%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%AE%BE%E7%BD%AE">定时唤醒配置</a> 直接参考Deserts大佬的文章吧！<br>
+<br></li>
+</ol>
+<h3 id="变量说明">变量说明</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">变量</th>
+<th style="text-align:center">示例</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">SITE_NAME</td>
+<td style="text-align:center">Deserts</td>
+<td style="text-align:center">[必填]博客名称</td>
+</tr>
+<tr>
+<td style="text-align:center">SITE_URL</td>
+<td style="text-align:center">https://panjunwen.com</td>
+<td style="text-align:center">[必填]首页地址</td>
+</tr>
+<tr>
+<td style="text-align:center">SMTP_SERVICE</td>
+<td style="text-align:center">QQ</td>
+<td style="text-align:center">[新版支持]邮件服务提供商，支持 QQ、163、126、Gmail 以及 <a href="https://nodemailer.com/smtp/well-known/#supported-services">更多</a></td>
+</tr>
+<tr>
+<td style="text-align:center">SMTP_USER</td>
+<td style="text-align:center">xxxxxx@qq.com</td>
+<td style="text-align:center">[必填]SMTP登录用户</td>
+</tr>
+<tr>
+<td style="text-align:center">SMTP_PASS</td>
+<td style="text-align:center">xxxxxxxxxx</td>
+<td style="text-align:center">[必填]SMTP登录密码（QQ邮箱需要获取独立密码）</td>
+</tr>
+<tr>
+<td style="text-align:center">SENDER_NAME</td>
+<td style="text-align:center">Deserts</td>
+<td style="text-align:center">[必填]发件人</td>
+</tr>
+<tr>
+<td style="text-align:center">SENDER_EMAIL</td>
+<td style="text-align:center">xxxxxx@qq.com</td>
+<td style="text-align:center">[必填]发件邮箱</td>
+</tr>
+<tr>
+<td style="text-align:center">ADMIN_URLI</td>
+<td style="text-align:center">https://xxx.leanapp.cn/</td>
+<td style="text-align:center">[建议]Web主机二级域名（云引擎域名），用于自动唤醒</td>
+</tr>
+<tr>
+<td style="text-align:center">BLOGGER_EMAI</td>
+<td style="text-align:center">LIxxxxx@gmail.com</td>
+<td style="text-align:center">[可选]博主通知收件地址，默认使用SENDER_EMAIL</td>
+</tr>
+<tr>
+<td style="text-align:center">AKISMET_KEY</td>
+<td style="text-align:center">xxxxxxxx</td>
+<td style="text-align:center">[可选]Akismet Key 用于垃圾评论检测，设为MANUAL_REVIEW开启人工审核，留空不使用反垃圾</td>
+</tr>
+<tr>
+<td style="text-align:center"><br></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="主题添加评论">主题添加评论</h2>
+<ul>
+<li>下载 <a href="http://share.ioiox.cc/%E6%9D%82%E7%89%A9%E9%97%B4/blog/Valine">Valine.min.js</a></li>
+<li>下载 <a href="http://share.ioiox.cc/%E6%9D%82%E7%89%A9%E9%97%B4/blog/Valine">alu.zip</a> - 表情包</li>
+</ul>
+<ol>
+<li>在主题目录文件夹找到 <code>head.ejs</code> 引用</li>
+</ol>
+<pre><code>    &lt;script src='//unpkg.com/valine/dist/Valine.min.js'&gt;&lt;/script&gt;
+</code></pre>
+<ol start="2">
+<li>在 <code>post.ejs </code> 末尾 <code>&lt;/body&gt; </code> 前添加下方代码</li>
+</ol>
+<pre><code>&lt;!--Leancloud 操作库:--&gt;
+    &lt;script src=&quot;//cdn1.lncld.net/static/js/3.0.4/av-min.js&quot;&gt;&lt;/script&gt;
+    &lt;!--Valine 的核心代码库--&gt;
+    &lt;script src=&quot;/media/Valine.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!--修改自己的Valine.min.js路径；主题配置js--&gt;
+&lt;div class=&quot;comment&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+    new Valine({
+        // AV 对象来自上面引入av-min.js(老司机们不要开车➳♡゛扎心了老铁)
+        av: AV, 
+        el: '.comment',
+        lang: 'zh-cn',//设置评论语言
+        emoticon_url: 'https://banana7.cn/media/alu',
+        &lt;!--alu修改为自己的路径；评论表情包文件--&gt;
+  emoticon_list: [&quot;暗地观察.png&quot;,&quot;便便.png&quot;,&quot;不出所料.png&quot;,&quot;不高兴.png&quot;,&quot;不说话.png&quot;,&quot;抽烟.png&quot;,&quot;瞅你.png&quot;,&quot;得意.png&quot;,&quot;愤怒.png&quot;,&quot;尴尬.png&quot;,&quot;高兴.png&quot;,&quot;鼓掌.png&quot;,&quot;观察.png&quot;,&quot;汗.png&quot;,&quot;黑线.png&quot;,&quot;欢呼.png&quot;,&quot;击掌.png&quot;,&quot;惊喜.png&quot;,&quot;看不见.png&quot;,&quot;看热闹.png&quot;,&quot;抠鼻.png&quot;,&quot;口水.png&quot;,&quot;哭泣.png&quot;,&quot;狂汗.png&quot;,&quot;蜡烛.png&quot;,&quot;脸红.png&quot;,&quot;内伤.png&quot;,&quot;喷水.png&quot;,&quot;期待.png&quot;,&quot;亲亲.png&quot;,&quot;扇耳光.png&quot;,&quot;深思.png&quot;,&quot;锁眉.png&quot;,&quot;投降.png&quot;,&quot;无奈.png&quot;,&quot;无所谓.png&quot;,&quot;无语.png&quot;,&quot;献花.png&quot;,&quot;献黄瓜.png&quot;,&quot;想一想.png&quot;,&quot;小眼睛.png&quot;,&quot;邪恶.png&quot;,&quot;咽气.png&quot;,&quot;阴暗.png&quot;,&quot;赞一个.png&quot;,&quot;长草.png&quot;,&quot;中刀.png&quot;,&quot;中枪.png&quot;,&quot;中指.png&quot;,&quot;肿包.png&quot;,&quot;皱眉.png&quot;,&quot;装大款.png&quot;],
+  app_id: '修改为上面记录的AppID',
+  app_key: '修改为上面记录的AppKey',
+  placeholder: '「 人生在世，留句话给我吧 」'
+    });
+&lt;/script&gt; 
+&lt;!--Leancloud 结束:--&gt;   
+</code></pre>
+<br>
+<h2 id="添加可开启关闭版本评论">添加可开启关闭版本评论</h2>
+<ol>
+<li>进入主题文件夹 <code>\templates\_blocks</code> 找到 <code>gitalk.ejs</code>复制一份，原gitalk.ejs备份</li>
+<li>打开<code>gitalk.ejs</code>清空内容，复制代码进去</li>
+</ol>
+<pre><code>&lt;!--Leancloud 操作库:--&gt;
+    &lt;script src=&quot;//cdn1.lncld.net/static/js/3.0.4/av-min.js&quot;&gt;&lt;/script&gt;
+    &lt;!--Valine 的核心代码库--&gt;
+    &lt;script src=&quot;/media/Valine.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!--修改自己的Valine.min.js路径；主题配置js--&gt;
+&lt;div class=&quot;comment&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+    new Valine({
+        // AV 对象来自上面引入av-min.js(老司机们不要开车➳♡゛扎心了老铁)
+        av: AV, 
+        el: '.comment',
+        lang: 'zh-cn',//设置评论语言
+        emoticon_url: 'https://banana7.cn/media/alu',
+        &lt;!--alu修改为自己的路径；评论表情包文件--&gt;
+  emoticon_list: [&quot;暗地观察.png&quot;,&quot;便便.png&quot;,&quot;不出所料.png&quot;,&quot;不高兴.png&quot;,&quot;不说话.png&quot;,&quot;抽烟.png&quot;,&quot;瞅你.png&quot;,&quot;得意.png&quot;,&quot;愤怒.png&quot;,&quot;尴尬.png&quot;,&quot;高兴.png&quot;,&quot;鼓掌.png&quot;,&quot;观察.png&quot;,&quot;汗.png&quot;,&quot;黑线.png&quot;,&quot;欢呼.png&quot;,&quot;击掌.png&quot;,&quot;惊喜.png&quot;,&quot;看不见.png&quot;,&quot;看热闹.png&quot;,&quot;抠鼻.png&quot;,&quot;口水.png&quot;,&quot;哭泣.png&quot;,&quot;狂汗.png&quot;,&quot;蜡烛.png&quot;,&quot;脸红.png&quot;,&quot;内伤.png&quot;,&quot;喷水.png&quot;,&quot;期待.png&quot;,&quot;亲亲.png&quot;,&quot;扇耳光.png&quot;,&quot;深思.png&quot;,&quot;锁眉.png&quot;,&quot;投降.png&quot;,&quot;无奈.png&quot;,&quot;无所谓.png&quot;,&quot;无语.png&quot;,&quot;献花.png&quot;,&quot;献黄瓜.png&quot;,&quot;想一想.png&quot;,&quot;小眼睛.png&quot;,&quot;邪恶.png&quot;,&quot;咽气.png&quot;,&quot;阴暗.png&quot;,&quot;赞一个.png&quot;,&quot;长草.png&quot;,&quot;中刀.png&quot;,&quot;中枪.png&quot;,&quot;中指.png&quot;,&quot;肿包.png&quot;,&quot;皱眉.png&quot;,&quot;装大款.png&quot;],
+  app_id: '修改为上面记录的AppID',
+  app_key: '修改为上面记录的AppKey',
+  placeholder: '「 人生在世，留句话给我吧 」'
+    });
+&lt;/script&gt; 
+&lt;!--Leancloud 结束:--&gt;   
+</code></pre>
+<ol start="3">
+<li>在Gridea客户端 &gt; 远程 &gt; 评论配置 &gt; 是否显示评论<strong>默认关闭</strong>勾选打开</li>
+<li>开启评论就打开，不显示评论就关闭。</li>
+</ol>
+
+        </div>
+
+        
+          <div class="tag-container">
+            
+              <a href="https://blog.banana7.cn/tag/m5XMfY17Y/" class="tag">
+                记录
+              </a>
+            
+              <a href="https://blog.banana7.cn/tag/Zlrgw2c7jj/" class="tag">
+                经验
+              </a>
+            
+          </div>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://blog.banana7.cn/post/shi-yong-clipboard-online-tong-bu-ioswindows-jian-tie-ban/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  让 iOS 与 Windows 实现剪贴板共享
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://blog.banana7.cn/post/ios-1341-succession-ping-shua/">
+                <h3 class="post-title">
+                  使用 Succession 插件来平刷 iOS 系统至出厂状态
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+          
+        </div>
+        
+
+        
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://blog.banana7.cn/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+    
+     <div class="site-info">
+      <div class="py-4 text-gray-700"><a class="rss" href="https://banana7.cn/post/theme/">主题</a> | <a class="rss" href="https://blog.banana7.cn/atom.xml" target="_blank">订阅</a> </div>
+    </div>  
+  </body>
+</html>

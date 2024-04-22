@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://blog.banana7.cn</id>
+    <title>有理。</title>
+    <updated>2024-04-22T18:06:07.858Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://blog.banana7.cn"/>
+    <link rel="self" href="https://blog.banana7.cn/atom.xml"/>
+    <subtitle>Life &amp; Knowledge</subtitle>
+    <logo>https://blog.banana7.cn/images/avatar.png</logo>
+    <icon>https://blog.banana7.cn/favicon.ico</icon>
+    <rights>All rights reserved 2024, 有理。</rights>
+    <entry>
+        <title type="html"><![CDATA[华为悦盒 ec6108v9 刷入 Ubuntu 并补上 WiFi 驱动]]></title>
+        <id>https://blog.banana7.cn/post/Yff_Z9DeY/</id>
+        <link href="https://blog.banana7.cn/post/Yff_Z9DeY/">
+        </link>
+        <updated>2023-07-04T01:18:47.000Z</updated>
+        <summary type="html"><![CDATA[<p>给闲置的电视盒子输入 Ubuntu 使其发光发热、变成一个 Linux 服务器？或打上 WiFi 驱动变成一个无线 AirPlay 2 接收器..</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>给闲置的电视盒子输入 Ubuntu 使其发光发热、变成一个 Linux 服务器？或打上 WiFi 驱动变成一个无线 AirPlay 2 接收器..</p>
+<!-- more -->
+<table>
+<thead>
+<tr>
+<th style="text-align:center">硬件</th>
+<th style="text-align:center">软件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">CH340G 转接板</td>
+<td style="text-align:center"><a href="https://www.123pan.com/s/i8ADVv-lxgiH.html">HiTool</a></td>
+</tr>
+<tr>
+<td style="text-align:center">公对母杜邦线*3</td>
+<td style="text-align:center">Mobaxterm</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="https://www.123pan.com/s/i8ADVv-lxgiH.html">TTL线刷固件包<sup>20220808</sup></a></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><a href="https://www.123pan.com/s/i8ADVv-lxgiH.html">WiFi 驱动配套内核、驱动、脚本<sup>20220808</sup></a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="写入-ubuntu">写入 Ubuntu</h2>
+<p>拆下指示灯处两枚脚垫，拧下螺丝使用撬棒等工具撬开上盖，拆机后找到 TTL 触点通过 CH340 连接板子的 GDN、TX、RX 触点（RX=TX TX=RX）并插入网线 &amp; 电源</p>
+<p>打开 HiTool 选择 Hi3798MV100 平台，检查下方配置</p>
+<figure data-type="image" tabindex="1"><img src="https://blog.banana7.cn/post-images/1689063220528.jpg" alt="" loading="lazy"></figure>
+<p>进入<strong>烧写eMMC页面</strong>，-&gt; <strong>浏览</strong>，-&gt; 固件文件夹内的 <code>xml</code> 文件，并在 fastboot 项选择 <code>fastboot-hi3798mdmo1d.bin</code>，-&gt; <strong>烧写</strong>。</p>
+<figure data-type="image" tabindex="2"><img src="https://blog.banana7.cn/post-images/1689064303505.jpg" alt="" loading="lazy"></figure>
+<p>查看下方日志表根据提示重启电源来烧写固件，等待片刻。</p>
+<hr>
+<h2 id="添加-wifi-驱动">添加 WiFi 驱动</h2>
+<p>下载配套内核 <a href="https://www.123pan.com/s/i8ADVv-lxgiH.html">hi_kernel-mv100-0808.bin</a> <sup>20220808</sup>使用 Mobaxterm 上传至根目录后执行</p>
+<pre><code>dd if=hi_kernel-mv100-0808.bin of=/dev/mmcblk0p6
+</code></pre>
+<p>执行完成后<strong>重启盒子</strong>。</p>
+<ol>
+<li>将 <code>rtl8188etv-0808.tar.gz</code> 、 <code>wifi_install.sh</code> 上传至 <code>/tmp</code> 文件夹</li>
+<li>执行 <code>cd /tmp</code> 进入 tmp 文件夹，执行 <code>chmod a+x wifi_install.sh</code> 赋予脚本权限</li>
+<li>使用脚本进行安装 <code>sh wifi_install.sh -f 驱动包 [参数1] [参数1] ...</code></li>
+</ol>
+<pre><code>-f, --file
+        驱动文件包名称 例如 rtl8188ftv.tar.gz
+-s, --ssid
+        可选，wifi名称
+-p, --password
+        可选，wifi密码
+-d, --address
+        可选，固定ip地址 如 192.168.1.100
+-g, --gateway
+        可选，网关 一般为 网段的第一个IP 如 192.168.1.1，
+-m, --netmask
+        可选，掩码 一般为 255.255.255.0
+例如：
+sh wifi_install.sh -f rtl8188ftv-0403.tar.gz -s ChineaNet-X231 -p 123456
+</code></pre>
+<ol start="4">
+<li>运行命令后会提示“安装成功”，此时驱动安装完成。</li>
+</ol>
+<blockquote>
+<p>如果使用了 -s 参数，脚本会尝试连接wifi，成功后提示“连接成功”<br>
+如果填入了 -d 参数，脚本会尝试修改wifi配置，成功后提示“修改地址成功”<br>
+想修改WIFI配置的话可以使用命令 nmcli connection delete &quot;wifi名字&quot;之后再使用本脚本重新配置，此时可无需使用 -f 参数</p>
+</blockquote>
+<hr>
+<h2 id="解决拔掉网线后不能正常访问盒子">解决拔掉网线后不能正常访问盒子</h2>
+<p>一旦重新插网线，系统就增加一条优先级更高的默认路由，所有数据都从eth0接口出，导致通过wlan0的地址不能正常访问盒子了。</p>
+<ul>
+<li>笨办法就是只能拔掉网线，重新启动。</li>
+<li>聪明的办法就是手工删掉如下两条路由，命令如下：</li>
+</ul>
+<pre><code>ip route delete 192.168.3.0/24 dev eth0 //替换为自己的 IP 段地址
+ip route delete default
+</code></pre>
+<p>可以用 <code>ip route show</code> 命令查看系统路由表</p>
+<hr>
+<h2 id="解决补完-wifi-补丁后启动慢">解决补完 WiFi 补丁后启动慢</h2>
+<ol>
+<li>插入网线正常进入系统后 SSH 连接执行</li>
+</ol>
+<pre><code>sudo vim /etc/systemd/system/network-online.target.wants/networking.service
+</code></pre>
+<ol start="2">
+<li>将里面的 <code>TimeoutStartSec=5min</code> 修改为 <code>TimeoutStartSec=2sec</code>，执行 <code>:wq</code> 保存。</li>
+<li>再执行 <code>sudo vim /etc/dhcp/dhclient.conf</code> 修改 <code>timeout</code> 为 <code>15</code> 执行 <code>:wq</code> 保存。</li>
+</ol>
+<hr>
+<h2 id="解决-wifi-连接后主页局域网页不能打开">解决 WiFi 连接后主页局域网页不能打开</h2>
+<ol>
+<li>修改首页文件：<code>/var/www/html/index.html</code></li>
+<li>将下面这行的 <code>eth0</code> 替换为 <code>wlan0</code> ：</li>
+</ol>
+<pre><code>$lanip=shell_exec(&quot;ifconfig eth0 | grep '&lt;inet&gt;'| grep -v '127.0.0.1' | awk '{ print $2}' | awk 'NR==1' 2&gt;&amp;1&quot;);
+</code></pre>
+<ol start="3">
+<li>修改后如下所示：</li>
+</ol>
+<pre><code>$lanip=shell_exec(&quot;ifconfig wlan0 | grep '&lt;inet&gt;'| grep -v '127.0.0.1' | awk '{ print $2}' | awk 'NR==1' 2&gt;&amp;1&quot;);
+</code></pre>
+<ol start="4">
+<li>
+<p>修改同目录下另外一个文件：<code>/var/www/html/index2.html</code> 也是将类似行的 <code>eth0</code> 替换为 <code>wlan0</code></p>
+</li>
+<li>
+<p>然后重启nginx服务，命令如下：</p>
+</li>
+</ol>
+<pre><code>systemctl restart nginx.service
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[降已刷入 U-Boot 引导的 Redmi AX6 恢复官方系统]]></title>
+        <id>https://blog.banana7.cn/post/PcnB0rJ5_/</id>
+        <link href="https://blog.banana7.cn/post/PcnB0rJ5_/">
+        </link>
+        <updated>2023-06-28T09:55:57.000Z</updated>
+        <summary type="html"><![CDATA[<p>如果因为某些原因导致你想刷回官方版本系统，那么可以参考这篇文章..</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>如果因为某些原因导致你想刷回官方版本系统，那么可以参考这篇文章..</p>
+<!-- more -->
+<h2 id="摘抄">摘抄</h2>
+<ul>
+<li><a href="https://www.right.com.cn/forum/forum.php?mod=viewthread&amp;tid=8236039&amp;highlight=uboot">[AX3600] ax6 ax3600刷uboot后恢复官方系统方法</a></li>
+</ul>
+<h2 id="刷回官方分区表">刷回官方分区表</h2>
+<p>操作之前说明：全程连接有线操作</p>
+<ol>
+<li>SSH 连接路由器执行 <code>cat /proc/mtd</code>，查看 <code>mtd1</code> 和 <code>mtd7</code> 的分区是否存在</li>
+</ol>
+<pre><code>root@lede:~# cat /proc/mtd
+dev: size erasesize name
+mtd0: 00100000 00020000 “0:sbl1”
+mtd1: 00100000 00020000 “0:mibib” //查看此分区是否存在
+mtd2: 00300000 00020000 “0:qsee”
+mtd3: 00080000 00020000 “0:devcfg”
+mtd4: 00080000 00020000 “0:rpm”
+mtd5: 00080000 00020000 “0:cdt”
+mtd6: 00080000 00020000 “0:appsblenv”
+mtd7: 00100000 00020000 “0:appsbl” //查看此分区是否存在
+mtd8: 00080000 00020000 “0:art”
+mtd9: 00080000 00020000 “bdata”
+mtd10: 00080000 00020000 “crash”
+mtd11: 00080000 00020000 “crash_syslog”
+mtd12: 023c0000 00020000 “rootfs”
+mtd13: 023c0000 00020000 “rootfs_1”
+mtd14: 01ec0000 00020000 “overlay”
+mtd15: 00080000 00020000 “rsvd0”
+root@lede:~#
+</code></pre>
+<ol start="2">
+<li>下载 <a href="https://banana7.lanzout.com/i3aaD10peu1c">mibib.bin、appsbl.bin</a> 文件，通过 <code>Winscp</code> 上传至 <code>/tmp</code> 文件夹内</li>
+<li>执行下方指令刷写分区表</li>
+</ol>
+<pre><code>mtd erase /dev/mtd1
+mtd write /tmp/mibib.bin /dev/mtd1
+mtd erase /dev/mtd7
+mtd write /tmp/appsbl.bin /dev/mtd7
+</code></pre>
+<ol start="4">
+<li>建议刷写后等待一分钟，保证能够完整写入后再<strong>断电重启！</strong></li>
+</ol>
+<blockquote>
+<p>冷知识：刷入任何分区表都需要断电重启，刷 U-Boot 也同理。</p>
+</blockquote>
+<h2 id="恢复官方系统">恢复官方系统</h2>
+<ol>
+<li>有线连接路由器并将电脑 iPv4 地址指定为 <code>192.168.31.100</code></li>
+<li>下载 <a href="https://bigota.miwifi.com/xiaoqiang/tools/MIWIFIRepairTool.x86.zip">小米路由器修复工具</a>，并退出电脑杀毒软件包含 Windows Defender 防火墙</li>
+<li>打开小米路由修复工具，按住路由器 <code>reset</code> 开机后修复工具选择 192.168.31.100 的网卡，将修复工具进入救砖待机界面，等待检测到路由器</li>
+<li><strong>再次断电</strong>，重新按住 <code>reset</code> 键插电橙灯闪烁后松手</li>
+<li>等待修复工具检测到路由器后会开始上传固件，<strong>等待蓝灯闪烁等待1分钟断电</strong>，重新插电即可恢复到官方系统。</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[为 Redmi AX6 刷入不死 U-Boot 引导]]></title>
+        <id>https://blog.banana7.cn/post/R_MbjrT8R/</id>
+        <link href="https://blog.banana7.cn/post/R_MbjrT8R/">
+        </link>
+        <updated>2023-06-21T02:32:10.000Z</updated>
+        <summary type="html"><![CDATA[<p>刷入不死 U-Boot 引导作用主要就是预防路由器变成“砖头”，方便后续随意刷入其他固件</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>刷入不死 U-Boot 引导作用主要就是预防路由器变成“砖头”，方便后续随意刷入其他固件</p>
+<!-- more -->
+<h2 id="解锁-ssh">解锁 SSH</h2>
+<ul>
+<li>通过 SN 在线计算：<a href="https://miwifi.dev/ssh">https://miwifi.dev/ssh</a></li>
+</ul>
+<h2 id="刷写临时固件">刷写临时固件</h2>
+<ol>
+<li>连接 SSH 执行</li>
+</ol>
+<pre><code>nvram set flag_last_success=0
+nvram set flag_boot_rootfs=0
+nvram set flag_boot_success=1
+nvram set flag_try_sys1_failed=0
+nvram set flag_try_sys2_failed=0
+nvram set boot_wait=on
+nvram set uart_en=1
+nvram set telnet_en=1
+nvram set ssh_en=1
+nvram commit
+</code></pre>
+<ol start="2">
+<li>下载 <a href="https://banana7.lanzout.com/ieoNp0znxr3c">xiaomimtd12.bin</a> 通过 <code>winscp</code> 上传至 <code>/tmp</code> 文件夹内后执行下方命令刷写临时固件</li>
+</ol>
+<pre><code>mtd write /tmp/xiaomimtd12.bin rootfs
+</code></pre>
+<ol start="3">
+<li>写入完成后，<strong>拔掉电源重启！</strong><br>
+重启后进入后台 &gt; <code>192.168.1.1</code> 查看是否刷入临时固件（默认路由器指示灯不亮）</li>
+</ol>
+<h2 id="刷写-u-boot-引导">刷写 U-Boot 引导</h2>
+<ol>
+<li>正常访问 OpenWrt 后台后，重新连接临时固件 SSH &gt; <code>192.168.1.1</code> 无密码 &gt; 执行下方命令</li>
+</ol>
+<pre><code>fw_setenv flag_last_success 0
+fw_setenv flag_boot_rootfs 0
+</code></pre>
+<ol start="3">
+<li>将 uboot 文件上传至 <code>/tmp</code> 文件夹后执行下方命令刷写</li>
+</ol>
+<pre><code>mtd erase /dev/mtd1
+mtd write /tmp/ax6-mibib.bin /dev/mtd1
+mtd erase /dev/mtd7
+mtd write /tmp/uboot-redmi-ax6.bin /dev/mtd7
+</code></pre>
+<ol start="4">
+<li>写入完成后，<strong>拔掉电源重启！</strong></li>
+</ol>
+<h2 id="进入-u-boot-刷写页面">进入 U-Boot 刷写页面</h2>
+<ol>
+<li>拔掉电源长按 <code>reset</code> 按钮再插入电源等待５秒左右待面板指示灯变为黄色灯即可</li>
+<li>浏览器进入 <code>192.168.1.1</code> 进入 U-Boot 页面刷入带有 <code>factory</code> 后缀固件<br>
+如果浏览器无法进入则手动设置 iPv4 地址为 <code>192.168.1.2</code></li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关闭 Win10 下载目录的默认分组显示]]></title>
+        <id>https://blog.banana7.cn/post/odbIwGdbC/</id>
+        <link href="https://blog.banana7.cn/post/odbIwGdbC/">
+        </link>
+        <updated>2023-05-15T05:20:02.000Z</updated>
+        <summary type="html"><![CDATA[<p>Win10 1903 以后的版本, 下载目录会自动变成分组显示，手动更改为不分组后还是会复原。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Win10 1903 以后的版本, 下载目录会自动变成分组显示，手动更改为不分组后还是会复原。</p>
+<!-- more -->
+<h2 id="修改注册表">修改注册表</h2>
+<ol>
+<li>进入注册表 使用快捷键﹝win+R﹞打开运行窗口，输入命令﹝regedit﹞</li>
+<li>定位下方位置：</li>
+</ol>
+<pre><code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderTypes\{885a186e-a440-4ada-812b-db871b942259}\TopViews\{00000000-0000-0000-0000-000000000000}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:center">变更为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">GroupBy(分组)</td>
+<td style="text-align:center">System.DateModified</td>
+<td style="text-align:center">System.Null</td>
+</tr>
+<tr>
+<td style="text-align:center">SortByList(排序)</td>
+<td style="text-align:center">prop:System.DateModified</td>
+<td style="text-align:center">prop:System.ItemNameDisplay</td>
+</tr>
+</tbody>
+</table>
+<h3 id="遇到无法修改">遇到无法修改</h3>
+<p>需要先右键选择 {00000000-0000-0000-0000-000000000000} 的项, 选择权限 &gt; 高级 &gt; 所有者 &gt; 更改 &gt; Administrators &gt; 确定</p>
+<p>回到权限页面, 将 Administrators的完全控制权限选择允许 &gt; 确定</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[让越狱的 iPhone 使用“4位数字密码”添加钱包银行卡、交通卡]]></title>
+        <id>https://blog.banana7.cn/post/5YC-paHPf/</id>
+        <link href="https://blog.banana7.cn/post/5YC-paHPf/">
+        </link>
+        <updated>2023-02-25T11:30:09.000Z</updated>
+        <summary type="html"><![CDATA[<p>在 iOS 13 以及更新系统中，苹果增加了 Apple Pay 的安全性，当用户已经开通Apple Pay 功能并添加了银行卡之后，需要使用更为安全的密码（至少为 6 位），无法设置为 4 位数字密码。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>在 iOS 13 以及更新系统中，苹果增加了 Apple Pay 的安全性，当用户已经开通Apple Pay 功能并添加了银行卡之后，需要使用更为安全的密码（至少为 6 位），无法设置为 4 位数字密码。</p>
+<!-- more -->
+<p><strong>已知问题：</strong> 添加描述文件依然需要6位密码</p>
+<h2 id="需要的准备">需要的准备</h2>
+<ul>
+<li>使你的 iPhone 处于越狱状态 x 测试机型 iPhone SE2020 · iOS 14.3</li>
+<li>从软件包商店安装 Filza 文件管理器</li>
+<li><a href="https://www.aliyundrive.com/s/7piad5ffqNj">下载 JustMyPasssword 插件</a> / Code: 92ue</li>
+</ul>
+<h2 id="添加卡片">添加卡片</h2>
+<ol>
+<li>将下载的 <code>JustMyPasssword</code> [^1]插件导入到 Filza 文件管理器内安装</li>
+<li>随后在 <strong>钱包App</strong> 内添加卡片，添加时会提示需要6位密码(无需理会)</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://blog.banana7.cn/post-images/1677340036372.jpg" alt="" loading="lazy"></figure>
+<ol start="3">
+<li>
+<p>点击底部 <code>Just use the currend. Go away!</code> 按钮跳转添加卡片页面</p>
+</li>
+<li>
+<p>添加完卡片后，打开 Filza 找到 <code>var</code> &gt; <code>mobile</code> &gt; <code>Library</code> &gt; <code>UserConfigurationProfiles</code>  文件夹</p>
+</li>
+<li>
+<p>点击右侧<strong>感叹号</strong>在<strong>访问权限</strong>项下，将 <code>UserConfigurationProfiles</code> 文件夹的<strong>所有者</strong>的<strong>写入</strong>权限勾选去掉，再删除 <code>PasscodeDoesNotComply</code> 文件，随后进行重启。</p>
+</li>
+</ol>
+<figure data-type="image" tabindex="2"><img src="https://blog.banana7.cn/post-images/1677340271412.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[解决 Apple Turbo Boost 插件不兼容黑屏]]></title>
+        <id>https://blog.banana7.cn/post/Eyhp6Wmbg/</id>
+        <link href="https://blog.banana7.cn/post/Eyhp6Wmbg/">
+        </link>
+        <updated>2022-11-07T03:15:04.000Z</updated>
+        <summary type="html"><![CDATA[<p>Apple Turbo Boost 这款插件可以解除Apple为各个芯片设定的温度墙，解除降频；但是部分 iPhone 可能因为版本过高安装后出现黑屏问题</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Apple Turbo Boost 这款插件可以解除Apple为各个芯片设定的温度墙，解除降频；但是部分 iPhone 可能因为版本过高安装后出现黑屏问题</p>
+<!-- more -->
+<h2 id="解决黑屏">解决黑屏</h2>
+<ol>
+<li>前往 Sileo/Cydia 安装 <strong>Fliza文件管理器</strong>；</li>
+<li>随后安装 <code>Apple Turbo Boost</code> 插件，<strong>跳过重启设备</strong>；</li>
+<li>打开 Fliza ，进入 <code>Systam</code> &gt; <code>Librart</code> &gt; <code>ThermalMonitor</code> 文件夹，点击 <code>*.Info.plist</code> 文件编辑</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://blog.banana7.cn/post-images/1667791467336.png" alt="" loading="lazy"></figure>
+<ol start="4">
+<li>找到 <code>BacklightComponentControl</code> &gt; <code>expectsCPMSupport</code> ，点击右侧感叹号，将值 <code>NO</code> 修改为 <code>Yes</code> 后保存！</li>
+</ol>
+<figure data-type="image" tabindex="2"><img src="https://blog.banana7.cn/post-images/1667792019337.jpg" alt="" loading="lazy"></figure>
+<ol start="5">
+<li>回到插件商店重启或手动重启你的 iPhone</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[跳过微星 B450M MORTAR BIOS 降级限制]]></title>
+        <id>https://blog.banana7.cn/post/hGK9pDpD3/</id>
+        <link href="https://blog.banana7.cn/post/hGK9pDpD3/">
+        </link>
+        <updated>2022-09-18T04:41:02.000Z</updated>
+        <summary type="html"><![CDATA[<p>B450M MORTAR 最早的 Bios 设置是很全面的，后面因为板载内存原因(内存小)更新了黑白版(阉割版)，而且是不允许降级到低版本，会提示不允许降级。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>B450M MORTAR 最早的 Bios 设置是很全面的，后面因为板载内存原因(内存小)更新了黑白版(阉割版)，而且是不允许降级到低版本，会提示不允许降级。</p>
+<!-- more -->
+<p>解决 BIOS 内 Flash 模式降级 V14 版本时提示：</p>
+<pre><code>for providing better BIOS fuctionality and qualitu,THE system will not allow to restore BIOS with older version after flashing this target BIOS 
+</code></pre>
+<p>如果你的 CPU 是 R3/2200G 或 R5 2400G ，请不要退回 BIOS ，因为会造成不开机。</p>
+<h2 id="解决降级限制">解决降级限制</h2>
+<ol>
+<li><a href="https://www.aliyundrive.com/s/NrhSae6r4By">下载 afuwin 程序包</a>以及需要刷入的 BIOS 文件</li>
+<li>将 BIOS 文件放入 afuwin 程序根目录内</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://blog.banana7.cn/post-images/1663491736879.png" alt="" loading="lazy"></figure>
+<ol start="3">
+<li>管理员运行命令提示符(CMD)后，进入 afuwin 文件夹</li>
+</ol>
+<pre><code>cd C:\Users\Administrator\Desktop\afuwin  // 替换 afuwin 文件夹地址
+</code></pre>
+<ol start="4">
+<li>替换 BIOS 名称后执行</li>
+</ol>
+<pre><code>afuwinx64 E7B89AMS.140 /k /x /r  // 替换E7B89AMS.140为你下载的Bios文件名称
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://blog.banana7.cn/post-images/1663492034490.png" alt="" loading="lazy"></figure>
+<ol>
+<li>中途提示 <code>“y/n”</code> 是否继续，输入 <code>“y”</code> 继续</li>
+<li>等待全部进度条显示为 <code>done</code>，标识成功，进入 BIOS 内查看版本号即可。</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[解锁红米 AX6 SSH 并安装 ShellClash]]></title>
+        <id>https://blog.banana7.cn/post/qZT5TRoHu/</id>
+        <link href="https://blog.banana7.cn/post/qZT5TRoHu/">
+        </link>
+        <updated>2022-07-10T04:33:07.000Z</updated>
+        <summary type="html"><![CDATA[<p>解锁 AX6 SSH，释放 IPQ8071A 性能让 AX6 获取更多玩法~ 例如 ShellClash、QSDK、openWrt 等</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>解锁 AX6 SSH，释放 IPQ8071A 性能让 AX6 获取更多玩法~ 例如 ShellClash、QSDK、openWrt 等</p>
+<!-- more -->
+<h2 id="推荐httpsmiwifidevssh">推荐：<a href="https://miwifi.dev/ssh">https://miwifi.dev/ssh</a></h2>
+<p>网页通过 SN 码直接计算出 SSH 密码；以下内容进学习参考</p>
+<h2 id="部署-web-接口">部署 WEB 接口</h2>
+<ol>
+<li>下载 <a href="http://nginx.org/download/nginx-1.21.6.zip">nginx</a>，并解压至电脑任意盘</li>
+<li>进入 nginx-1.21.6 文件夹内，修改 <code>conf</code> 目录下的文件 <code>nginx.conf</code> 文件</li>
+<li>在 <code>location /</code> 和 <code>#error_page 404</code> 之间插入下方代码，然后保存 <code>nginx.conf</code> 文件。</li>
+</ol>
+<pre><code>location /cgi-bin/luci/api/xqsystem/token {
+if ($request_method != POST) { return 404; }
+return 405;
+error_page   405 =200  /response.json;
+}
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://blog.banana7.cn/post-images/1657594647151.jpg" alt="" loading="lazy"></figure>
+<ol start="4">
+<li>进入 html 目录下，创建 <code>response.json</code> 文件，内容见下，随后运行 <code>nignx.exe</code></li>
+</ol>
+<pre><code>{&quot;token&quot;:&quot;; nvram set ssh_en=1; nvram commit; sed -i 's/channel=.*/channel=\&quot;debug\&quot;/g' /etc/init.d/dropbear; /etc/init.d/dropbear start;&quot;,&quot;code&quot;:0}
+</code></pre>
+<h3 id="设置-wifi-热点">设置 WiFi 热点</h3>
+<ol>
+<li>先将电脑 WiFi 连接至任意热点</li>
+<li>进入设置 &gt; 网络和internet &gt; 移动热点 &gt; 打开热点 &gt; 编辑 &gt; WiFi昵称: <code>noop</code> 密码: <code>rightcom</code></li>
+<li>进入网络适配器，选中WLAN网络右击 &gt; 属性 &gt; 共享，关闭 <code>允许其他网络用户通过此计算机的Internet连接来连接</code>，目的关掉 <code>DHCP</code></li>
+<li>然后找到移动热点创建的WiFi，进入 属性 &gt; 网络 &gt; Internet协议版本4（TCP/IPv4），手动设置IP地址</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">使用下面的 IP 地址</th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">IP 地址</td>
+<td style="text-align:center">169.253.31.1</td>
+</tr>
+<tr>
+<td style="text-align:center">子网掩码</td>
+<td style="text-align:center">255.255.255.0</td>
+</tr>
+</tbody>
+</table>
+<ol start="5">
+<li>至此，无线热点设置完成。</li>
+</ol>
+<hr>
+<h2 id="解锁-ssh">解锁 SSH</h2>
+<ol>
+<li>
+<p><strong>事先降级固件</strong></p>
+<ol>
+<li>降级 AX6 固件 丨 <a href="https://cdn.cnbj1.fds.api.mi-img.com/xiaoqiang/rom/ra69/miwifi_ra69_firmware_45a77_1.0.18.bin">下载Red AX6 1.0.18 固件</a></li>
+<li>常用设置 &gt; 系统状态 &gt; 手动升级 &gt; [✓] 恢复出厂设置</li>
+</ol>
+</li>
+<li>
+<p><strong>进入路由器后台，获取 STOK，并替换到下方链接内</strong></p>
+<ol>
+<li>执行 返回结果为 <code>code=0</code>，即OK。</li>
+</ol>
+<pre><code>http://192.168.31.1/cgi-bin/luci/;stok=xxxxxxxxxxxx/api/misystem/extendwifi_connect?ssid=noop&amp;password=rightcom
+</code></pre>
+<ol start="2">
+<li><strong>再执行 返回结果为 <code>code=0</code>，即OK。</strong></li>
+</ol>
+<pre><code>http://192.168.31.1/cgi-bin/luci/;stok=xxxxxxxxxxxx/api/xqsystem/oneclick_get_remote_token?username=xxx&amp;password=xxx&amp;nonce=xxx
+</code></pre>
+</li>
+<li>
+<p><strong>固化 SSH</strong></p>
+<ol>
+<li>通过 <code>Winscp</code> 将 <code>ax3000.sh</code> 脚本上传至 <code>/etc</code> 目录下，然后执行</li>
+</ol>
+<pre><code>sh /etc/ax3000.sh unlock
+</code></pre>
+<ol start="2">
+<li>随后，系统自动重启，重启后执行</li>
+</ol>
+<pre><code>sh /etc/ax3000.sh hack
+</code></pre>
+<ol start="3">
+<li>重启完成后你可以联网升级，升级最新的固件可以</li>
+</ol>
+</li>
+</ol>
+<hr>
+<h3 id="升级后会丢失-ssh-权限通过-telnet-连接找回">升级后会丢失 SSH 权限，通过 telnet 连接找回</h3>
+<ol>
+<li>通过 telnet 连接路由器<br>
+telnet 192.168.31.1 用户名：root 密码上方计算得出</li>
+<li>连接后执行</li>
+</ol>
+<pre><code>sed -i 's/channel=.*/channel=&quot;debug&quot;/g' /etc/init.d/dropbear
+/etc/init.d/dropbear start
+</code></pre>
+<ol start="3">
+<li>再执行 <code>exit</code> 退出。</li>
+</ol>
+<h2 id="安装-shellclash">安装 ShellClash</h2>
+<pre><code>sh -c &quot;$(curl -kfsSl https://cdn.jsdelivr.net/gh/juewuy/ShellClash@master/install.sh)&quot; &amp;&amp; source /etc/profile &amp;&gt; /dev/null
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[解除 Administrator 账户与微软账户绑定]]></title>
+        <id>https://blog.banana7.cn/post/UkLGVN6RP/</id>
+        <link href="https://blog.banana7.cn/post/UkLGVN6RP/">
+        </link>
+        <updated>2022-06-18T06:06:10.000Z</updated>
+        <summary type="html"><![CDATA[<p>Windows 10 不知道什么时候开始只要登录过微软应用例如OneDrive，那么系统账户就会默认自动登录上你的微软账号，并且与本地管理员绑定。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Windows 10 不知道什么时候开始只要登录过微软应用例如OneDrive，那么系统账户就会默认自动登录上你的微软账号，并且与本地管理员绑定。</p>
+<!-- more -->
+<h2 id="参考文章">参考文章</h2>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/130402808">win10系统解除微软账户和本地账户绑定</a></li>
+<li><a href="https://github.com/Hakuin123/Unbind-MS-Acct-From-LocalAcct">解除微软账户和本地账户绑定  by 白隐Hakuin 丨 批处理脚本</a></li>
+</ul>
+<h2 id="手动删除">手动删除</h2>
+<ol>
+<li>打开注册表 <code>开始</code> &gt; <code>运行</code> &gt; <code>regedit</code> ，定位下方位置 <code>删除</code></li>
+</ol>
+<pre><code>HKEY_CURRENT_USER\Software\Microsoft\IdentityCRL\UserExtendedProperties\i@banana7.cn
+## 删除微软账户i@banana7.cn项 项昵称为你的微软账户
+
+HKEY_USERS\.DEFAULT\Software\Microsoft\IdentityCRL\StoredIdentities\i@banana7.cn
+## 删除微软账户i@banana7.cn项 项昵称为你的微软账户
+</code></pre>
+<ol start="2">
+<li>开始菜单点击头像 <code>注销</code> ，接着<code>删除</code></li>
+</ol>
+<pre><code>KEY_CURRENT_USER\Software\Microsoft\IdentityCRL
+## 删除 IdentityCRL 项
+   
+HKEY_USERS\.DEFAULT\Software\Microsoft\IdentityCRL
+## 删除 IdentityCRL 项
+</code></pre>
+<ol start="3">
+<li>再次注销一次，重新登录进入 <code>设置</code> &gt; <code>账户</code> &gt; <code>电子邮件和应用账户</code> &gt; 删除微软账户。</li>
+</ol>
+<hr>
+<h2 id="通过脚本删除">通过脚本删除</h2>
+<ol>
+<li>桌面新建txt文档，复制下方脚本粘贴到里面修改后缀为 <code>.bat</code> ，随后管理员运行。</li>
+</ol>
+<pre><code>@echo off
+title 解除微软账户和本地账户绑定  by 白隐Hakuin
+
+::管理员权限运行检测
+reg query HKU\S-1-5-19 1&gt;nul 2&gt;nul || goto :Admin
+
+echo ==============================================
+echo Win10/11解除微软账户和本地账户绑定  by 白隐Hakuin
+echo ==============================================
+echo.
+echo 此工具将会删除注册表内账户有关信息以达到解绑效果
+echo 故请在下一步前做好备份，以便于出现未知问题时恢复
+echo 另外，此脚本需以管理员身份运行，否则可能拒绝访问
+pause
+reg delete HKEY_CURRENT_USER\Software\Microsoft\IdentityCRL /va /f
+reg delete HKEY_USERS\.DEFAULT\Software\Microsoft\IdentityCRL /va /f
+echo 修改已完成。即将自动注销本地账户登录，如果不需要可直接关闭命令提示符
+echo 手动重新登录后，在设置-账户-电子邮件和应用下，单击微软账户xxx@xx.com，点击“删除”即可
+pause
+shutdown -l
+
+::管理员权限运行检测-后半部分
+:Admin
+echo 请以管理员身份运行
+echo.
+pause &gt;nul
+</code></pre>
+<ol start="2">
+<li>然后自动注销本地账户（shutdown -l）</li>
+<li>手动重新登录后，在设置-帐户-电子邮件和应用下，单击微软帐户xxx@xx.com，点击“删除”即可</li>
+</ol>
+<blockquote>
+<p>删除微软账户后 oneDrive 会退出账户，按需删除账户。<br>
+此工具将会删除注册表内账户有关信息以达到解绑效果，故请在下一步前做好备份，以便于出现未知问题时恢复<br>
+另外，此脚本需以管理员身份运行，否则可能拒绝访问</p>
+</blockquote>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[解决 VideoStation、PhotoStation、Moments 无法生成缩略图]]></title>
+        <id>https://blog.banana7.cn/post/Af1kpEzQ8/</id>
+        <link href="https://blog.banana7.cn/post/Af1kpEzQ8/">
+        </link>
+        <updated>2022-04-07T02:42:09.000Z</updated>
+        <summary type="html"><![CDATA[<p>日志中心错误警报 <code>System failed to convert video [\***] to mpeg4</code><br>
+VideoStation 离线转码失败、Moments 视频无缩略图</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>日志中心错误警报 <code>System failed to convert video [\***] to mpeg4</code><br>
+VideoStation 离线转码失败、Moments 视频无缩略图</p>
+<!-- more -->
+<h2 id="替换-ffmpeg">替换 FFmpeg</h2>
+<ol>
+<li>添加套件来源: <code>http://packages.synocommunity.com</code> &gt; 安装 <code>FFmpeg</code> 套件</li>
+<li>进入 SSH 执行：</li>
+</ol>
+<pre><code>cp /volume1/@appstore/ffmpeg/bin/ffmpeg /volume1/@appstore/VideoStation/bin/
+cp /volume1/@appstore/ffmpeg/bin/ffmpeg /usr/bin
+</code></pre>
+<ol start="3">
+<li>随后重启套件。</li>
+</ol>
+<p><strong>注意：如安装的套件为 FFmpeg6 应替换路径为</strong> <code>@appstore/ffmeeg6/bin</code><br>
+DSM6.2.3 通过</p>
+]]></content>
+    </entry>
+</feed>
