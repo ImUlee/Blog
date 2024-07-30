@@ -1,0 +1,568 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>拥有无限可能：无界丨Bncr 3.0 | 有理。</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="shortcut icon" href="https://blog.banana7.cn/favicon.ico?v=1">
+<link rel="stylesheet" href="/media/katex.min.css">
+<link href="/media/remixicon/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="/media/fonts.css">
+<link rel="stylesheet" href="/media/animate.min.css">
+<!-- 适配Safari书签页和iOS桌面图标 --> 
+<link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="有理Ulee">
+<link rel="bookmark" href="/media/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/media/apple-touch-icon.png" >
+
+
+<link rel="stylesheet" href="https://blog.banana7.cn/styles/main.css">
+
+<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?4faae41facfc71bcdb431a4f9471d6cb";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <!-- <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i> -->
+        
+        <a href="https://blog.banana7.cn">
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">有理。</h1>
+        </a>
+        <div class="top1block" style="margin-left: auto;">
+          
+            
+          
+            
+          
+            
+              <a href="https://music.163.com/#/song?id=461518855" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-netease-cloud-music-line"></i>
+              </a>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a href="/post/about"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-profile-line"></i>
+              </a>
+            
+          
+            
+              <a href="/archives"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-archive-line"></i>
+              </a>
+            
+          
+            
+              <a href="/atom.xml" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-rss-line"></i>
+              </a>
+            
+          
+        </div>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1-%E8%8E%B7%E5%8F%96%E6%8E%88%E6%9D%83%E7%A0%81">1. 获取授权码</a></li>
+<li><a href="#2-docker-%E9%83%A8%E7%BD%B2">2. Docker 部署</a>
+<ul>
+<li><a href="#21-%E5%88%9D%E5%A7%8B%E5%8C%96-webui">2.1 初始化 WEBUI</a></li>
+</ul>
+</li>
+<li><a href="#3-%E6%8F%92%E4%BB%B6%E5%B8%82%E5%9C%BA">3. 插件市场</a></li>
+<li><a href="#4-%E5%AF%B9%E6%8E%A5-im">4. 对接 IM</a>
+<ul>
+<li><a href="#41-xyo">4.1 xyo</a></li>
+<li><a href="#42-wechaty">4.2 Wechaty</a></li>
+<li><a href="#43-nt-qq">4.3 NT QQ</a></li>
+<li><a href="#44-%E4%BA%BA%E5%BD%A2">4.4 人形</a></li>
+<li><a href="#45-tg-bot">4.5 TG Bot</a></li>
+</ul>
+</li>
+<li><a href="#5-%E5%AF%B9%E6%8E%A5%E5%85%B6%E4%BB%96">5. 对接其他</a>
+<ul>
+<li><a href="#51-%E9%9D%92%E9%BE%99">5.1 青龙</a></li>
+<li><a href="#52-%E8%B4%A6%E5%8F%B7%E7%99%BB%E5%BD%95">5.2 账号登录</a></li>
+<li><a href="#53-%E8%B5%84%E4%BA%A7%E6%9F%A5%E8%AF%A2">5.3 资产查询</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"><a class="rss" href="https://blog.banana7.cn/post/theme/">主题</a> </div>
+    <a class="rss" href="https://blog.banana7.cn/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">拥有无限可能：无界丨Bncr 3.0</h1>
+        
+        <div class="text-sm text-gray-700 lg:my-8">
+          
+            2024-07-29
+          
+        </div>
+        
+        
+        <div class="post-content yue">
+          <p>Bncr 是一个开箱即用的Nodejs Chat RoBot（会话式机器人）框架。它基于OOP函数响应式编程，具有占用小、响应快、开发易等特点，允许开发者创建高度可测试、可扩展、松散耦合且易于维护的应用程序。</p>
+<!-- more -->
+<p>以下所有内容摘抄至 <a href="https://notes.dsdog.tk/archives/1716304583708">从零开始的无界3.0</a>，整理后故作留档，详细细节跳转原文查阅</p>
+<h2 id="1-获取授权码">1. 获取授权码</h2>
+<ol>
+<li>访问机器人：<a href="https://t.me/red_Lights_Districts_Bot">https://t.me/red_Lights_Districts_Bot</a> &gt; <strong>发送</strong> <code>/start</code></li>
+<li>再进群组：<a href="https://t.me/BncrJSChat">https://t.me/BncrJSChat</a> &gt; <strong>发送</strong> <code>/get_token</code>，机器人会返回 Token</li>
+</ol>
+<h2 id="2-docker-部署">2. Docker 部署</h2>
+<pre><code>docker run -dit \
+ -v /root/BncrData:/bncr/BncrData \
+ -p 9090:9090 \
+ --name bncr \
+ --hostname bncr \
+ --restart on-failure:5 \
+ --log-opt max-size=5m \
+ --log-opt max-file=3 \
+anmour/bncr &amp;&amp; docker attach bncr
+</code></pre>
+<p>attach 进入容器后依次设置鉴权 URL 、TOKEN、日志等设置</p>
+<blockquote>
+<p><strong>可用鉴权 URL</strong> ｜ <a href="https://bncr.dsdog.tk/">无界服务状态</a></p>
+<ul>
+<li>http://bncr.619030.xyz:2082</li>
+<li>http://bncr.888862.xyz</li>
+<li>http://future.free.hr:2082</li>
+<li>https://rebncr.dsdog.tk</li>
+<li>http://wj.yanyuwangluo.cn:1201</li>
+</ul>
+</blockquote>
+<h3 id="21-初始化-webui">2.1 初始化 WEBUI</h3>
+<p>后台地址：http://iP:9090 进入容器内部设置账号密码</p>
+<pre><code>#设置账号：
+set system name 你的账号
+
+#设置密码，密码必须为6-18位数字/字符/符号，至少2种组合：
+set system password 你的密码
+</code></pre>
+<h2 id="3-插件市场">3. 插件市场</h2>
+<p>订阅链接区分 Github 与 Sub ，如 Github 无法访问则需要魔法</p>
+<ul>
+<li>
+<p><strong>红灯区</strong> - 狗东相关旧版插件，许多插件依赖该订阅，暂不支持3.0</p>
+<pre><code>https://github.com/RedLightsDistrict/Bncr_plugins
+</code></pre>
+</li>
+<li>
+<p><strong>D佬</strong> - 狗东相关</p>
+<pre><code>bncrSub://UpdjUc6jid/ZFkJhEZFTW0zFEYpg7ZPidkatlTM6OSN/bOxWaExKe5VQ14AHsy+0ufSXlKVuOuRYAqkTz7a2Z3dS8aW8mj6O8MsZVFDHMpc= 
+</code></pre>
+</li>
+<li>
+<p><strong>寒佬</strong> - 狗东相关</p>
+<pre><code>bncrsub://3BPeb/Ff4FlBAx372D99jdVghsmvkSgLBq9KU/hngTdwC2GEcEwqYWSWDYKb6RfikHZG1cRp8/VvIGJ786YOuBlGXSIKXzAA1klCLP7Pc80=
+</code></pre>
+</li>
+<li>
+<p><strong>胜利佬</strong> - 娱乐相关</p>
+<pre><code>bncrSub://wF/k4Mz95ytHfhV15ZODYlhhzebRtJJ0f7TFUFxz93HmBntFxJwjKeBgOyXJiWIShBPM7dP7q+Vtzcu1imytZ0T0Nj7Zc2Nb6vO6LiP7NAU=
+</code></pre>
+</li>
+<li>
+<p><strong>缘佬</strong> - AI相关</p>
+<pre><code>bncrSub://3BPeb/Ff4FlBAx372D99jYvj+QZcN253M4hwNraBlDlkcHZ3Co50nPr36N+UPUwByGOOlBqx00VAtjamL5r6HbE7eOYTWuOnjVZCTZZmO68=
+</code></pre>
+</li>
+<li>
+<p><strong>Merrickk</strong> - 微信订阅号</p>
+<pre><code>https://github.com/Merrickk/BncrFiles
+</code></pre>
+</li>
+<li>
+<p><strong>sumuen</strong> - 包含适配NTQQ项目Lagrange.Core的适配器与一些插件</p>
+<pre><code>https://github.com/sumuen/Bncr_plugin
+</code></pre>
+</li>
+<li>
+<p><strong>单身汪</strong> - 一些没什么用的插件，无法访问GitHub的可以使用sub订阅</p>
+<pre><code>bncrSub://3BPeb/Ff4FlBAx372D99jVyIKCqA1o+N6BGTODwfLTZrDM4RSZKoS4TbJlpyOm47YhEFvTGcZvorshRgSZRqhuvtZ5z6IIZiGB8EWGrtvD0=
+</code></pre>
+</li>
+<li>
+<p><strong>JC</strong> - elm</p>
+<pre><code>bncrsub://4jZW6oPmVyXqvAZWhY1TV70Us3xou/l8DG7lu3ZNncvutZqo60FBZE0z2J6GOSuHVZ0FmeN9AJAT67XqtEDvcQ==
+</code></pre>
+</li>
+<li>
+<p><strong>小九九</strong> - 狗东自动登录</p>
+<pre><code>https://github.com/randomshit699/Bncr_plugins
+</code></pre>
+</li>
+<li>
+<p><strong>三藏</strong> - 小工具</p>
+<pre><code>https://github.com/3zang/Bncr_plugins
+</code></pre>
+</li>
+<li>
+<p><strong>枯花</strong> - 小工具</p>
+<pre><code>bncrSub://hbq80RwrMDlTHxjzsPkUWY/ObH3eYsqVRJduerbj3VLqn6HIX9FDfEnjLxmP3tnDAbgZA/ZytDYXnMPDNs/6OgX6FJrZlwgu1yMKxaPkjdA=
+</code></pre>
+</li>
+<li>
+<p><strong>October</strong> - 小工具</p>
+<pre><code>bncrSub://3BPeb/Ff4FlBAx372D99jSgYAOp0iHTZYdXsiIPvd8Kv+n62AwCyJeSaLEwNILJPTolaQ/RxzeG3WMcOQzvUpkO+H+mnXr5+73k7J/jMjQA=
+</code></pre>
+</li>
+<li>
+<p><strong>yuanter</strong> - 专用登录工具</p>
+<pre><code>bncrSub://UpdjUc6jid/ZFkJhEZFTW/8AQnqGof/eXGPt+fCsmJ31/6uffZxee3QzBTXMYrzPWdzsQ90+6RGUYrEfBlnRnsXejZuVbYXS1qVLK8a4tPI=
+</code></pre>
+</li>
+<li>
+<p><strong>屁啊</strong> - 小工具</p>
+<pre><code>https://github.com/lastbaigeiapi/Bncr_plugin
+</code></pre>
+</li>
+</ul>
+<h2 id="4-对接-im">4. 对接 IM</h2>
+<p>WeChat · NT QQ · PagerMaid-Pyro · TG Bot Etc.</p>
+<h3 id="41-xyo">4.1 xyo</h3>
+<ol>
+<li>应用市场下载 wxXyo.js 插件，重启无界生效</li>
+<li>进入 <strong>插件配置</strong>　&gt;　/Adapter/<strong>wxXyo.js</strong>　&gt;　<strong>开启适配器</strong>　&gt;　填写<strong>上报地址</strong>　&gt;　<strong>保存</strong></li>
+</ol>
+<blockquote>
+<ul>
+<li>框架端消息回调地址：http://BncriP:9090/api/bot/Xyo</li>
+<li>设置 xyoToken：set wxXyo xyo_token xxx</li>
+<li>设置管理员：set wxXyo admin wxid_</li>
+</ul>
+</blockquote>
+<h3 id="42-wechaty">4.2 Wechaty</h3>
+<ol>
+<li>应用市场下载 <strong>wechaty.js</strong> 插件，重启无界生效</li>
+<li>进入 <strong>插件配置</strong>　&gt;　/Adapter/<strong>wechaty.js</strong>　&gt;　<strong>开启适配器</strong>　&gt;　其他选项可选　&gt;　<strong>保存</strong></li>
+</ol>
+<blockquote>
+<ul>
+<li>登录：配置好插件后，查看无界日志会有登录二维码或二维码链接相关日志</li>
+<li>设置管理员：set wechaty admin [id]</li>
+</ul>
+</blockquote>
+<h3 id="43-nt-qq">4.3 NT QQ</h3>
+<ol>
+<li>插件市场下载 <strong>qq.js</strong> 插件，重启无界生效</li>
+<li>进入 <strong>插件配置</strong>　&gt;　/Adapter/<strong>qq.js</strong>　&gt;　<strong>开启适配器</strong>　&gt;　适配器模式：<strong>ws</strong>　&gt;　<strong>保存</strong></li>
+<li>QQ框架那边启用并添加反向 ws 协议，写入 <code>ws://BncriP:9090/api/bot/qqws</code> 消息上报格式选择CQ码</li>
+</ol>
+<blockquote>
+<ul>
+<li>设置管理员：set qq admin [QQ]</li>
+</ul>
+</blockquote>
+<h3 id="44-人形">4.4 人形</h3>
+<ul>
+<li>
+<p><strong>4.4.1 内置</strong><br>
+需要科学上网环境或S5代理，申请 apiID 和 apiHash 过程略过</p>
+<ol>
+<li>插件市场下载适配器 <strong>HumanTG.js</strong> 插件，重启无界生效</li>
+<li>进入 <strong>插件配置</strong>　&gt;　/Adapter/<strong>HumanTG.js</strong>　&gt;　<strong>开启适配器</strong>　&gt;　填写获取的 <code>apiID</code>、<code>apiHash</code>　&gt;　代理配置选填　&gt;　<strong>保存</strong></li>
+</ol>
+<ul>
+<li><strong>登录</strong>：进入无界交互界面按照提示输入注册TG的手机号、TG登录密码以及收到的验证码即可登录</li>
+</ul>
+</li>
+<li>
+<p><strong>4.4.2 外置</strong></p>
+<ol>
+<li>插件市场下载 <strong>pgm.js</strong> 插件，重启无界生效</li>
+<li>下载文件 <a href="https://t.me/BncrJSChat/92451"><strong>bncr.py</strong></a> 使用 pgm 安装该插件并启用，发送 <code>,bncr ws://BncriP:9090/api/bot/pgmws</code> 链接</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>设置管理员：set pgm admin [管理员ID]<br>
+注意：如果自己监听了 bot 发出来的日志，只要去 web 拉黑一下 botID 就不会监听了</li>
+</ul>
+</blockquote>
+<h3 id="45-tg-bot">4.5 TG Bot</h3>
+<p>需要科学上网环境或自建反代</p>
+<ul>
+<li>插件市场下载 <strong>tgBot.js</strong> 插件，重启无界生效</li>
+</ul>
+<blockquote>
+<ul>
+<li>设置管理员：set tgBot admin [管理员ID]</li>
+</ul>
+</blockquote>
+<h2 id="5-对接其他">5. 对接其他</h2>
+<p>对接青龙、奶酪、RabbitPro登录等</p>
+<h3 id="51-青龙">5.1 青龙</h3>
+<p>青龙相关的功能都是基于奶酪插件实现的，但是红灯区暂未适配3.0，需要手动加载插件</p>
+<ol>
+<li>下载 <a href="https://raw.githubusercontent.com/RedLightsDistrict/Bncr_plugins/main/%E5%A5%B6%E9%85%AA.js"><strong>奶酪.js</strong></a> 到无界的 <code>/bncr/BncrData/plugins/红灯区</code> 目录下</li>
+<li>一并下载 <a href="https://github.com/RedLightsDistrict/Bncr_plugins/tree/main/mod">mod</a> 文件夹下 AmQlMod.js、AmTool.js 和 CryptoJS.js 到 <code>/红灯区/mod</code> 目录下</li>
+<li>下载好后进入文件管理，编辑奶酪插件，将 <code>origin</code> 改成 <code>team</code> 保存</li>
+</ol>
+<blockquote>
+<p>添加青龙面板：使用管理员身份发送【面板管理】</p>
+</blockquote>
+<h3 id="52-账号登录">5.2 账号登录</h3>
+<ul>
+<li><strong>5.2.1 RabbitPro</strong>
+<ol>
+<li>插件市场下载 <strong>登录.js</strong> 插件，并安装部分依赖搜索 <code>tool</code> 一并下载，重启无界生效</li>
+<li>进入 <strong>插件配置</strong>　&gt;　/plugins/红灯区/<strong>登录.js</strong>　&gt;　<strong>配置必填项</strong>　&gt;　<strong>保存</strong></li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>Rabbit 容器 iD 一般是2，如中间删过后面又重新对接了，那就得写3，每删一次就得往后加1</li>
+<li>RabbitPro 容器 iD 即使没有也要填写为0，否则无法保存，如果登录有莫名其妙的报错 请运行D佬的一键依赖并重启，got版本要在11.8.5，在任意有管理员权限的平台发：npm i got@11.8.5</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>5.2.2 账密登录</strong><br>
+进入 <strong>插件配置</strong>　&gt;　/plugins/红灯区/<strong>登录.js</strong>　&gt;　<strong>配置账密部分</strong>　&gt;　<strong>保存</strong></li>
+</ul>
+<pre><code>//  Docker-Compse Install
+version: &quot;3&quot;
+services:
+  jd_autologin:
+    image: python:3.12.4
+    container_name: jd_autologin
+    restart: unless-stopped
+    network_mode: host
+    working_dir: /usr/src/app
+    command: &gt;
+      sh -c &quot;apt -y update &amp;&amp; apt -y install libnss3 libnspr4 libatk1.0-0
+      libatk-bridge2.0-0 libcups2 libdrm2 libdbus-1-3 libxkbcommon0
+      libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2
+      libatspi2.0-0 libxshmfence1 &amp;&amp; python -m pip install --upgrade pip &amp;&amp; pip
+      install pyppeteer Pillow asyncio aiohttp opencv-python-headless ddddocr
+      quart &amp;&amp; wget
+      https://proxy.07170501.xyz/proxy/https://raw.githubusercontent.com/randomshit699/Bncr_plugins/main/plugins/%E9%99%84%E4%BB%B6/%E8%B4%A6%E5%AF%86%E7%99%BB%E5%BD%95/api.py
+      -O api.py &amp;&amp; wget
+      https://proxy.07170501.xyz/proxy/https://raw.githubusercontent.com/randomshit699/Bncr_plugins/main/plugins/%E9%99%84%E4%BB%B6/%E8%B4%A6%E5%AF%86%E7%99%BB%E5%BD%95/login.py
+      -O login.py &amp;&amp; python api.py&quot;
+networks: {}
+</code></pre>
+<h3 id="53-资产查询">5.3 资产查询</h3>
+<p>插件市场下载插件： <strong>查询.js</strong> / <strong>h5st.js</strong>，并安装依赖 <code>npm i date-fns</code> 重启无界生效</p>
+<blockquote>
+<p>注意：如果查询有莫名其妙的报错 请运行D佬的一键依赖并重启，有火爆的话在Doraemon_config_tool.js插件下配置代理。got版本要在11.8.5，在任意有管理员权限的平台发：npm i got@11.8.5</p>
+</blockquote>
+
+        </div>
+
+        
+          <div class="tag-container">
+            
+              <a href="https://blog.banana7.cn/tag/wu-jie/" class="tag">
+                无界
+              </a>
+            
+          </div>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://blog.banana7.cn/post/Yff_Z9DeY/">
+                <h3 class="post-title">
+                  关于盒子 ec6108v9 刷入 HiNas 后实现 WiFi 连接
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+          
+        </div>
+        
+
+        
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://blog.banana7.cn/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+    
+     <div class="site-info">
+      <div class="py-4 text-gray-700"><a class="rss" href="https://blog.banana7.cn/post/theme/">主题</a> | <a class="rss" href="https://blog.banana7.cn/atom.xml" target="_blank">订阅</a> </div>
+    </div>  
+  </body>
+</html>

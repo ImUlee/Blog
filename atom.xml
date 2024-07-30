@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://blog.banana7.cn</id>
+    <title>有理。</title>
+    <updated>2024-07-30T01:43:25.032Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://blog.banana7.cn"/>
+    <link rel="self" href="https://blog.banana7.cn/atom.xml"/>
+    <subtitle>Life &amp; Knowledge</subtitle>
+    <logo>https://blog.banana7.cn/images/avatar.png</logo>
+    <icon>https://blog.banana7.cn/favicon.ico</icon>
+    <rights>All rights reserved 2024, 有理。</rights>
+    <entry>
+        <title type="html"><![CDATA[拥有无限可能：无界丨Bncr 3.0]]></title>
+        <id>https://blog.banana7.cn/post/tCt5u-En8/</id>
+        <link href="https://blog.banana7.cn/post/tCt5u-En8/">
+        </link>
+        <updated>2024-07-29T02:42:57.000Z</updated>
+        <summary type="html"><![CDATA[<p>Bncr 是一个开箱即用的Nodejs Chat RoBot（会话式机器人）框架。它基于OOP函数响应式编程，具有占用小、响应快、开发易等特点，允许开发者创建高度可测试、可扩展、松散耦合且易于维护的应用程序。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Bncr 是一个开箱即用的Nodejs Chat RoBot（会话式机器人）框架。它基于OOP函数响应式编程，具有占用小、响应快、开发易等特点，允许开发者创建高度可测试、可扩展、松散耦合且易于维护的应用程序。</p>
+<!-- more -->
+<p>以下所有内容摘抄至 <a href="https://notes.dsdog.tk/archives/1716304583708">从零开始的无界3.0</a>，整理后故作留档，详细细节跳转原文查阅</p>
+<h2 id="1-获取授权码">1. 获取授权码</h2>
+<ol>
+<li>访问机器人：<a href="https://t.me/red_Lights_Districts_Bot">https://t.me/red_Lights_Districts_Bot</a> &gt; <strong>发送</strong> <code>/start</code></li>
+<li>再进群组：<a href="https://t.me/BncrJSChat">https://t.me/BncrJSChat</a> &gt; <strong>发送</strong> <code>/get_token</code>，机器人会返回 Token</li>
+</ol>
+<h2 id="2-docker-部署">2. Docker 部署</h2>
+<pre><code>docker run -dit \
+ -v /root/BncrData:/bncr/BncrData \
+ -p 9090:9090 \
+ --name bncr \
+ --hostname bncr \
+ --restart on-failure:5 \
+ --log-opt max-size=5m \
+ --log-opt max-file=3 \
+anmour/bncr &amp;&amp; docker attach bncr
+</code></pre>
+<p>attach 进入容器后依次设置鉴权 URL 、TOKEN、日志等设置</p>
+<blockquote>
+<p><strong>可用鉴权 URL</strong> ｜ <a href="https://bncr.dsdog.tk/">无界服务状态</a></p>
+<ul>
+<li>http://bncr.619030.xyz:2082</li>
+<li>http://bncr.888862.xyz</li>
+<li>http://future.free.hr:2082</li>
+<li>https://rebncr.dsdog.tk</li>
+<li>http://wj.yanyuwangluo.cn:1201</li>
+</ul>
+</blockquote>
+<h3 id="21-初始化-webui">2.1 初始化 WEBUI</h3>
+<p>后台地址：http://iP:9090 进入容器内部设置账号密码</p>
+<pre><code>#设置账号：
+set system name 你的账号
+
+#设置密码，密码必须为6-18位数字/字符/符号，至少2种组合：
+set system password 你的密码
+</code></pre>
+<h2 id="3-插件市场">3. 插件市场</h2>
+<p>订阅链接区分 Github 与 Sub ，如 Github 无法访问则需要魔法</p>
+<ul>
+<li>
+<p><strong>红灯区</strong> - 狗东相关旧版插件，许多插件依赖该订阅，暂不支持3.0</p>
+<pre><code>https://github.com/RedLightsDistrict/Bncr_plugins
+</code></pre>
+</li>
+<li>
+<p><strong>D佬</strong> - 狗东相关</p>
+<pre><code>bncrSub://UpdjUc6jid/ZFkJhEZFTW0zFEYpg7ZPidkatlTM6OSN/bOxWaExKe5VQ14AHsy+0ufSXlKVuOuRYAqkTz7a2Z3dS8aW8mj6O8MsZVFDHMpc= 
+</code></pre>
+</li>
+<li>
+<p><strong>寒佬</strong> - 狗东相关</p>
+<pre><code>bncrsub://3BPeb/Ff4FlBAx372D99jdVghsmvkSgLBq9KU/hngTdwC2GEcEwqYWSWDYKb6RfikHZG1cRp8/VvIGJ786YOuBlGXSIKXzAA1klCLP7Pc80=
+</code></pre>
+</li>
+<li>
+<p><strong>胜利佬</strong> - 娱乐相关</p>
+<pre><code>bncrSub://wF/k4Mz95ytHfhV15ZODYlhhzebRtJJ0f7TFUFxz93HmBntFxJwjKeBgOyXJiWIShBPM7dP7q+Vtzcu1imytZ0T0Nj7Zc2Nb6vO6LiP7NAU=
+</code></pre>
+</li>
+<li>
+<p><strong>缘佬</strong> - AI相关</p>
+<pre><code>bncrSub://3BPeb/Ff4FlBAx372D99jYvj+QZcN253M4hwNraBlDlkcHZ3Co50nPr36N+UPUwByGOOlBqx00VAtjamL5r6HbE7eOYTWuOnjVZCTZZmO68=
+</code></pre>
+</li>
+<li>
+<p><strong>Merrickk</strong> - 微信订阅号</p>
+<pre><code>https://github.com/Merrickk/BncrFiles
+</code></pre>
+</li>
+<li>
+<p><strong>sumuen</strong> - 包含适配NTQQ项目Lagrange.Core的适配器与一些插件</p>
+<pre><code>https://github.com/sumuen/Bncr_plugin
+</code></pre>
+</li>
+<li>
+<p><strong>单身汪</strong> - 一些没什么用的插件，无法访问GitHub的可以使用sub订阅</p>
+<pre><code>bncrSub://3BPeb/Ff4FlBAx372D99jVyIKCqA1o+N6BGTODwfLTZrDM4RSZKoS4TbJlpyOm47YhEFvTGcZvorshRgSZRqhuvtZ5z6IIZiGB8EWGrtvD0=
+</code></pre>
+</li>
+<li>
+<p><strong>JC</strong> - elm</p>
+<pre><code>bncrsub://4jZW6oPmVyXqvAZWhY1TV70Us3xou/l8DG7lu3ZNncvutZqo60FBZE0z2J6GOSuHVZ0FmeN9AJAT67XqtEDvcQ==
+</code></pre>
+</li>
+<li>
+<p><strong>小九九</strong> - 狗东自动登录</p>
+<pre><code>https://github.com/randomshit699/Bncr_plugins
+</code></pre>
+</li>
+<li>
+<p><strong>三藏</strong> - 小工具</p>
+<pre><code>https://github.com/3zang/Bncr_plugins
+</code></pre>
+</li>
+<li>
+<p><strong>枯花</strong> - 小工具</p>
+<pre><code>bncrSub://hbq80RwrMDlTHxjzsPkUWY/ObH3eYsqVRJduerbj3VLqn6HIX9FDfEnjLxmP3tnDAbgZA/ZytDYXnMPDNs/6OgX6FJrZlwgu1yMKxaPkjdA=
+</code></pre>
+</li>
+<li>
+<p><strong>October</strong> - 小工具</p>
+<pre><code>bncrSub://3BPeb/Ff4FlBAx372D99jSgYAOp0iHTZYdXsiIPvd8Kv+n62AwCyJeSaLEwNILJPTolaQ/RxzeG3WMcOQzvUpkO+H+mnXr5+73k7J/jMjQA=
+</code></pre>
+</li>
+<li>
+<p><strong>yuanter</strong> - 专用登录工具</p>
+<pre><code>bncrSub://UpdjUc6jid/ZFkJhEZFTW/8AQnqGof/eXGPt+fCsmJ31/6uffZxee3QzBTXMYrzPWdzsQ90+6RGUYrEfBlnRnsXejZuVbYXS1qVLK8a4tPI=
+</code></pre>
+</li>
+<li>
+<p><strong>屁啊</strong> - 小工具</p>
+<pre><code>https://github.com/lastbaigeiapi/Bncr_plugin
+</code></pre>
+</li>
+</ul>
+<h2 id="4-对接-im">4. 对接 IM</h2>
+<p>WeChat · NT QQ · PagerMaid-Pyro · TG Bot Etc.</p>
+<h3 id="41-xyo">4.1 xyo</h3>
+<ol>
+<li>应用市场下载 wxXyo.js 插件，重启无界生效</li>
+<li>进入 <strong>插件配置</strong>　&gt;　/Adapter/<strong>wxXyo.js</strong>　&gt;　<strong>开启适配器</strong>　&gt;　填写<strong>上报地址</strong>　&gt;　<strong>保存</strong></li>
+</ol>
+<blockquote>
+<ul>
+<li>框架端消息回调地址：http://BncriP:9090/api/bot/Xyo</li>
+<li>设置 xyoToken：set wxXyo xyo_token xxx</li>
+<li>设置管理员：set wxXyo admin wxid_</li>
+</ul>
+</blockquote>
+<h3 id="42-wechaty">4.2 Wechaty</h3>
+<ol>
+<li>应用市场下载 <strong>wechaty.js</strong> 插件，重启无界生效</li>
+<li>进入 <strong>插件配置</strong>　&gt;　/Adapter/<strong>wechaty.js</strong>　&gt;　<strong>开启适配器</strong>　&gt;　其他选项可选　&gt;　<strong>保存</strong></li>
+</ol>
+<blockquote>
+<ul>
+<li>登录：配置好插件后，查看无界日志会有登录二维码或二维码链接相关日志</li>
+<li>设置管理员：set wechaty admin [id]</li>
+</ul>
+</blockquote>
+<h3 id="43-nt-qq">4.3 NT QQ</h3>
+<ol>
+<li>插件市场下载 <strong>qq.js</strong> 插件，重启无界生效</li>
+<li>进入 <strong>插件配置</strong>　&gt;　/Adapter/<strong>qq.js</strong>　&gt;　<strong>开启适配器</strong>　&gt;　适配器模式：<strong>ws</strong>　&gt;　<strong>保存</strong></li>
+<li>QQ框架那边启用并添加反向 ws 协议，写入 <code>ws://BncriP:9090/api/bot/qqws</code> 消息上报格式选择CQ码</li>
+</ol>
+<blockquote>
+<ul>
+<li>设置管理员：set qq admin [QQ]</li>
+</ul>
+</blockquote>
+<h3 id="44-人形">4.4 人形</h3>
+<ul>
+<li>
+<p><strong>4.4.1 内置</strong><br>
+需要科学上网环境或S5代理，申请 apiID 和 apiHash 过程略过</p>
+<ol>
+<li>插件市场下载适配器 <strong>HumanTG.js</strong> 插件，重启无界生效</li>
+<li>进入 <strong>插件配置</strong>　&gt;　/Adapter/<strong>HumanTG.js</strong>　&gt;　<strong>开启适配器</strong>　&gt;　填写获取的 <code>apiID</code>、<code>apiHash</code>　&gt;　代理配置选填　&gt;　<strong>保存</strong></li>
+</ol>
+<ul>
+<li><strong>登录</strong>：进入无界交互界面按照提示输入注册TG的手机号、TG登录密码以及收到的验证码即可登录</li>
+</ul>
+</li>
+<li>
+<p><strong>4.4.2 外置</strong></p>
+<ol>
+<li>插件市场下载 <strong>pgm.js</strong> 插件，重启无界生效</li>
+<li>下载文件 <a href="https://t.me/BncrJSChat/92451"><strong>bncr.py</strong></a> 使用 pgm 安装该插件并启用，发送 <code>,bncr ws://BncriP:9090/api/bot/pgmws</code> 链接</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>设置管理员：set pgm admin [管理员ID]<br>
+注意：如果自己监听了 bot 发出来的日志，只要去 web 拉黑一下 botID 就不会监听了</li>
+</ul>
+</blockquote>
+<h3 id="45-tg-bot">4.5 TG Bot</h3>
+<p>需要科学上网环境或自建反代</p>
+<ul>
+<li>插件市场下载 <strong>tgBot.js</strong> 插件，重启无界生效</li>
+</ul>
+<blockquote>
+<ul>
+<li>设置管理员：set tgBot admin [管理员ID]</li>
+</ul>
+</blockquote>
+<h2 id="5-对接其他">5. 对接其他</h2>
+<p>对接青龙、奶酪、RabbitPro登录等</p>
+<h3 id="51-青龙">5.1 青龙</h3>
+<p>青龙相关的功能都是基于奶酪插件实现的，但是红灯区暂未适配3.0，需要手动加载插件</p>
+<ol>
+<li>下载 <a href="https://raw.githubusercontent.com/RedLightsDistrict/Bncr_plugins/main/%E5%A5%B6%E9%85%AA.js"><strong>奶酪.js</strong></a> 到无界的 <code>/bncr/BncrData/plugins/红灯区</code> 目录下</li>
+<li>一并下载 <a href="https://github.com/RedLightsDistrict/Bncr_plugins/tree/main/mod">mod</a> 文件夹下 AmQlMod.js、AmTool.js 和 CryptoJS.js 到 <code>/红灯区/mod</code> 目录下</li>
+<li>下载好后进入文件管理，编辑奶酪插件，将 <code>origin</code> 改成 <code>team</code> 保存</li>
+</ol>
+<blockquote>
+<p>添加青龙面板：使用管理员身份发送【面板管理】</p>
+</blockquote>
+<h3 id="52-账号登录">5.2 账号登录</h3>
+<ul>
+<li><strong>5.2.1 RabbitPro</strong>
+<ol>
+<li>插件市场下载 <strong>登录.js</strong> 插件，并安装部分依赖搜索 <code>tool</code> 一并下载，重启无界生效</li>
+<li>进入 <strong>插件配置</strong>　&gt;　/plugins/红灯区/<strong>登录.js</strong>　&gt;　<strong>配置必填项</strong>　&gt;　<strong>保存</strong></li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>Rabbit 容器 iD 一般是2，如中间删过后面又重新对接了，那就得写3，每删一次就得往后加1</li>
+<li>RabbitPro 容器 iD 即使没有也要填写为0，否则无法保存，如果登录有莫名其妙的报错 请运行D佬的一键依赖并重启，got版本要在11.8.5，在任意有管理员权限的平台发：npm i got@11.8.5</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>5.2.2 账密登录</strong><br>
+进入 <strong>插件配置</strong>　&gt;　/plugins/红灯区/<strong>登录.js</strong>　&gt;　<strong>配置账密部分</strong>　&gt;　<strong>保存</strong></li>
+</ul>
+<pre><code>//  Docker-Compse Install
+version: &quot;3&quot;
+services:
+  jd_autologin:
+    image: python:3.12.4
+    container_name: jd_autologin
+    restart: unless-stopped
+    network_mode: host
+    working_dir: /usr/src/app
+    command: &gt;
+      sh -c &quot;apt -y update &amp;&amp; apt -y install libnss3 libnspr4 libatk1.0-0
+      libatk-bridge2.0-0 libcups2 libdrm2 libdbus-1-3 libxkbcommon0
+      libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2
+      libatspi2.0-0 libxshmfence1 &amp;&amp; python -m pip install --upgrade pip &amp;&amp; pip
+      install pyppeteer Pillow asyncio aiohttp opencv-python-headless ddddocr
+      quart &amp;&amp; wget
+      https://proxy.07170501.xyz/proxy/https://raw.githubusercontent.com/randomshit699/Bncr_plugins/main/plugins/%E9%99%84%E4%BB%B6/%E8%B4%A6%E5%AF%86%E7%99%BB%E5%BD%95/api.py
+      -O api.py &amp;&amp; wget
+      https://proxy.07170501.xyz/proxy/https://raw.githubusercontent.com/randomshit699/Bncr_plugins/main/plugins/%E9%99%84%E4%BB%B6/%E8%B4%A6%E5%AF%86%E7%99%BB%E5%BD%95/login.py
+      -O login.py &amp;&amp; python api.py&quot;
+networks: {}
+</code></pre>
+<h3 id="53-资产查询">5.3 资产查询</h3>
+<p>插件市场下载插件： <strong>查询.js</strong> / <strong>h5st.js</strong>，并安装依赖 <code>npm i date-fns</code> 重启无界生效</p>
+<blockquote>
+<p>注意：如果查询有莫名其妙的报错 请运行D佬的一键依赖并重启，有火爆的话在Doraemon_config_tool.js插件下配置代理。got版本要在11.8.5，在任意有管理员权限的平台发：npm i got@11.8.5</p>
+</blockquote>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于盒子 ec6108v9 刷入 HiNas 后实现 WiFi 连接]]></title>
+        <id>https://blog.banana7.cn/post/Yff_Z9DeY/</id>
+        <link href="https://blog.banana7.cn/post/Yff_Z9DeY/">
+        </link>
+        <updated>2023-07-04T01:18:47.000Z</updated>
+        <summary type="html"><![CDATA[<p>为刷入 HiNas 的电视盒子补上WiFi驱动能够实现WiFi连接（实现任意角落吃灰），不必再随身拖着网线限制。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>为刷入 HiNas 的电视盒子补上WiFi驱动能够实现WiFi连接（实现任意角落吃灰），不必再随身拖着网线限制。</p>
+<!-- more -->
+<blockquote>
+<p>华为悦盒 ec6108v9 芯片机型为：hi3798Mv100</p>
+<ul>
+<li><a href="https://www.123pan.com/s/i8ADVv-lxgiH.html">TTL线刷固件包20220808</a></li>
+<li><a href="https://www.123pan.com/s/i8ADVv-lxgiH.html">WiFi 驱动配套内核、驱动、脚本</a></li>
+<li>烧录文章见海纳斯刷机手册：<a href="https://dl.ecoo.top/docs/tutorial-basics/ttl-flash">https://dl.ecoo.top/docs/tutorial-basics/ttl-flash</a></li>
+</ul>
+</blockquote>
+<h2 id="驱动-wifi">驱动 WiFi</h2>
+<p>通过 SSH 连接悦盒，并下载配套内核 <a href="https://www.123pan.com/s/i8ADVv-lxgiH.html">hi_kernel-mv100-0808.bin</a>  上传至根目录后执行</p>
+<pre><code>dd if=hi_kernel-mv100-0808.bin of=/dev/mmcblk0p6
+</code></pre>
+<p>执行完成后<strong>重启盒子</strong>重新连接 SSH ：</p>
+<ol>
+<li>将 rtl8188etv-0808.tar.gz 、 wifi_install.sh 上传至 /tmp 文件夹</li>
+<li>执行 <code>cd /tmp</code> 进入 /tmp 文件夹，执行 <code>chmod a+x wifi_install.sh</code> 赋予脚本权限</li>
+<li>使用脚本进行安装 <code>sh wifi_install.sh -f 驱动包 [参数1] [参数1] ...</code></li>
+</ol>
+<pre><code>-f, --file    // 驱动文件包名称 例如 rtl8188ftv.tar.gz
+-s, --ssid    // [可选] WiFi 昵称
+-p, --password    // [可选] WiFi 密码
+-d, --address   // [可选] 固定 iP 地址如 192.168.1.100
+-g, --gateway    // [可选] 网关：一般为网段的第一个 IP 如 192.168.1.1
+-m, --netmask    // [可选] 掩码：一般为 255.255.255.0
+例如：
+sh wifi_install.sh -f rtl8188etv-0808.tar.gz -s ChineaNet-X231 -p 123456 -d 192.168.50.50
+</code></pre>
+<ol start="4">
+<li>运行命令后会提示“安装成功”，此时驱动安装完成。</li>
+</ol>
+<blockquote>
+<ul>
+<li>如果使用了 -s 参数，脚本会尝试连接wifi，成功后提示“连接成功”</li>
+<li>如果填入了 -d 参数，脚本会尝试修改wifi配置，成功后提示“修改地址成功”</li>
+<li>想修改WIFI配置的话可以使用命令 nmcli connection delete &quot;WiFi昵称&quot; 之后再使用本脚本重新配置，此时可无需使用 -f 参数</li>
+</ul>
+</blockquote>
+<h3 id="1-解决拔掉网线后不能正常访问盒子">1. 解决拔掉网线后不能正常访问盒子</h3>
+<p>一旦重新插网线，系统就增加一条优先级更高的默认路由，所有数据都从 eth0 接口出，导致通过 wlan0 的地址不能正常访问盒子了</p>
+<ul>
+<li>
+<p>笨办法就是只能拔掉网线，重新启动。</p>
+</li>
+<li>
+<p>聪明的办法就是手工删掉如下两条路由，命令如下：</p>
+<pre><code>ip route delete 192.168.3.0/24 dev eth0 // 替换为自己的 IP 段地址
+ip route delete default
+</code></pre>
+<p>可以用 <code>ip route show</code> 命令查看系统路由表</p>
+</li>
+</ul>
+<h3 id="2-解决补完-wifi-补丁后启动慢">2. 解决补完 WiFi 补丁后启动慢</h3>
+<p>插入网线等待正常进入系统后 SSH 连接执行</p>
+<pre><code>sudo vim /etc/systemd/system/network-online.target.wants/networking.service
+</code></pre>
+<p>将里面的 TimeoutStartSec=5min 修改为 <code>TimeoutStartSec=2sec</code> 后保存，再执行：</p>
+<pre><code>sudo vim /etc/dhcp/dhclient.conf
+</code></pre>
+<p>修改 <code>timeout</code> 为 <code>15</code> 后保存。</p>
+<h3 id="3-解决-wifi-连接后主页局域网页不能打开">3. 解决 WiFi 连接后主页局域网页不能打开</h3>
+<p>修改首页文件：<code>/var/www/html/index.html</code> 将下面这行的 <code>eth0</code> 替换为 <code>wlan0</code> ：</p>
+<pre><code>$lanip=shell_exec(&quot;ifconfig eth0 | grep '&lt;inet&gt;'| grep -v '127.0.0.1' | awk '{ print $2}' | awk 'NR==1' 2&gt;&amp;1&quot;);
+</code></pre>
+<p>修改后如下所示：</p>
+<pre><code>$lanip=shell_exec(&quot;ifconfig wlan0 | grep '&lt;inet&gt;'| grep -v '127.0.0.1' | awk '{ print $2}' | awk 'NR==1' 2&gt;&amp;1&quot;);
+</code></pre>
+<p>修改同目录下另外一个文件：<code>/var/www/html/index2.html</code> 也是将类似行的 <code>eth0</code> 替换为 <code>wlan0</code><br>
+然后重启nginx服务，命令如下：</p>
+<pre><code>systemctl restart nginx.service
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[恢复 Redmi AX6 至官方固件]]></title>
+        <id>https://blog.banana7.cn/post/PcnB0rJ5_/</id>
+        <link href="https://blog.banana7.cn/post/PcnB0rJ5_/">
+        </link>
+        <updated>2023-06-28T09:55:57.000Z</updated>
+        <summary type="html"><![CDATA[<p>刷uboot后想要退烧、追求稳定或出手需要恢复官方固件方法，<strong>刷机有风险，操作需谨慎</strong>。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>刷uboot后想要退烧、追求稳定或出手需要恢复官方固件方法，<strong>刷机有风险，操作需谨慎</strong>。</p>
+<!-- more -->
+<p>推荐使用终端：MobaXterm  进行 SSH 连接，下载分区表后将解压后的两个ubi格式文件 <code>mibib.bin</code>、<code>appsbl.bin</code> 上传至 /tmp 根目录下，执行 <code>cat /proc/mtd</code> 查看分区确认 <strong>mtd1</strong> 和 <strong>mtd7</strong> 的分区<strong>是否存在</strong></p>
+<pre><code>root@lede:~# cat /proc/mtd
+dev: size erasesize name
+mtd0: 00100000 00020000 “0:sbl1”
+mtd1: 00100000 00020000 “0:mibib”  // 检查是否存在此分区
+mtd2: 00300000 00020000 “0:qsee”
+mtd3: 00080000 00020000 “0:devcfg”
+mtd4: 00080000 00020000 “0:rpm”
+mtd5: 00080000 00020000 “0:cdt”
+mtd6: 00080000 00020000 “0:appsblenv”
+mtd7: 00100000 00020000 “0:appsbl”  // 检查是否存在此分区
+mtd8: 00080000 00020000 “0:art”
+mtd9: 00080000 00020000 “bdata”
+mtd10: 00080000 00020000 “crash”
+mtd11: 00080000 00020000 “crash_syslog”
+mtd12: 023c0000 00020000 “rootfs”
+mtd13: 023c0000 00020000 “rootfs_1”
+mtd14: 01ec0000 00020000 “overlay”
+mtd15: 00080000 00020000 “rsvd0”
+</code></pre>
+<p>确认存在无误后开始刷写，SSH连接路由器依次输入以下</p>
+<pre><code>mtd erase /dev/mtd1
+mtd write /tmp/mibib.bin /dev/mtd1
+mtd erase /dev/mtd7
+mtd write /tmp/appsbl.bin /dev/mtd7
+</code></pre>
+<p>输入完命令后等待一分钟，路由器断电并设置主机 iP 为 <code>192.168.31.100</code></p>
+<p>通过网线电脑与路由器连接，然后打开 <strong>小米路由修复工具</strong> &gt; 按住路由器 <code>reset</code> 开机后修复工具选择 <code>192.168.31.100</code> 的网卡，修复进入救砖待机界面，再次断电，<strong>重新按住 <code>reset</code> 键插电橙灯闪烁后松手</strong></p>
+<blockquote>
+<p>退出杀毒软件&amp;Windows Defender 防火墙 等杀毒软件，避免拦截修复工具</p>
+</blockquote>
+<figure data-type="image" tabindex="1"><img src="https://blog.banana7.cn/post-images/1721922511553.png" alt="" loading="lazy"></figure>
+<p>然后我们看到救砖软件里面开始上传固件后等待蓝灯闪烁等待1分钟断电、重新插电即可恢复到官方系统。</p>
+<blockquote>
+<ul>
+<li><a href="https://www.right.com.cn/forum/forum.php?mod=viewthread&amp;tid=8236039&amp;extra=&amp;highlight=uboot&amp;page=1">恩山论坛 - [AX3600] ax6 ax3600刷uboot后恢复官方系统方法</a></li>
+</ul>
+</blockquote>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Redmi AX6 写入不死 UBoot 引导]]></title>
+        <id>https://blog.banana7.cn/post/R_MbjrT8R/</id>
+        <link href="https://blog.banana7.cn/post/R_MbjrT8R/">
+        </link>
+        <updated>2023-06-21T02:32:10.000Z</updated>
+        <summary type="html"><![CDATA[<p>想要刷入任意 OP 、QSDK、QWRT 等固件的前提，则需先刷入一个不死引导</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>想要刷入任意 OP 、QSDK、QWRT 等固件的前提，则需先刷入一个不死引导</p>
+<!-- more -->
+<p>推荐使用终端：<code>MobaXterm</code>  SSH 连接依次执行：</p>
+<pre><code>nvram set flag_last_success=0
+nvram set flag_boot_rootfs=0
+nvram set flag_boot_success=1
+nvram set flag_try_sys1_failed=0
+nvram set flag_try_sys2_failed=0
+nvram set boot_wait=on
+nvram set uart_en=1
+nvram set telnet_en=1
+nvram set ssh_en=1
+nvram commit
+</code></pre>
+<p>上传临时固件 <code>xiaomimtd12.bin</code> 至 /tmp 目录，执行 <code>mtd write /tmp/xiaomimtd12.bin rootfs</code> 烧写，完成后<strong>拔电源断电重启</strong></p>
+<blockquote>
+<ul>
+<li>临时固件 LED 不生效默认不亮</li>
+<li>后台地址：<code>192.168.1.1</code>   /   SSH：<code>root</code> NO Password</li>
+</ul>
+</blockquote>
+<p>再次 SSH 连接临时固件后依次执行：</p>
+<pre><code>fw_setenv flag_last_success 0
+fw_setenv flag_boot_rootfs 0
+</code></pre>
+<p>上传 uboot 文件 <code>ax6-mibib.bin</code>、<code>uboot-redmi-ax6.bin</code> 至 /tmp 目录，依次执行：</p>
+<pre><code>mtd erase /dev/mtd1
+mtd write /tmp/ax6-mibib.bin /dev/mtd1
+mtd erase /dev/mtd7
+mtd write /tmp/uboot-redmi-ax6.bin /dev/mtd7
+</code></pre>
+<p>烧写完成后<strong>拔电源断电重启</strong></p>
+<h2 id="进入-uboot">进入 Uboot</h2>
+<p>通过网线连接 <code>LAN</code> 口并手动分配主机 iPv4 为：<code>192.168.1.2</code> 浏览器访问: <code>192.168.1.1</code></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[一键解锁 Redmi AX6 SSH： xmir-patcher]]></title>
+        <id>https://blog.banana7.cn/post/6fJkcITaS/</id>
+        <link href="https://blog.banana7.cn/post/6fJkcITaS/">
+        </link>
+        <updated>2023-06-20T05:33:22.000Z</updated>
+        <summary type="html"><![CDATA[<p>最强小米/红米路由器一键ssh工具, 刷机告别ttl, 也不需要另外一个路由器了(比如ax6). 已经测试过CR880X, AX6, AX6S, AX5JDC, AX3000.</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>最强小米/红米路由器一键ssh工具, 刷机告别ttl, 也不需要另外一个路由器了(比如ax6). 已经测试过CR880X, AX6, AX6S, AX5JDC, AX3000.</p>
+<!-- more -->
+<blockquote>
+<ul>
+<li><a href="https://github.com/openwrt-xiaomi/xmir-patcher">https://github.com/openwrt-xiaomi/xmir-patcher</a></li>
+</ul>
+</blockquote>
+<ol>
+<li>
+<p>Windows 运行：<code>run.bat</code></p>
+<ul>
+<li>Linux / Mac OS 运行: 1. <code>Install python 3.8, openssl</code> 2. Run <code>run.sh</code></li>
+</ul>
+</li>
+<li>
+<p>主菜单选 <code>1</code> 输入目标路由器 <code>iP</code> 地址</p>
+</li>
+<li>
+<p>主菜单选 <code>2</code> 开启 SSH (注意此时ssh并没固化,重启会失效,要固化做第四步,也可以直接开始刷分区和uboot)</p>
+</li>
+<li>
+<p>(可选)主菜单选 8 再选 7 固化 SSH</p>
+</li>
+</ol>
+<ul>
+<li>默认账号&amp;密码：root/root
+<ul>
+<li>修改root密码：passwd</li>
+</ul>
+</li>
+</ul>
+<h3 id="补充">补充：</h3>
+<p>SSH 默认的密码会改成 root. 即使固化之后，重启之后密码可能会被恢复成 SN 算出来的那个, 原因不明，可能小米有保护机制.<br>
+想要永久固化的话, 在 <code>/etc/rc.local</code> 最后一行上面加一行‘替换root为新密码’</p>
+<pre><code>vi /etc/rc.local
+echo -e 'root\nroot' | passwd root
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[跳过微星 B450M MORTAR BIOS 降级限制]]></title>
+        <id>https://blog.banana7.cn/post/hGK9pDpD3/</id>
+        <link href="https://blog.banana7.cn/post/hGK9pDpD3/">
+        </link>
+        <updated>2022-09-18T04:41:02.000Z</updated>
+        <summary type="html"><![CDATA[<p>B450M MORTAR 最早的 Bios 设置是很全面的，后面因为板载内存原因(内存小)更新了黑白版(阉割版)，而且是不允许降级到低版本，会提示不允许降级。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>B450M MORTAR 最早的 Bios 设置是很全面的，后面因为板载内存原因(内存小)更新了黑白版(阉割版)，而且是不允许降级到低版本，会提示不允许降级。</p>
+<!-- more -->
+<p>解决 BIOS 内 Flash 模式降级 V14 版本时提示：</p>
+<pre><code>for providing better BIOS fuctionality and qualitu,THE system will not allow to restore BIOS with older version after flashing this target BIOS 
+</code></pre>
+<p>如果你的 CPU 是 R3/2200G 或 R5 2400G ，请不要退回 BIOS ，因为会造成不开机。</p>
+<h2 id="解决降级限制">解决降级限制</h2>
+<ol>
+<li><a href="https://www.aliyundrive.com/s/NrhSae6r4By">下载 afuwin 程序包</a>以及需要刷入的 BIOS 文件</li>
+<li>将 BIOS 文件放入 afuwin 程序根目录内</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://blog.banana7.cn/post-images/1663491736879.png" alt="" loading="lazy"></figure>
+<ol start="3">
+<li>管理员运行命令提示符(CMD)后，进入 afuwin 文件夹</li>
+</ol>
+<pre><code>cd C:\Users\Administrator\Desktop\afuwin  // 替换 afuwin 文件夹地址
+</code></pre>
+<ol start="4">
+<li>替换 BIOS 名称后执行</li>
+</ol>
+<pre><code>afuwinx64 E7B89AMS.140 /k /x /r  // 替换E7B89AMS.140为你下载的Bios文件名称
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://blog.banana7.cn/post-images/1663492034490.png" alt="" loading="lazy"></figure>
+<ol>
+<li>中途提示 <code>“y/n”</code> 是否继续，输入 <code>“y”</code> 继续</li>
+<li>等待全部进度条显示为 <code>done</code>，标识成功，进入 BIOS 内查看版本号即可。</li>
+</ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[解除 Administrator 账户与微软账户绑定]]></title>
+        <id>https://blog.banana7.cn/post/UkLGVN6RP/</id>
+        <link href="https://blog.banana7.cn/post/UkLGVN6RP/">
+        </link>
+        <updated>2022-06-18T06:06:10.000Z</updated>
+        <summary type="html"><![CDATA[<p>Windows 10 不知道什么时候开始只要登录过微软应用例如OneDrive，那么系统账户就会默认自动登录上你的微软账号，并且与本地管理员绑定。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Windows 10 不知道什么时候开始只要登录过微软应用例如OneDrive，那么系统账户就会默认自动登录上你的微软账号，并且与本地管理员绑定。</p>
+<!-- more -->
+<h2 id="参考文章">参考文章</h2>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/130402808">win10系统解除微软账户和本地账户绑定</a></li>
+<li><a href="https://github.com/Hakuin123/Unbind-MS-Acct-From-LocalAcct">解除微软账户和本地账户绑定  by 白隐Hakuin 丨 批处理脚本</a></li>
+</ul>
+<h2 id="手动删除">手动删除</h2>
+<p>打开注册表：<strong>开始</strong> &gt; <strong>运行</strong> &gt; <code>regedit</code> ，定位下方位置并删除</p>
+<pre><code>HKEY_CURRENT_USER\Software\Microsoft\IdentityCRL\UserExtendedProperties\i@banana7.cn
+## 删除微软账户i@banana7.cn项 项昵称为你的微软账户
+
+HKEY_USERS\.DEFAULT\Software\Microsoft\IdentityCRL\StoredIdentities\i@banana7.cn
+## 删除微软账户i@banana7.cn项 项昵称为你的微软账户
+</code></pre>
+<p>开始菜单 &gt; <strong>头像</strong> &gt; <strong>注销</strong> ，重新登录后接着删除</p>
+<pre><code>KEY_CURRENT_USER\Software\Microsoft\IdentityCRL
+## 删除 IdentityCRL 项
+   
+HKEY_USERS\.DEFAULT\Software\Microsoft\IdentityCRL
+## 删除 IdentityCRL 项
+</code></pre>
+<p>再次注销一次，重新登录进入 <strong>设置</strong> &gt; <strong>账户</strong> &gt; <strong>电子邮件和应用账户</strong> &gt; 删除微软账户。</p>
+<hr>
+<h2 id="通过脚本删除">通过脚本删除</h2>
+<p>桌面新建 txt 文档，复制下方脚本粘贴到里面修改后缀为 <code>.bat</code> ，随后管理员运行。</p>
+<pre><code>@echo off
+title 解除微软账户和本地账户绑定  by 白隐Hakuin
+
+::管理员权限运行检测
+reg query HKU\S-1-5-19 1&gt;nul 2&gt;nul || goto :Admin
+
+echo ==============================================
+echo Win10/11解除微软账户和本地账户绑定  by 白隐Hakuin
+echo ==============================================
+echo.
+echo 此工具将会删除注册表内账户有关信息以达到解绑效果
+echo 故请在下一步前做好备份，以便于出现未知问题时恢复
+echo 另外，此脚本需以管理员身份运行，否则可能拒绝访问
+pause
+reg delete HKEY_CURRENT_USER\Software\Microsoft\IdentityCRL /va /f
+reg delete HKEY_USERS\.DEFAULT\Software\Microsoft\IdentityCRL /va /f
+echo 修改已完成。即将自动注销本地账户登录，如果不需要可直接关闭命令提示符
+echo 手动重新登录后，在设置-账户-电子邮件和应用下，单击微软账户xxx@xx.com，点击“删除”即可
+pause
+shutdown -l
+
+::管理员权限运行检测-后半部分
+:Admin
+echo 请以管理员身份运行
+echo.
+pause &gt;nul
+</code></pre>
+<p>然后自动注销本地账户（shutdown -l）<br>
+手动重新登录后，在 <strong>设置</strong> &gt; <strong>帐户</strong> &gt; <strong>电子邮件和应用</strong>下，单击微软帐户xxx@xx.com，点击“删除”即可</p>
+<blockquote>
+<ul>
+<li>脚本需以管理员身份运行，否则可能拒绝访问</li>
+<li>删除微软账户后 oneDrive 会退出账户，按需删除账户。</li>
+<li>此工具将会删除注册表内账户有关信息以达到解绑效果，故请在下一步前做好备份，以便于出现未知问题时恢复</li>
+</ul>
+</blockquote>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[解决 VideoStation、PhotoStation、Moments 无法生成缩略图]]></title>
+        <id>https://blog.banana7.cn/post/Af1kpEzQ8/</id>
+        <link href="https://blog.banana7.cn/post/Af1kpEzQ8/">
+        </link>
+        <updated>2022-04-07T02:42:09.000Z</updated>
+        <summary type="html"><![CDATA[<p>日志中心错误警报：<code>System failed to convert video [\***] to mpeg4</code><br>
+具体表现为 VideoStation 离线转码失败、Moments 视频无缩略图</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>日志中心错误警报：<code>System failed to convert video [\***] to mpeg4</code><br>
+具体表现为 VideoStation 离线转码失败、Moments 视频无缩略图</p>
+<!-- more -->
+<h2 id="替换-ffmpeg">替换 FFmpeg</h2>
+<ol>
+<li>添加套件来源: <code>http://packages.synocommunity.com</code> &gt; 安装 <code>FFmpeg</code> 套件</li>
+<li>进入 SSH 执行：</li>
+</ol>
+<pre><code>cp /volume1/@appstore/ffmpeg/bin/ffmpeg /volume1/@appstore/VideoStation/bin/
+cp /volume1/@appstore/ffmpeg/bin/ffmpeg /usr/bin
+</code></pre>
+<ol start="3">
+<li>随后重启套件</li>
+</ol>
+<ul>
+<li><strong>注意：如安装的套件为 FFmpeg6 应替换路径为</strong> <code>@appstore/ffmeeg6/bin</code></li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[使用 Succession 插件来平刷 iOS 系统至出厂状态]]></title>
+        <id>https://blog.banana7.cn/post/ios-1341-succession-ping-shua/</id>
+        <link href="https://blog.banana7.cn/post/ios-1341-succession-ping-shua/">
+        </link>
+        <updated>2021-01-13T06:01:39.000Z</updated>
+        <summary type="html"><![CDATA[<p>越狱后解决残留的一种办法，彻底清理越狱残留恢复全新系统。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>越狱后解决残留的一种办法，彻底清理越狱残留恢复全新系统。</p>
+<!-- more -->
+<table>
+<thead>
+<tr>
+<th style="text-align:center">设备</th>
+<th style="text-align:center">iOS 版本</th>
+<th style="text-align:center">unc0ver 版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">iPhone SE2</td>
+<td style="text-align:center">14.3</td>
+<td style="text-align:center">7.0.2</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Succession 作者源 Beta：<a href="cydia://url/https://cydia.saurik.com/api/share#?source=https://samgisaninja.github.io/beta">https://samgisaninja.github.io/beta</a></li>
+<li>IPSW 固件下载：<a href="https://ipsw.me">https://ipsw.me</a></li>
+</ul>
+<h2 id="succession-操作">Succession 操作</h2>
+<ol>
+<li>ipsw 下载固件命名为 <code>ipsw.ipsw</code></li>
+<li>Cydia 安装 Succession</li>
+<li>打开 Succession，弹窗选择 <code>Not now</code></li>
+<li>爱思或者 Filza 将 ipsw.ipsw 导入到 <code>/var/mobile/Media/Succession</code></li>
+<li>回到 Succession ；点击底部 <code>Download clean filesystem</code></li>
+<li>选择 <code>Use provided IPSW</code>；系统走进度条准备固件</li>
+<li>弹窗提示 Download Complete 选择 <code>Back</code></li>
+<li>再点击底部红色 <code>Prepare for restore!</code>;跳转后点击 <code>Erase iPhone</code> - <code>Begin restore</code></li>
+<li>等待进度条走完重启！</li>
+</ol>
+<blockquote>
+<p>平刷期间注意电量充足，不要系统自动息屏~尽量不动你的 iPhone</p>
+</blockquote>
+<h2 id="️注意事项">⚠️注意事项</h2>
+<ul>
+<li>平刷会清空所有数据，注意<strong>数据备份！</strong></li>
+<li>备份软件建议使用爱思/iMazing进行单独备份；不要全备份！！恢复会把越狱的残留恢复进去！</li>
+<li>平刷只限制于同版本号操作；即14.3只能刷14.3不可往上向下互刷！</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[DSM 6.X Active Backup for Business 套件激活方式]]></title>
+        <id>https://blog.banana7.cn/post/hei-qun-hui-ji-huo-tao-jian-active-backup-for-business/</id>
+        <link href="https://blog.banana7.cn/post/hei-qun-hui-ji-huo-tao-jian-active-backup-for-business/">
+        </link>
+        <updated>2020-11-13T01:32:53.000Z</updated>
+        <summary type="html"><![CDATA[<p>通过绕过群晖登录验证，直接给浏览器输入返回信息来进行本地激活</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>通过绕过群晖登录验证，直接给浏览器输入返回信息来进行本地激活</p>
+<!-- more -->
+<h2 id="安装套件">安装套件</h2>
+<p>套件中心 &gt; 备份 &gt; Active Backup for Business</p>
+<h2 id="激活-active-backup-for-business">激活 Active Backup for Business</h2>
+<p>将 IP/端口/用户名/登录密码替换至下方链接内</p>
+<pre><code>http://群辉IP:5000/webapi/auth.cgi?api=SYNO.API.Auth&amp;method=Login&amp;version=1&amp;account=登陆用户名&amp;passwd=登陆密码
+</code></pre>
+<blockquote>
+<p>浏览器打来执行提示： <code>{&quot;success&quot;:true}</code> 为成功</p>
+</blockquote>
+<p><strong>获取序列号</strong>：控制面板 &gt; 信息中心 &gt; 产品序列号，然后将 IP/端口/序列号替换至下方链接内</p>
+<pre><code>http://群晖IP:5000/webapi/entry.cgi?api=SYNO.ActiveBackup.Activation&amp;method=set&amp;version=1&amp;activated=true&amp;serial_number=&quot;序列号&quot;
+</code></pre>
+<blockquote>
+<p>浏览器打来执行提示： <code>{&quot;data&quot;:{&quot;activated&quot;:true},&quot;success&quot;:true}</code>为成功</p>
+</blockquote>
+<figure data-type="image" tabindex="1"><img src="https://blog.banana7.cn/post-images/1605231695579.png" alt="" loading="lazy"></figure>
+]]></content>
+    </entry>
+</feed>
