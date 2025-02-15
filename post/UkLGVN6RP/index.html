@@ -1,0 +1,375 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>解除 Administrator 账户与微软账户绑定 | 有理。</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="shortcut icon" href="https://blog.banana7.cn/favicon.ico?v=1">
+<link rel="stylesheet" href="/media/katex.min.css">
+<link href="/media/remixicon/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="/media/fonts.css">
+<link rel="stylesheet" href="/media/animate.min.css">
+<!-- 适配Safari书签页和iOS桌面图标 --> 
+<link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="有理Ulee">
+<link rel="bookmark" href="/media/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/media/apple-touch-icon.png" >
+
+
+<link rel="stylesheet" href="https://blog.banana7.cn/styles/main.css">
+
+<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?4faae41facfc71bcdb431a4f9471d6cb";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <!-- <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i> -->
+        
+        <a href="https://blog.banana7.cn">
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">有理。</h1>
+        </a>
+        <div class="top1block" style="margin-left: auto;">
+          
+            
+          
+            
+          
+            
+              <a href="https://music.163.com/#/song?id=461518855" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-netease-cloud-music-line"></i>
+              </a>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a href="/post/about"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-profile-line"></i>
+              </a>
+            
+          
+            
+              <a href="/archives"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-archive-line"></i>
+              </a>
+            
+          
+            
+              <a href="/atom.xml" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-rss-line"></i>
+              </a>
+            
+          
+        </div>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0">参考文章</a></li>
+<li><a href="#%E6%89%8B%E5%8A%A8%E5%88%A0%E9%99%A4">手动删除</a></li>
+<li><a href="#%E9%80%9A%E8%BF%87%E8%84%9A%E6%9C%AC%E5%88%A0%E9%99%A4">通过脚本删除</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"><a class="rss" href="https://blog.banana7.cn/post/theme/">主题 </a></div>
+    <a class="rss" href="https://blog.banana7.cn/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">解除 Administrator 账户与微软账户绑定</h1>
+        
+        <div class="text-sm text-gray-700 lg:my-8">
+          
+            2022-06-18
+          
+        </div>
+        
+        
+        <div class="post-content yue">
+          <p>Windows 10 不知道什么时候开始只要登录过微软应用例如OneDrive，那么系统账户就会默认自动登录上你的微软账号，并且与本地管理员绑定。</p>
+<!-- more -->
+<h2 id="参考文章">参考文章</h2>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/130402808">win10系统解除微软账户和本地账户绑定</a></li>
+<li><a href="https://github.com/Hakuin123/Unbind-MS-Acct-From-LocalAcct">解除微软账户和本地账户绑定  by 白隐Hakuin 丨 批处理脚本</a></li>
+</ul>
+<h2 id="手动删除">手动删除</h2>
+<p>打开注册表：<strong>开始</strong> &gt; <strong>运行</strong> &gt; <code>regedit</code> ，定位下方位置并删除</p>
+<pre><code>HKEY_CURRENT_USER\Software\Microsoft\IdentityCRL\UserExtendedProperties\i@banana7.cn
+## 删除微软账户i@banana7.cn项 项昵称为你的微软账户
+
+HKEY_USERS\.DEFAULT\Software\Microsoft\IdentityCRL\StoredIdentities\i@banana7.cn
+## 删除微软账户i@banana7.cn项 项昵称为你的微软账户
+</code></pre>
+<p>开始菜单 &gt; <strong>头像</strong> &gt; <strong>注销</strong> ，重新登录后接着删除</p>
+<pre><code>KEY_CURRENT_USER\Software\Microsoft\IdentityCRL
+## 删除 IdentityCRL 项
+   
+HKEY_USERS\.DEFAULT\Software\Microsoft\IdentityCRL
+## 删除 IdentityCRL 项
+</code></pre>
+<p>再次注销一次，重新登录进入 <strong>设置</strong> &gt; <strong>账户</strong> &gt; <strong>电子邮件和应用账户</strong> &gt; 删除微软账户。</p>
+<hr>
+<h2 id="通过脚本删除">通过脚本删除</h2>
+<p>桌面新建 txt 文档，复制下方脚本粘贴到里面修改后缀为 <code>.bat</code> ，随后管理员运行。</p>
+<pre><code>@echo off
+title 解除微软账户和本地账户绑定  by 白隐Hakuin
+
+::管理员权限运行检测
+reg query HKU\S-1-5-19 1&gt;nul 2&gt;nul || goto :Admin
+
+echo ==============================================
+echo Win10/11解除微软账户和本地账户绑定  by 白隐Hakuin
+echo ==============================================
+echo.
+echo 此工具将会删除注册表内账户有关信息以达到解绑效果
+echo 故请在下一步前做好备份，以便于出现未知问题时恢复
+echo 另外，此脚本需以管理员身份运行，否则可能拒绝访问
+pause
+reg delete HKEY_CURRENT_USER\Software\Microsoft\IdentityCRL /va /f
+reg delete HKEY_USERS\.DEFAULT\Software\Microsoft\IdentityCRL /va /f
+echo 修改已完成。即将自动注销本地账户登录，如果不需要可直接关闭命令提示符
+echo 手动重新登录后，在设置-账户-电子邮件和应用下，单击微软账户xxx@xx.com，点击“删除”即可
+pause
+shutdown -l
+
+::管理员权限运行检测-后半部分
+:Admin
+echo 请以管理员身份运行
+echo.
+pause &gt;nul
+</code></pre>
+<p>然后自动注销本地账户（shutdown -l）<br>
+手动重新登录后，在 <strong>设置</strong> &gt; <strong>帐户</strong> &gt; <strong>电子邮件和应用</strong>下，单击微软帐户xxx@xx.com，点击“删除”即可</p>
+<blockquote>
+<ul>
+<li>脚本需以管理员身份运行，否则可能拒绝访问</li>
+<li>删除微软账户后 oneDrive 会退出账户，按需删除账户。</li>
+<li>此工具将会删除注册表内账户有关信息以达到解绑效果，故请在下一步前做好备份，以便于出现未知问题时恢复</li>
+</ul>
+</blockquote>
+
+        </div>
+
+        
+          <div class="tag-container">
+            
+              <a href="https://blog.banana7.cn/tag/iRhkQUyWz/" class="tag">
+                Windows
+              </a>
+            
+              <a href="https://blog.banana7.cn/tag/Zlrgw2c7jj/" class="tag">
+                经验
+              </a>
+            
+          </div>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://blog.banana7.cn/post/hGK9pDpD3/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  跳过微星 B450M MORTAR BIOS 降级限制
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://blog.banana7.cn/post/Af1kpEzQ8/">
+                <h3 class="post-title">
+                  解决 VideoStation、PhotoStation、Moments 无法生成缩略图
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+          
+        </div>
+        
+
+        
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://blog.banana7.cn/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+    
+     <div class="site-info">
+      <div class="py-4 text-gray-700"><a class="rss" href="https://blog.banana7.cn/post/theme/">主题 </a>| <a class="rss" href="https://blog.banana7.cn/atom.xml" target="_blank">订阅</a> </div>
+    </div>  
+  </body>
+</html>

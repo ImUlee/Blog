@@ -1,0 +1,398 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>京东云 AX6000 百里刷入 ImmortalWrt | 有理。</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="shortcut icon" href="https://blog.banana7.cn/favicon.ico?v=1">
+<link rel="stylesheet" href="/media/katex.min.css">
+<link href="/media/remixicon/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="/media/fonts.css">
+<link rel="stylesheet" href="/media/animate.min.css">
+<!-- 适配Safari书签页和iOS桌面图标 --> 
+<link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="有理Ulee">
+<link rel="bookmark" href="/media/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/media/apple-touch-icon.png" >
+
+
+<link rel="stylesheet" href="https://blog.banana7.cn/styles/main.css">
+
+<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?4faae41facfc71bcdb431a4f9471d6cb";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <!-- <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i> -->
+        
+        <a href="https://blog.banana7.cn">
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">有理。</h1>
+        </a>
+        <div class="top1block" style="margin-left: auto;">
+          
+            
+          
+            
+          
+            
+              <a href="https://music.163.com/#/song?id=461518855" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-netease-cloud-music-line"></i>
+              </a>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a href="/post/about"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-profile-line"></i>
+              </a>
+            
+          
+            
+              <a href="/archives"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-archive-line"></i>
+              </a>
+            
+          
+            
+              <a href="/atom.xml" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-rss-line"></i>
+              </a>
+            
+          
+        </div>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E9%85%8D%E7%BD%AE%E4%BB%8B%E7%BB%8D">配置介绍</a></li>
+<li><a href="#%E5%A4%87%E4%BB%BD%E5%8E%9F%E5%8E%82%E5%88%86%E5%8C%BA">备份原厂分区</a></li>
+<li><a href="#%E5%88%B7%E5%85%A5%E5%8E%9F%E7%94%9F-openwrt-%E8%A7%A3%E9%94%81-ssh">刷入原生 OpenWrt 解锁 SSH</a></li>
+<li><a href="#%E5%88%B7%E5%85%A5bl2-uboot">刷入bl2、uboot</a></li>
+<li><a href="#%E5%88%B7%E5%85%A5%E5%8D%95%E5%88%86%E5%8C%BA-gpt-%E6%96%87%E4%BB%B6">刷入单分区 gpt 文件</a></li>
+<li><a href="#%E4%BB%A5%E4%B8%8A%E6%93%8D%E4%BD%9C%E5%AE%8C%E6%88%90%E5%90%8E%E6%89%8D%E8%83%BD%E9%87%8D%E5%90%AF-%E6%9C%9F%E9%97%B4%E5%88%87%E5%8B%BF%E6%96%AD%E7%94%B5">▲ 以上操作完成后才能重启 期间切勿断电</a></li>
+<li><a href="#%E8%BF%9B%E5%85%A5-uboot-%E5%88%B7%E6%9C%BA">进入 uboot 刷机</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"><a class="rss" href="https://blog.banana7.cn/post/theme/">主题 </a></div>
+    <a class="rss" href="https://blog.banana7.cn/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">京东云 AX6000 百里刷入 ImmortalWrt</h1>
+        
+        <div class="text-sm text-gray-700 lg:my-8">
+          
+            2024-11-17
+          
+        </div>
+        
+        
+        <div class="post-content yue">
+          <p>京东云的边缘计算产品，拥有较强配置并且有 64/128G 两种内存版本，争取通过刷入 ImmortalWrt 实现与软路由肩并肩的效果。</p>
+<!-- more -->
+<h2 id="配置介绍">配置介绍</h2>
+<ul>
+<li><strong>处理器</strong>：MT7986A 四核2.0GHz</li>
+<li><strong>内存</strong>：1G</li>
+<li><strong>eMMC</strong>：128G</li>
+<li><strong>无线协议</strong>：WiFi 6</li>
+<li><strong>天线数量</strong>：外置 × 6 内置 × 2</li>
+<li><strong>无线速率</strong>：1148Mbps + 4804Mbps</li>
+<li><strong>最大频宽</strong>：160MHz</li>
+<li><strong>网络接口</strong>：2.5G网口 × 1 千兆网口 × 4</li>
+<li><strong>电源规格</strong>：12V/2A</li>
+</ul>
+<h2 id="备份原厂分区">备份原厂分区</h2>
+<p>推荐使用 MobaXterm 进行连接，复制全部命令执行</p>
+<pre><code>dd if=/dev/mmcblk0boot0 bs=512 count=2048 of=/mnt/mmcblk0p13/mmcblk0boot0_bl2.bin conv=fsync
+dd if=/dev/mmcblk0p1 of=/mnt/mmcblk0p13/mmcblk0p1_PMBR.bin conv=fsync
+dd if=/dev/mmcblk0 bs=512 skip=34 count=8158 of=/mnt/mmcblk0p13/mmcblk0p1_unpartitioned.bin conv=fsync
+dd if=/dev/mmcblk0p2 of=/mnt/mmcblk0p13/mmcblk0p2_u-boot-env.bin conv=fsync
+dd if=/dev/mmcblk0p3 of=/mnt/mmcblk0p13/mmcblk0p3_factory.bin conv=fsync
+dd if=/dev/mmcblk0p4 of=/mnt/mmcblk0p13/mmcblk0p4_fip.bin conv=fsync
+dd if=/dev/mmcblk0p5 of=/mnt/mmcblk0p13/mmcblk0p5_kernel.bin conv=fsync
+dd if=/dev/mmcblk0p6 of=/mnt/mmcblk0p13/mmcblk0p6_rootfs.bin conv=fsync
+dd if=/dev/mmcblk0p7 of=/mnt/mmcblk0p13/mmcblk0p7_kernel2.bin conv=fsync
+dd if=/dev/mmcblk0p8 of=/mnt/mmcblk0p13/mmcblk0p8_rootfs2.bin conv=fsync
+dd if=/dev/mmcblk0p9 of=/mnt/mmcblk0p13/mmcblk0p9_rootfs_data.bin conv=fsync
+dd if=/dev/mmcblk0p10 of=/mnt/mmcblk0p13/mmcblk0p10_log.bin conv=fsync
+dd if=/dev/mmcblk0p11 of=/mnt/mmcblk0p13/mmcblk0p11_plugin.bin conv=fsync
+dd if=/dev/mmcblk0p12 of=/mnt/mmcblk0p13/mmcblk0p12_swap.bin conv=fsync
+sync
+</code></pre>
+<p>耐心等待执行完成，最后一行 sync 回车执行即可，注意看最后一个 swap 分区是否备份完成<br>
+然后通过左侧 SFTP 窗口到 <strong>/mnt/mmcblk0p13</strong> 目录下载保存下来</p>
+<h2 id="刷入原生-openwrt-解锁-ssh">刷入原生 OpenWrt 解锁 SSH</h2>
+<p>京东云 AX6000 百里没有软破解SSH，通过原厂系统升级官方放出的原生 OP 可获取 SSH 权限</p>
+<ul>
+<li><strong>登录后台</strong> &gt; <strong>路由设置</strong> &gt; <strong>系统</strong> &gt; <strong>手动升级</strong> &gt; <strong>上传原生OP包</strong></li>
+</ul>
+<pre><code>openwrt-re-cp-03-4.1.0.r4005-1287bf0122329d5c3acbb7198e04b1e4.bin
+</code></pre>
+<blockquote>
+<p>注意：官方宣传升级原生OP会失去保修，请自行斟酌</p>
+</blockquote>
+<h2 id="刷入bl2-uboot">刷入bl2、uboot</h2>
+<p>SSH 连接 <code>192.168.68.1</code> 用户名 <code>root</code>，通过左侧的SFTP窗口将 <code>mt7986_jdcloud_re-cp-03-bl2_mod.bin</code>、<code>mt7986_jdcloud_re-cp-03-fip_mod.bin</code> 上传至 <strong>/tmp</strong> 目录后复制下方全部命令执行</p>
+<pre><code>ash
+echo 0 &gt; /sys/block/mmcblk0boot0/force_ro
+dd if=/tmp/mt7986_jdcloud_re-cp-03-bl2_mod.bin of=/dev/mmcblk0boot0
+echo 1 &gt; /sys/block/mmcblk0boot0/force_ro
+dd if=/tmp/mt7986_jdcloud_re-cp-03-fip_mod.bin of=$(blkid -t PARTLABEL=fip -o device)
+Sync
+</code></pre>
+<p>逐行执行验证 MD5 值</p>
+<pre><code>md5sum /dev/mmcblk0boot0
+## MD5: 6e5836957b623c410725c97f7c709fd4 
+
+md5sum $(blkid -t PARTLABEL=fip -o device)
+## MD5: 71cc6412cb7fabeb0a785b1a5ba9f3f0 
+</code></pre>
+<h2 id="刷入单分区-gpt-文件">刷入单分区 gpt 文件</h2>
+<p>选择所需分区大小的文件上传至 <strong>/tmp</strong> 并刷入，<strong>需要将命令内文件名修改为对应文件</strong>，以 512m 文件为例</p>
+<pre><code>dd if=/tmp/mt7986_jdcloud_re-cp-03_128G_rootfs512M_gpt.bin of=/dev/mmcblk0 bs=512 count=34
+Sync
+</code></pre>
+<p>验证文件 MD5 值</p>
+<pre><code>dd if=/dev/mmcblk0 bs=512 count=34 | md5sum
+
+## 不同分区文件对应的 MD5 值
+c119bde4206b61a67d4555fbdcf0900e  # mt7986_jdcloud_re-cp-03_128G_rootfs166M_gpt.bin
+a64f0714c52c4c8ed70fa75832b7ce9a  # mt7986_jdcloud_re-cp-03_128G_rootfs512M_gpt.bin
+c6765b1f68b5e3608481277090704af1  # mt7986_jdcloud_re-cp-03_128G_rootfs1024M_gpt.bin
+ed775a33aa58df66108bd044b8f70021  # mt7986_jdcloud_re-cp-03_128G_rootfs2048M_gpt.bin
+</code></pre>
+<p>查看 rootfs 分区是否为对应大小</p>
+<pre><code>fdisk -l /dev/mmcblk0
+</code></pre>
+<p><img src="https://blog.banana7.cn/post-images/1731947856639.png" alt="" loading="lazy"><br>
+清除查看分区所出现的红色字段</p>
+<pre><code>fdisk /dev/mmcblk0
+## 回车 输入: w
+</code></pre>
+<h2 id="以上操作完成后才能重启-期间切勿断电">▲ 以上操作完成后才能重启 期间切勿断电</h2>
+<h2 id="进入-uboot-刷机">进入 uboot 刷机</h2>
+<ol>
+<li>手动设置以太网 iPv4 地址为：<code>192.168.1.2</code> 子网掩码：<code>225.225.225.225</code></li>
+<li>路由器上电并按住 rst 直至红灯闪烁变为蓝色</li>
+<li>浏览器打开 <code>http://192.168.1.1</code> 选择固件上传刷写，提示成功后会自动重启进入系统</li>
+<li>uboot刷好第三方OP系统后，SSH登录用命令格式化下最后一个 storage 分区</li>
+</ol>
+<pre><code>umount $(blkid -t PARTLABEL=storage -o device)
+mkfs.ext4 $(blkid -t PARTLABEL=storage -o device)
+</code></pre>
+
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://blog.banana7.cn/post/_QZH49XDvi/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  免费图片托管解决方案：Telegraph-Image
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://blog.banana7.cn/post/DlBaLOyKdh/">
+                <h3 class="post-title">
+                  通过 UGlink 将局域网内端口转发到公网
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+          
+        </div>
+        
+
+        
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://blog.banana7.cn/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+    
+     <div class="site-info">
+      <div class="py-4 text-gray-700"><a class="rss" href="https://blog.banana7.cn/post/theme/">主题 </a>| <a class="rss" href="https://blog.banana7.cn/atom.xml" target="_blank">订阅</a> </div>
+    </div>  
+  </body>
+</html>
