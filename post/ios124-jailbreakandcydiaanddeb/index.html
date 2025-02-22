@@ -1,0 +1,666 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>iOS JailBreak 越狱源/插件推荐 [iOS14] | 有理。</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="shortcut icon" href="https://blog.banana7.cn/favicon.ico?v=1">
+<link rel="stylesheet" href="/media/katex.min.css">
+<link href="/media/remixicon/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="/media/fonts.css">
+<link rel="stylesheet" href="/media/animate.min.css">
+<!-- 适配Safari书签页和iOS桌面图标 --> 
+<link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="有理Ulee">
+<link rel="bookmark" href="/media/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/media/apple-touch-icon.png" >
+
+
+<link rel="stylesheet" href="https://blog.banana7.cn/styles/main.css">
+
+<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?4faae41facfc71bcdb431a4f9471d6cb";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <!-- <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i> -->
+        
+        <a href="https://blog.banana7.cn">
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">有理。</h1>
+        </a>
+        <div class="top1block" style="margin-left: auto;">
+          
+            
+          
+            
+          
+            
+              <a href="https://music.163.com/#/song?id=461518855" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-netease-cloud-music-line"></i>
+              </a>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a href="/post/about"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-profile-line"></i>
+              </a>
+            
+          
+            
+              <a href="/archives"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-archive-line"></i>
+              </a>
+            
+          
+            
+              <a href="/atom.xml" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-rss-line"></i>
+              </a>
+            
+          
+        </div>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E8%B6%8A%E7%8B%B1%E7%8E%AF%E5%A2%83">越狱环境</a></li>
+<li><a href="#%E8%B6%8A%E7%8B%B1%E6%BA%90">越狱源</a></li>
+<li><a href="#%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90">插件推荐</a>
+<ul>
+<li><a href="#20230607-%E6%9B%B4%E6%96%B0">20230607 更新</a></li>
+<li><a href="#20220328-%E6%9B%B4%E6%96%B0">20220328 更新</a></li>
+<li><a href="#20210405-%E6%9B%B4%E6%96%B0">20210405 更新</a></li>
+<li><a href="#20210922-%E6%9B%B4%E6%96%B0">20210922 更新</a></li>
+<li><a href="#20210801-%E6%9B%B4%E6%96%B0">20210801 更新</a></li>
+<li><a href="#20210703-%E6%9B%B4%E6%96%B0">20210703 更新</a></li>
+<li><a href="#20210609-%E6%9B%B4%E6%96%B0">20210609 更新</a></li>
+<li><a href="#20210603-%E6%9B%B4%E6%96%B0">20210603 更新</a></li>
+<li><a href="#20210529-%E6%9B%B4%E6%96%B0">20210529 更新</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"><a class="rss" href="https://blog.banana7.cn/post/theme/">主题 </a></div>
+    <a class="rss" href="https://blog.banana7.cn/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">iOS JailBreak 越狱源/插件推荐 [iOS14]</h1>
+        
+        <div class="text-sm text-gray-700 lg:my-8">
+          
+            2020-05-27
+          
+        </div>
+        
+        
+        <div class="post-content yue">
+          <p>iPhone 上越狱后一些不错的插件以及源！</p>
+<!-- more -->
+<h2 id="越狱环境">越狱环境</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">iPhone</th>
+<th style="text-align:center">Version</th>
+<th style="text-align:center">Tool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">SE 2020</td>
+<td style="text-align:center">iOS 14.3</td>
+<td style="text-align:center">Taurine</td>
+</tr>
+</tbody>
+</table>
+<h2 id="越狱源">越狱源</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">源昵称</th>
+<th style="text-align:center">源地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Cydiakk中文源™</td>
+<td style="text-align:center">http://apt.cydiakk.com</td>
+</tr>
+<tr>
+<td style="text-align:center">HI客（原93嗨客源）</td>
+<td style="text-align:center">http://repo.qqtlr.com</td>
+</tr>
+<tr>
+<td style="text-align:center">Nerskao</td>
+<td style="text-align:center">http://repo.netskao.com</td>
+</tr>
+<tr>
+<td style="text-align:center">老牌猫源™</td>
+<td style="text-align:center">https://apt.25mao.com</td>
+</tr>
+<tr>
+<td style="text-align:center">Twickd</td>
+<td style="text-align:center">https://repo.twickd.com</td>
+</tr>
+<tr>
+<td style="text-align:center">萌牛字体源™  - 字体好源</td>
+<td style="text-align:center">https://ilovechina.tech</td>
+</tr>
+<tr>
+<td style="text-align:center">依赖源</td>
+<td style="text-align:center">https://repo.cydia.xin</td>
+</tr>
+</tbody>
+</table>
+<h2 id="插件推荐">插件推荐</h2>
+<h3 id="20230607-更新">20230607 更新</h3>
+<ul>
+<li>iPhone 入狱 没有更新；迎来巨魔的春天！</li>
+<li>优化插件介绍，含有删除线为失效插件或被其他插件平替</li>
+</ul>
+<h3 id="20220328-更新">20220328 更新</h3>
+<ul>
+<li>
+<p>抖音净化<br>
+顾名思义字面意思 不可言会</p>
+</li>
+<li>
+<p>QQ净化<br>
+顾名思义字面意思 不可言会</p>
+</li>
+<li>
+<p>阿里云盘 Hooks<br>
+快速获取app端token、适合挂载云盘使用</p>
+</li>
+<li>
+<p>HideScreenshotPreview<br>
+隐藏截图左下角弹出的悬浮截图</p>
+</li>
+<li>
+<p>哔哩哔哩净化<br>
+顾名思义字面意思 不可言会</p>
+</li>
+<li>
+<p>IAmlazy<br>
+备份插件的插件、可导出</p>
+</li>
+<li>
+<p>虚拟访问权限<br>
+针对国内某些软件不停弹窗/赋予假权限</p>
+</li>
+<li>
+<p>Lynx 2<br>
+iOS 14 系统优化插件</p>
+</li>
+<li>
+<p>VideoAdsSpeed<br>
+快速跳过视频广告</p>
+</li>
+<li>
+<p>Velvet<br>
+想体验 iOS 15 的通知效果、Velvet 是个不错的选择</p>
+</li>
+<li>
+<p>Dock Controller<br>
+自定义 Dock 样式</p>
+</li>
+<li>
+<p>CrackerXI+<br>
+砸壳插件</p>
+</li>
+</ul>
+<h3 id="20210405-更新">20210405 更新</h3>
+<ul>
+<li>
+<p>MagSafe Controller<br>
+iPhone12 的磁吸充电动画</p>
+</li>
+<li>
+<p>AirPower 充电提示音<br>
+更改充电提示音</p>
+</li>
+<li>
+<p>iNoSleep<br>
+允许锁屏时不断WiFi连接</p>
+</li>
+<li>
+<p>WiFi Qr<br>
+设置WiFi直接分享二维码</p>
+</li>
+<li>
+<p>AutoCloseFolder<br>
+点击文件夹内应用后自动关闭文件夹</p>
+</li>
+<li>
+<p>Crane<br>
+应用多账户、多账户神器</p>
+</li>
+<li>
+<p>SuDial<br>
+T9拨号、归属地显示</p>
+</li>
+<li>
+<p>Activator<br>
+快捷手势、添加不同场景执行</p>
+</li>
+</ul>
+<h3 id="20210922-更新">20210922 更新</h3>
+<ul>
+<li><s>哔哩哔哩开启4K画质</s><br>
+<s>开启4K画质/大会员视频无效</s></li>
+</ul>
+<h3 id="20210801-更新">20210801 更新</h3>
+<ul>
+<li>
+<p>Scorpion<br>
+修改为 iOS14 电话通知样式、顶部悬浮弹窗</p>
+</li>
+<li>
+<p>BetterWidgets<br>
+去除负一屏小组件标题</p>
+</li>
+<li>
+<p>EasyEditAlarms<br>
+闹钟增强、直接点击闹钟即可进入编辑</p>
+</li>
+</ul>
+<h3 id="20210703-更新">20210703 更新</h3>
+<ul>
+<li>
+<p><s>Fkwechatzan</s><br>
+<s>集赞兑换礼品必备</s></p>
+</li>
+<li>
+<p>ShyLabels13<br>
+隐藏桌面图标名称、滑动时显示</p>
+</li>
+<li>
+<p><s>WeChatAutoLogin</s><br>
+<s>微信自动点击PC端登录页面</s></p>
+</li>
+<li>
+<p>HapticKeys<br>
+键盘振动反馈、仅支持系统自带键盘</p>
+</li>
+<li>
+<p>CallConnetc<br>
+接听电话有振动提醒</p>
+</li>
+<li>
+<p>Network Exalt<br>
+优化蜂窝、无线网络下的响应速度</p>
+</li>
+<li>
+<p>iOS Helper 13<br>
+系统调整插件/军刀</p>
+</li>
+</ul>
+<h3 id="20210609-更新">20210609 更新</h3>
+<ul>
+<li>
+<p>Respreeng<br>
+支持 iOS13 注销、桌面会生成一个注销图标</p>
+</li>
+<li>
+<p><s>哔哩哔哩Pro</s><br>
+<s>大会员能看的我们都能看/仅限观看大会员能看的番/up主的1080P60还是没办法看的</s></p>
+</li>
+<li>
+<p>iPhoneX Dock<br>
+在非刘海屏设备将 Dock 变成圆角 Dock</p>
+</li>
+<li>
+<p>OTABlocker<br>
+Unc0ver 作者将 5.0.1 的屏蔽更新逻辑做反了，避免失效再装一个</p>
+</li>
+<li>
+<p>HideLabelDots<br>
+隐藏 iOS13 的图标蓝点/橙点</p>
+</li>
+<li>
+<p><s>QQ Callkit</s><br>
+<s>开启QQ Callkit通话</s></p>
+</li>
+</ul>
+<h3 id="20210603-更新">20210603 更新</h3>
+<ul>
+<li>
+<p>DNDMyRecording<br>
+录屏时自动开启勿扰模式防止弹出通知</p>
+</li>
+<li>
+<p>FlyJB<br>
+越狱屏蔽</p>
+</li>
+<li>
+<p>iOS Helper 12<br>
+系统调整插件/军刀/部分兼容 iOS13</p>
+</li>
+<li>
+<p>微信暗黑模式颜色切换<br>
+修改微信暗黑模式颜色/纯黑/深蓝、纯黑主题需要修改色值</p>
+</li>
+</ul>
+<h3 id="20210529-更新">20210529 更新</h3>
+<ul>
+<li>
+<p>PreferenceOrganizer 2<br>
+设置添加插件分类、软件分类</p>
+</li>
+<li>
+<p>CydiaPlus<br>
+加速 Cydia 加载访问</p>
+</li>
+<li>
+<p>Batchomatic<br>
+一键备份插件、配置、源</p>
+</li>
+<li>
+<p>AlipayScan<br>
+控制中心添加支付宝扫一扫</p>
+</li>
+<li>
+<p>WeChatScan<br>
+控制中心添加微信扫一扫</p>
+</li>
+<li>
+<p>iCleaner Pro<br>
+垃圾清理、插件管理</p>
+</li>
+<li>
+<p>Anywhere<br>
+修改定位、伪装机型</p>
+</li>
+<li>
+<p>KillX Pro<br>
+后台添加一键清理、长按后台设置白名单</p>
+</li>
+<li>
+<p>AppStore+++<br>
+APP 降级工具、屏蔽 APP 更新</p>
+</li>
+<li>
+<p>Dune<br>
+iOS12 暗黑色切换/键盘/dock/小部件等</p>
+</li>
+<li>
+<p>MTerminal<br>
+终端</p>
+</li>
+<li>
+<p>SilentRecorder<br>
+隐藏顶部录屏红条</p>
+</li>
+<li>
+<p>ReProvision v0.5<br>
+iPhone 自签工具</p>
+</li>
+<li>
+<p>Apple Turbo Boost<br>
+取消发热降频/屏幕变暗限制</p>
+</li>
+<li>
+<p>PencilCharging<br>
+更改充电样式及低电量提醒为 ApplePencil 弹窗</p>
+</li>
+<li>
+<p>微信助手<br>
+顾名思义字面意思 不可言会</p>
+</li>
+<li>
+<p>OneNotify<br>
+通知中心添加下拉清除所有通知</p>
+</li>
+<li>
+<p>Ultrasound<br>
+iOS13 以下系统变更为 iOS 13 侧边音量条</p>
+</li>
+<li>
+<p>Filza File<br>
+iPhone 目前最强大的文件管理器</p>
+</li>
+<li>
+<p>QQ 净化<br>
+顾名思义字面意思 不可言会</p>
+</li>
+<li>
+<p>AntiRevoke<br>
+屏蔽越狱状态下证书失效问题</p>
+</li>
+<li>
+<p>DismissProgress<br>
+给 Cydia 商店安装插件后右上角出现关闭按钮</p>
+</li>
+<li>
+<p>AFC2<br>
+通过 PC 端工具访问 iPhone 越狱根文件夹依赖插件</p>
+</li>
+<li>
+<p>Flex3<br>
+补丁商店类似电脑油猴</p>
+</li>
+<li>
+<p>RealCC<br>
+控制中心真实关闭WiFi/蓝牙</p>
+</li>
+<li>
+<p>PullToRespring<br>
+在设置页面添加下拉注销设备</p>
+</li>
+</ul>
+
+        </div>
+
+        
+          <div class="tag-container">
+            
+              <a href="https://blog.banana7.cn/tag/rgARBNakO/" class="tag">
+                iOS
+              </a>
+            
+          </div>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://blog.banana7.cn/post/hei-qun-hui-ji-huo-tao-jian-active-backup-for-business/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  DSM 6.X Active Backup for Business 套件激活方式
+                </h3>
+              </a>
+            </div>
+          
+
+          
+          
+        </div>
+        
+
+        
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://blog.banana7.cn/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+    
+     <div class="site-info">
+      <div class="py-4 text-gray-700"><a class="rss" href="https://blog.banana7.cn/post/theme/">主题 </a>| <a class="rss" href="https://blog.banana7.cn/atom.xml" target="_blank">订阅</a> </div>
+    </div>  
+  </body>
+</html>
