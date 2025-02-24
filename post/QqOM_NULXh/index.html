@@ -1,0 +1,353 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>7615以及7005的一些基础命令 | 有理。</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="shortcut icon" href="https://blog.banana7.cn/favicon.ico?v=1">
+<link rel="stylesheet" href="/media/katex.min.css">
+<link href="/media/remixicon/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="/media/fonts.css">
+<link rel="stylesheet" href="/media/animate.min.css">
+<!-- 适配Safari书签页和iOS桌面图标 --> 
+<link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="有理Ulee">
+<link rel="bookmark" href="/media/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/media/apple-touch-icon.png" >
+
+
+<link rel="stylesheet" href="https://blog.banana7.cn/styles/main.css">
+
+<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?4faae41facfc71bcdb431a4f9471d6cb";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <!-- <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i> -->
+        
+        <a href="https://blog.banana7.cn">
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">有理。</h1>
+        </a>
+        <div class="top1block" style="margin-left: auto;">
+          
+            
+          
+            
+          
+            
+              <a href="https://music.163.com/#/song?id=461518855" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-netease-cloud-music-line"></i>
+              </a>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a href="/post/about"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-profile-line"></i>
+              </a>
+            
+          
+            
+              <a href="/archives"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-archive-line"></i>
+              </a>
+            
+          
+            
+              <a href="/atom.xml" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-rss-line"></i>
+              </a>
+            
+          
+        </div>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E8%B6%85%E7%BA%A7%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E7%99%BB%E5%BD%95%E5%85%89%E7%8C%AB">超级管理员账户登录光猫</a>
+<ul>
+<li><a href="#%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E6%8F%90%E6%9D%83%E4%B8%BAadmin">普通用户提权为admin</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9%E8%B6%85%E7%BA%A7%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81">修改超级用户名和密码:</a></li>
+<li><a href="#%E6%9F%A5%E8%AF%A2%E5%8C%BA%E5%9F%9F%E7%A0%81%E5%91%BD%E4%BB%A4">查询区域码命令：</a></li>
+<li><a href="#%E6%8D%A2%E5%8C%BA%E5%9F%9F%E7%9C%81%E4%BB%BD">换区域（省份）：</a></li>
+<li><a href="#%E4%BB%A5%E7%A7%BB%E5%8A%A8%E4%B8%AD%E5%85%B4%E8%80%81%E5%85%89%E7%8C%AB%E4%B8%BA%E4%BE%8B%E8%BF%9B%E8%A1%8C%E5%8F%82%E6%95%B0%E4%BF%AE%E6%94%B9">以移动中兴老光猫为例：进行参数修改</a></li>
+<li><a href="#%E8%AE%A9tr069%E5%A4%B1%E6%95%88">让TR069失效</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9%E8%BF%9E%E6%8E%A5%E6%95%B0%E9%99%90%E5%88%B6">修改连接数限制</a></li>
+<li><a href="#%E5%A6%82%E9%81%87itms%E6%B3%A8%E5%86%8C%E5%A4%B1%E8%B4%A5%E6%97%A0%E6%B3%95%E4%B8%8A%E7%BD%91%E6%85%8E%E7%94%A8">如遇ITMS注册失败，无法上网（慎用）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"><a class="rss" href="https://blog.banana7.cn/post/theme/">主题 </a></div>
+    <a class="rss" href="https://blog.banana7.cn/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">7615以及7005的一些基础命令</h1>
+        
+        <div class="text-sm text-gray-700 lg:my-8">
+          
+            2025-02-24
+          
+        </div>
+        
+        
+        <div class="post-content yue">
+          <p>整理了一些针对7615以及7005的一些基础命令</p>
+<!-- more -->
+<h2 id="超级管理员账户登录光猫">超级管理员账户登录光猫</h2>
+<ul>
+<li>移动账号: CMCCAdmin 密码: aDm8H%MdA</li>
+<li>电信账号: telecomadmin 密码: nE7jA%5m</li>
+<li>联通账号: CUAdmin 密码: CUAdmin</li>
+<li>华为光猫原版固件账号: telecomadmin 密码: admintelecom</li>
+</ul>
+<blockquote>
+<p>查看所有配置 <code>setmac show2</code>  修改配置 <code>setmac 1</code></p>
+</blockquote>
+<h3 id="普通用户提权为admin">普通用户提权为admin</h3>
+<pre><code>sendcmd 1 DB set DevAuthInfo 1 Level 1
+sendcmd 1 DB save
+</code></pre>
+<h3 id="修改超级用户名和密码">修改超级用户名和密码:</h3>
+<pre><code>sendcmd 1 DB set DevAuthInfo 0 User XXXXxx
+sendcmd 1 DB set DevAuthInfo 0 Pass XXXXxx
+</code></pre>
+<h3 id="查询区域码命令">查询区域码命令：</h3>
+<pre><code>cat /etc/init.d/regioncode
+</code></pre>
+<h3 id="换区域省份">换区域（省份）：</h3>
+<pre><code>upgradetest sdefconf XXX （XXX填入区域代码）
+</code></pre>
+<h3 id="以移动中兴老光猫为例进行参数修改">以移动中兴老光猫为例：进行参数修改</h3>
+<pre><code>VENDORID[ID:  2176] is set to ZTEG
+GPONSN[ID:  2177] is set to 你的SN（一般8位）
+GPONPWD[ID:  2178] is set to set
+REG_ID[ID:  2179] is set to 你的宽带password（注意移动宽带要在这里填写）
+</code></pre>
+<h3 id="让tr069失效">让TR069失效</h3>
+<pre><code>sendcmd 1 DB p MgtServer （查看一下当前配置，做好记录，以便恢复）
+sendcmd 1 DB set MgtServer 0 URL http://127.0.0.1 把服务器 URL 改掉
+sendcmd 1 DB set MgtServer 0 Tr069Enable 0 禁用TR069远程控制
+sendcmd 1 DB set MgtServer 0 PeriodicInformEnable 0 禁用TR069周期上报
+sendcmd 1 DB save
+</code></pre>
+<h3 id="修改连接数限制">修改连接数限制</h3>
+<pre><code>sendcmd 1 DB p CltLmt  查看一下当前的用户数量
+sendcmd 1 DB set CltLmt 8 Max 60  修改最大用户数为60，建议最大数目不超过255
+输入 sendcmd 1 DB save  保存修改
+</code></pre>
+<h3 id="如遇itms注册失败无法上网慎用">如遇ITMS注册失败，无法上网（慎用）</h3>
+<pre><code>sendcmd 1 DB set PDTCTUSERINFO 0 Status 0
+sendcmd 1 DB set PDTCTUSERINFO 0 Result 1
+sendcmd 1 DB save
+</code></pre>
+<blockquote>
+<p>注意:不要重置老光猫，即使自己更改数据后新的光猫不能用，也可插回老光猫继续使用，以免得都不能用</p>
+</blockquote>
+
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://blog.banana7.cn/post/_QZH49XDvi/">
+                <h3 class="post-title">
+                  免费图片托管解决方案：Telegraph-Image
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+          
+        </div>
+        
+
+        
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://blog.banana7.cn/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+    
+     <div class="site-info">
+      <div class="py-4 text-gray-700"><a class="rss" href="https://blog.banana7.cn/post/theme/">主题 </a>| <a class="rss" href="https://blog.banana7.cn/atom.xml" target="_blank">订阅</a> </div>
+    </div>  
+  </body>
+</html>

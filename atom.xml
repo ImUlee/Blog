@@ -1,0 +1,751 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://blog.banana7.cn</id>
+    <title>有理。</title>
+    <updated>2025-02-24T10:04:19.142Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://blog.banana7.cn"/>
+    <link rel="self" href="https://blog.banana7.cn/atom.xml"/>
+    <subtitle>Life &amp; Knowledge</subtitle>
+    <logo>https://blog.banana7.cn/images/avatar.png</logo>
+    <icon>https://blog.banana7.cn/favicon.ico</icon>
+    <rights>All rights reserved 2025, 有理。</rights>
+    <entry>
+        <title type="html"><![CDATA[7615以及7005的一些基础命令]]></title>
+        <id>https://blog.banana7.cn/post/QqOM_NULXh/</id>
+        <link href="https://blog.banana7.cn/post/QqOM_NULXh/">
+        </link>
+        <updated>2025-02-24T09:58:16.000Z</updated>
+        <summary type="html"><![CDATA[<p>整理了一些针对7615以及7005的一些基础命令</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>整理了一些针对7615以及7005的一些基础命令</p>
+<!-- more -->
+<h2 id="超级管理员账户登录光猫">超级管理员账户登录光猫</h2>
+<ul>
+<li>移动账号: CMCCAdmin 密码: aDm8H%MdA</li>
+<li>电信账号: telecomadmin 密码: nE7jA%5m</li>
+<li>联通账号: CUAdmin 密码: CUAdmin</li>
+<li>华为光猫原版固件账号: telecomadmin 密码: admintelecom</li>
+</ul>
+<blockquote>
+<p>查看所有配置 <code>setmac show2</code>  修改配置 <code>setmac 1</code></p>
+</blockquote>
+<h3 id="普通用户提权为admin">普通用户提权为admin</h3>
+<pre><code>sendcmd 1 DB set DevAuthInfo 1 Level 1
+sendcmd 1 DB save
+</code></pre>
+<h3 id="修改超级用户名和密码">修改超级用户名和密码:</h3>
+<pre><code>sendcmd 1 DB set DevAuthInfo 0 User XXXXxx
+sendcmd 1 DB set DevAuthInfo 0 Pass XXXXxx
+</code></pre>
+<h3 id="查询区域码命令">查询区域码命令：</h3>
+<pre><code>cat /etc/init.d/regioncode
+</code></pre>
+<h3 id="换区域省份">换区域（省份）：</h3>
+<pre><code>upgradetest sdefconf XXX （XXX填入区域代码）
+</code></pre>
+<h3 id="以移动中兴老光猫为例进行参数修改">以移动中兴老光猫为例：进行参数修改</h3>
+<pre><code>VENDORID[ID:  2176] is set to ZTEG
+GPONSN[ID:  2177] is set to 你的SN（一般8位）
+GPONPWD[ID:  2178] is set to set
+REG_ID[ID:  2179] is set to 你的宽带password（注意移动宽带要在这里填写）
+</code></pre>
+<h3 id="让tr069失效">让TR069失效</h3>
+<pre><code>sendcmd 1 DB p MgtServer （查看一下当前配置，做好记录，以便恢复）
+sendcmd 1 DB set MgtServer 0 URL http://127.0.0.1 把服务器 URL 改掉
+sendcmd 1 DB set MgtServer 0 Tr069Enable 0 禁用TR069远程控制
+sendcmd 1 DB set MgtServer 0 PeriodicInformEnable 0 禁用TR069周期上报
+sendcmd 1 DB save
+</code></pre>
+<h3 id="修改连接数限制">修改连接数限制</h3>
+<pre><code>sendcmd 1 DB p CltLmt  查看一下当前的用户数量
+sendcmd 1 DB set CltLmt 8 Max 60  修改最大用户数为60，建议最大数目不超过255
+输入 sendcmd 1 DB save  保存修改
+</code></pre>
+<h3 id="如遇itms注册失败无法上网慎用">如遇ITMS注册失败，无法上网（慎用）</h3>
+<pre><code>sendcmd 1 DB set PDTCTUSERINFO 0 Status 0
+sendcmd 1 DB set PDTCTUSERINFO 0 Result 1
+sendcmd 1 DB save
+</code></pre>
+<blockquote>
+<p>注意:不要重置老光猫，即使自己更改数据后新的光猫不能用，也可插回老光猫继续使用，以免得都不能用</p>
+</blockquote>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[免费图片托管解决方案：Telegraph-Image]]></title>
+        <id>https://blog.banana7.cn/post/_QZH49XDvi/</id>
+        <link href="https://blog.banana7.cn/post/_QZH49XDvi/">
+        </link>
+        <updated>2025-01-06T02:28:39.000Z</updated>
+        <summary type="html"><![CDATA[<p>由于原有的 Telegraph API 接口被官方关闭，导致失效，作者更新了新的方式需要将上传渠道切换至 Telegram Channel 故重新整理部署流程</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>由于原有的 Telegraph API 接口被官方关闭，导致失效，作者更新了新的方式需要将上传渠道切换至 Telegram Channel 故重新整理部署流程</p>
+<!-- more -->
+<h2 id="需要准备">需要准备</h2>
+<ul>
+<li><code>Cloudflare 账户</code></li>
+<li><code>Telegram Bot Token</code><br>
+向 <a href="https://t.me/BotFather">@BotFather</a> 发送命令 <code>/newbot</code> 根据提示信息创建一个新的机器人并获得 BOT_TOKEN</li>
+<li><code>Telegram Chat_ID</code>
+<ol>
+<li>创建一个频道发送任意消息并将 bot 设置为频道管理员</li>
+<li>通过 <a href="https://t.me/VersaToolsBot">@VersaToolsBot</a> 发送消息并把频道消息转发到此机器人即可获得频道ID</li>
+</ol>
+</li>
+</ul>
+<h2 id="1-fork-项目">1. Fork 项目</h2>
+<ul>
+<li>先 Fork <a href="https://github.com/cf-pages/Telegraph-Image"><strong>Telegraph-Image</strong></a> 到自己的库里</li>
+</ul>
+<h2 id="2-部署-image">2. 部署 Image</h2>
+<p>打开 <a href="https://dash.cloudflare.com/">Cloudflare Dashboard</a>　&gt;　<strong>Workers 和 Pages</strong>　&gt;　<strong>创建</strong>　&gt;　<strong>Pages</strong>　&gt;　<strong>连接到 Git</strong></p>
+<figure data-type="image" tabindex="1"><img src="https://blog.banana7.cn/post-images/1736130894894.png" alt="" loading="lazy"></figure>
+<p>添加你的 Github 账户后选择刚刚 Fork 到库里的 <strong>Telegraph-Image</strong>　&gt;　<strong>开始设置</strong>，跳转按照页面提示输入项目名称后点击<strong>保存并部署</strong></p>
+<figure data-type="image" tabindex="2"><img src="https://blog.banana7.cn/post-images/1736130922480.png" alt="" loading="lazy"></figure>
+<h2 id="21-设置自定义域名">2.1 设置自定义域名</h2>
+<p>前往自定义域　&gt;　设置自定义域　&gt;　<code>Domain</code> &gt;　继续　&gt;　激活域</p>
+<blockquote>
+<p>✨️在 Cloudflare 托管的域名自动会修改 DNS 记录</p>
+</blockquote>
+<figure data-type="image" tabindex="3"><img src="https://blog.banana7.cn/post-images/1736131163894.png" alt="" loading="lazy"></figure>
+<h2 id="22-创建-kv-空间并开启图片管理">2.2 创建 KV 空间并开启图片管理</h2>
+<p>回到 Cloudflare Dashboard　&gt;　存储和数据库　&gt;　KV　&gt;　创建名为<code>pic</code>的KV空间</p>
+<figure data-type="image" tabindex="4"><img src="https://blog.banana7.cn/post-images/1736131419427.png" alt="" loading="lazy"></figure>
+<p>再回到 设置　&gt;　绑定　&gt;　添加　&gt;　KV命名空间：变量名称：<code>img_url</code> KV命名空间：<code>pic</code></p>
+<figure data-type="image" tabindex="5"><img src="https://blog.banana7.cn/post-images/1736134896634.png" alt="" loading="lazy"></figure>
+<h2 id="23-添加变量账户">2.3 添加变量&amp;账户</h2>
+<p>跳转 设置　&gt;　变量和机密　&gt;　添加</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">变量名称</th>
+<th style="text-align:center">值</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">文本</td>
+<td style="text-align:center">BASIC_USER</td>
+<td style="text-align:center">用户名</td>
+<td style="text-align:center">用于后台登陆</td>
+</tr>
+<tr>
+<td style="text-align:center">文本</td>
+<td style="text-align:center">BASIC_PASS</td>
+<td style="text-align:center">密码</td>
+<td style="text-align:center">同上</td>
+</tr>
+<tr>
+<td style="text-align:center">文本</td>
+<td style="text-align:center">TG_Bot_Token</td>
+<td style="text-align:center">123468:AAxxxGKrn5</td>
+<td style="text-align:center">Bot Token</td>
+</tr>
+<tr>
+<td style="text-align:center">文本</td>
+<td style="text-align:center">TG_Chat_ID</td>
+<td style="text-align:center">-1234567</td>
+<td style="text-align:center">频道ID</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-重新部署生效">3. 重新部署生效</h2>
+<p>部署　&gt;　详细信息　&gt;　管理部署　&gt;　重试部署</p>
+<blockquote>
+<ul>
+<li>后台地址： https://Domain.com/admin</li>
+</ul>
+</blockquote>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[京东云 AX6000 百里刷入 ImmortalWrt]]></title>
+        <id>https://blog.banana7.cn/post/BkttMC9_Im/</id>
+        <link href="https://blog.banana7.cn/post/BkttMC9_Im/">
+        </link>
+        <updated>2024-11-17T03:22:36.000Z</updated>
+        <summary type="html"><![CDATA[<p>京东云的边缘计算产品，拥有较强配置并且有 64/128G 两种内存版本，争取通过刷入 ImmortalWrt 实现与软路由肩并肩的效果。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>京东云的边缘计算产品，拥有较强配置并且有 64/128G 两种内存版本，争取通过刷入 ImmortalWrt 实现与软路由肩并肩的效果。</p>
+<!-- more -->
+<h2 id="配置介绍">配置介绍</h2>
+<ul>
+<li><strong>处理器</strong>：MT7986A 四核2.0GHz</li>
+<li><strong>内存</strong>：1G</li>
+<li><strong>eMMC</strong>：128G</li>
+<li><strong>无线协议</strong>：WiFi 6</li>
+<li><strong>天线数量</strong>：外置 × 6 内置 × 2</li>
+<li><strong>无线速率</strong>：1148Mbps + 4804Mbps</li>
+<li><strong>最大频宽</strong>：160MHz</li>
+<li><strong>网络接口</strong>：2.5G网口 × 1 千兆网口 × 4</li>
+<li><strong>电源规格</strong>：12V/2A</li>
+</ul>
+<h2 id="备份原厂分区">备份原厂分区</h2>
+<p>推荐使用 MobaXterm 进行连接，复制全部命令执行</p>
+<pre><code>dd if=/dev/mmcblk0boot0 bs=512 count=2048 of=/mnt/mmcblk0p13/mmcblk0boot0_bl2.bin conv=fsync
+dd if=/dev/mmcblk0p1 of=/mnt/mmcblk0p13/mmcblk0p1_PMBR.bin conv=fsync
+dd if=/dev/mmcblk0 bs=512 skip=34 count=8158 of=/mnt/mmcblk0p13/mmcblk0p1_unpartitioned.bin conv=fsync
+dd if=/dev/mmcblk0p2 of=/mnt/mmcblk0p13/mmcblk0p2_u-boot-env.bin conv=fsync
+dd if=/dev/mmcblk0p3 of=/mnt/mmcblk0p13/mmcblk0p3_factory.bin conv=fsync
+dd if=/dev/mmcblk0p4 of=/mnt/mmcblk0p13/mmcblk0p4_fip.bin conv=fsync
+dd if=/dev/mmcblk0p5 of=/mnt/mmcblk0p13/mmcblk0p5_kernel.bin conv=fsync
+dd if=/dev/mmcblk0p6 of=/mnt/mmcblk0p13/mmcblk0p6_rootfs.bin conv=fsync
+dd if=/dev/mmcblk0p7 of=/mnt/mmcblk0p13/mmcblk0p7_kernel2.bin conv=fsync
+dd if=/dev/mmcblk0p8 of=/mnt/mmcblk0p13/mmcblk0p8_rootfs2.bin conv=fsync
+dd if=/dev/mmcblk0p9 of=/mnt/mmcblk0p13/mmcblk0p9_rootfs_data.bin conv=fsync
+dd if=/dev/mmcblk0p10 of=/mnt/mmcblk0p13/mmcblk0p10_log.bin conv=fsync
+dd if=/dev/mmcblk0p11 of=/mnt/mmcblk0p13/mmcblk0p11_plugin.bin conv=fsync
+dd if=/dev/mmcblk0p12 of=/mnt/mmcblk0p13/mmcblk0p12_swap.bin conv=fsync
+sync
+</code></pre>
+<p>耐心等待执行完成，最后一行 sync 回车执行即可，注意看最后一个 swap 分区是否备份完成<br>
+然后通过左侧 SFTP 窗口到 <strong>/mnt/mmcblk0p13</strong> 目录下载保存下来</p>
+<h2 id="刷入原生-openwrt-解锁-ssh">刷入原生 OpenWrt 解锁 SSH</h2>
+<p>京东云 AX6000 百里没有软破解SSH，通过原厂系统升级官方放出的原生 OP 可获取 SSH 权限</p>
+<ul>
+<li><strong>登录后台</strong> &gt; <strong>路由设置</strong> &gt; <strong>系统</strong> &gt; <strong>手动升级</strong> &gt; <strong>上传原生OP包</strong></li>
+</ul>
+<pre><code>openwrt-re-cp-03-4.1.0.r4005-1287bf0122329d5c3acbb7198e04b1e4.bin
+</code></pre>
+<blockquote>
+<p>注意：官方宣传升级原生OP会失去保修，请自行斟酌</p>
+</blockquote>
+<h2 id="刷入bl2-uboot">刷入bl2、uboot</h2>
+<p>SSH 连接 <code>192.168.68.1</code> 用户名 <code>root</code>，通过左侧的SFTP窗口将 <code>mt7986_jdcloud_re-cp-03-bl2_mod.bin</code>、<code>mt7986_jdcloud_re-cp-03-fip_mod.bin</code> 上传至 <strong>/tmp</strong> 目录后复制下方全部命令执行</p>
+<pre><code>ash
+echo 0 &gt; /sys/block/mmcblk0boot0/force_ro
+dd if=/tmp/mt7986_jdcloud_re-cp-03-bl2_mod.bin of=/dev/mmcblk0boot0
+echo 1 &gt; /sys/block/mmcblk0boot0/force_ro
+dd if=/tmp/mt7986_jdcloud_re-cp-03-fip_mod.bin of=$(blkid -t PARTLABEL=fip -o device)
+Sync
+</code></pre>
+<p>逐行执行验证 MD5 值</p>
+<pre><code>md5sum /dev/mmcblk0boot0
+## MD5: 6e5836957b623c410725c97f7c709fd4 
+
+md5sum $(blkid -t PARTLABEL=fip -o device)
+## MD5: 71cc6412cb7fabeb0a785b1a5ba9f3f0 
+</code></pre>
+<h2 id="刷入单分区-gpt-文件">刷入单分区 gpt 文件</h2>
+<p>选择所需分区大小的文件上传至 <strong>/tmp</strong> 并刷入，<strong>需要将命令内文件名修改为对应文件</strong>，以 512m 文件为例</p>
+<pre><code>dd if=/tmp/mt7986_jdcloud_re-cp-03_128G_rootfs512M_gpt.bin of=/dev/mmcblk0 bs=512 count=34
+Sync
+</code></pre>
+<p>验证文件 MD5 值</p>
+<pre><code>dd if=/dev/mmcblk0 bs=512 count=34 | md5sum
+
+## 不同分区文件对应的 MD5 值
+c119bde4206b61a67d4555fbdcf0900e  # mt7986_jdcloud_re-cp-03_128G_rootfs166M_gpt.bin
+a64f0714c52c4c8ed70fa75832b7ce9a  # mt7986_jdcloud_re-cp-03_128G_rootfs512M_gpt.bin
+c6765b1f68b5e3608481277090704af1  # mt7986_jdcloud_re-cp-03_128G_rootfs1024M_gpt.bin
+ed775a33aa58df66108bd044b8f70021  # mt7986_jdcloud_re-cp-03_128G_rootfs2048M_gpt.bin
+</code></pre>
+<p>查看 rootfs 分区是否为对应大小</p>
+<pre><code>fdisk -l /dev/mmcblk0
+</code></pre>
+<p><img src="https://blog.banana7.cn/post-images/1731947856639.png" alt="" loading="lazy"><br>
+清除查看分区所出现的红色字段</p>
+<pre><code>fdisk /dev/mmcblk0
+## 回车 输入: w
+</code></pre>
+<h2 id="以上操作完成后才能重启-期间切勿断电">▲ 以上操作完成后才能重启 期间切勿断电</h2>
+<h2 id="进入-uboot-刷机">进入 uboot 刷机</h2>
+<ol>
+<li>手动设置以太网 iPv4 地址为：<code>192.168.1.2</code> 子网掩码：<code>225.225.225.225</code></li>
+<li>路由器上电并按住 rst 直至红灯闪烁变为蓝色</li>
+<li>浏览器打开 <code>http://192.168.1.1</code> 选择固件上传刷写，提示成功后会自动重启进入系统</li>
+<li>uboot刷好第三方OP系统后，SSH登录用命令格式化下最后一个 storage 分区</li>
+</ol>
+<pre><code>umount $(blkid -t PARTLABEL=storage -o device)
+mkfs.ext4 $(blkid -t PARTLABEL=storage -o device)
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[通过 UGlink 将局域网内端口转发到公网]]></title>
+        <id>https://blog.banana7.cn/post/DlBaLOyKdh/</id>
+        <link href="https://blog.banana7.cn/post/DlBaLOyKdh/">
+        </link>
+        <updated>2024-10-17T03:13:20.000Z</updated>
+        <summary type="html"><![CDATA[<p>UGlink 是一个充满乐趣和可能性的服务，因此请合理使用 UGlink 服务，不将其用于非法目的和任何商业形式。<br>
+让我们共同维护 UGlink 服务的健康运行，使其能够长期为我们提供服务。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>UGlink 是一个充满乐趣和可能性的服务，因此请合理使用 UGlink 服务，不将其用于非法目的和任何商业形式。<br>
+让我们共同维护 UGlink 服务的健康运行，使其能够长期为我们提供服务。</p>
+<!-- more -->
+<blockquote>
+<ul>
+<li>拷贝文章<a href="https://post.smzdm.com/p/am3xod74/?send_by=9077734264&amp;invite_code=zdmcdh2bc4inv&amp;zdm_ss=iOS_9077734264_&amp;from=singlemessage"> · 《通过uglink将局域网设备或者docker容器穿透到公网》</a></li>
+</ul>
+</blockquote>
+<h2 id=""></h2>
+<p>执行 <code>cd /etc/nginx</code> 进入目录后备份 ugreen.conf 文件</p>
+<pre><code>cp /etc/nginx/ugreen.conf /etc/nginx/ugreen.conf.bak // 复制一份.bak
+</code></pre>
+<p>执行 <code>vi /etc/nginx/ugreen.conf</code> 进行编辑注释并保存</p>
+<pre><code>#include /etc/nginx/ugreen_nocache.conf;  // 注释该行
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://blog.banana7.cn/post-images/1729143968126.png" alt="" loading="lazy"></figure>
+<p>进入配置目录 <code>cd /etc/nginx/conf.d</code>，执行 <code>touch test.conf</code> 创建 test.conf 文件，复制以下内容粘贴至内，并修改注释处内容</p>
+<pre><code>location /test/ { ## 修改访问路径，但前后的/请保留
+    proxy_pass http://192.168.1.1/;  ## 修改 Nas 可以访问的地址或端口
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header REMOTE-HOST $remote_addr;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $connection_upgrade;
+    proxy_http_version 1.1;
+    # proxy_hide_header Upgrade;
+    add_header X-Cache $upstream_cache_status;
+    #Set Nginx Cache
+    set $static_fileZqpqK5EA 0;
+    if ( $uri ~* &quot;.(gif|png|jpg|css|js|woff|woff2)$&quot; )
+    {
+        set $static_fileZqpqK5EA 1;
+        expires 1m;
+        }
+    if ( $static_fileZqpqK5EA = 0 )
+    {
+    add_header Cache-Control no-cache;
+    }
+}
+</code></pre>
+<p>如需转发多个地址，创建多个 *.conf 文件即可，注意不同配置路径</p>
+<h2 id="验证配置是否生效">验证配置是否生效</h2>
+<ol>
+<li>执行 <code>nginx -t</code> 检查配置是否正确，反馈 <strong>successful</strong> 表明配置正确</li>
+<li>执行 <code>systemctl reload nginx</code> 重启 Nginx 生效</li>
+</ol>
+<h2 id="访问路径为-uglinktest">访问路径为 *.ug.link/test/</h2>
+<p>先通过 UGlink 跳转后，再在域名后缀加上自定义的访问路径 <strong>/test/</strong>，如: <code>*.cn2.ug.link/test/</code></p>
+<h2 id="恢复">恢复</h2>
+<p>将备份的 <strong>ugreen.conf</strong> 文件恢复至 <strong>/etc/nginx</strong>，并删除 <strong>conf.d</strong> 文件夹下创建的配置文件即可</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[自动跳转领取赏金红包链接]]></title>
+        <id>https://blog.banana7.cn/post/VupFi7cVM/</id>
+        <link href="https://blog.banana7.cn/post/VupFi7cVM/">
+        </link>
+        <updated>2024-08-14T01:44:40.000Z</updated>
+        <summary type="html"><![CDATA[<p>通过抓取赏金红包二维码参数，实现打开链接自动跳转领取红包</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>通过抓取赏金红包二维码参数，实现打开链接自动跳转领取红包</p>
+<!-- more -->
+<table>
+<thead>
+<tr>
+<th style="text-align:center">userID</th>
+<th style="text-align:center">token</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://blog.banana7.cn/post-images/1724144228035.png" alt="" loading="lazy"></td>
+<td style="text-align:center">暂无获取方法<br/>(之前生成过的红包码可以解析二维码提取)</td>
+</tr>
+</tbody>
+</table>
+<p>将获取到的值分别替换到下方链接内，替换路径： <code>shareId%253D &lt;shareId&gt; %</code>、<code>token%253D &lt;token&gt; %</code></p>
+<pre><code>https://ulink.alipay.com/?scheme=alipays%3A%2F%2Fplatformapi%2Fstartapp%3FsaId%3D10000007%26clientVersion%3D3.7.0.0718%26qrcode%3Dhttps%253A%252F%252Frender.alipay.com%252Fp%252Fc%252Falipay-red-qrcode%252Fshared.html%253Fchannel%253Dsearch_pwd%2526shareId%253D2088122848896493%2526token%253Dk0c19617671miizjp2ywcgih74yCl%2526campStr%253DkPPFvOxaCL3f85TiKss2wsBZgIjulHjG%2526sign%253DqsiVOoa7TuphryWxyBdONXsMTnE3jiIBvWeUs3yV1sw%253D%2526chInfo%253DDingtalk%2526c_stype%253Dsearch_pwd
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[拥有无限可能：无界丨Bncr 3.0]]></title>
+        <id>https://blog.banana7.cn/post/tCt5u-En8/</id>
+        <link href="https://blog.banana7.cn/post/tCt5u-En8/">
+        </link>
+        <updated>2024-07-29T02:42:57.000Z</updated>
+        <summary type="html"><![CDATA[<p>Bncr 是一个开箱即用的Nodejs Chat RoBot（会话式机器人）框架。它基于OOP函数响应式编程，具有占用小、响应快、开发易等特点，允许开发者创建高度可测试、可扩展、松散耦合且易于维护的应用程序。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Bncr 是一个开箱即用的Nodejs Chat RoBot（会话式机器人）框架。它基于OOP函数响应式编程，具有占用小、响应快、开发易等特点，允许开发者创建高度可测试、可扩展、松散耦合且易于维护的应用程序。</p>
+<!-- more -->
+<p>本文所有内容摘抄至 <a href="https://notes.dsdog.tk/archives/1716304583708"><strong>从零开始的无界3.0</strong></a>，整理后方便个人查阅，详细细节跳转原文查看</p>
+<h2 id="获取授权码">获取授权码</h2>
+<ol>
+<li>先与 <a href="https://t.me/red_Lights_Districts_Bot">@red_Lights_Districts_Bot</a> 对话，发送：<strong>/start</strong> 启动机器人</li>
+<li>随后在群组 <a href="https://t.me/BncrJSChat">BncrJS 社区</a> 内发送：<strong>/get_token</strong>，机器人会自动私信 TOKEN 给你</li>
+</ol>
+<h2 id="部署-bncrdocker-compose">部署 Bncr：Docker Compose</h2>
+<pre><code>version: &quot;3&quot;
+services:
+  bncr:
+    image: anmour/bncr
+    container_name: bncr
+    stdin_open: true
+    tty: true
+    volumes:
+      - /root/BncrData:/bncr/BncrData
+    network_mode: bridge
+    ports:
+      - 9090:9090
+    restart: always
+</code></pre>
+<p>部署完成后执行 <code>docker attach bncr</code> 进入容器，依次根据提示进行配置</p>
+<ul>
+<li><strong>无界服务状态：</strong> <a href="https://bncr.dsdog.tk/">https://bncr.dsdog.tk/</a></li>
+<li><strong>初始化 WEBUI：</strong> http://Bncr_iP:9090</li>
+</ul>
+<h2 id="插件市场">插件市场</h2>
+<p>根据订阅链接选择链接模式添加插件地址</p>
+<ul>
+<li>
+<p><strong>红灯区</strong><br>
+https://github.com/RedLightsDistrict/Bncr_plugins</p>
+</li>
+<li>
+<p><strong>D佬</strong><br>
+bncrSub://UpdjUc6jid/ZFkJhEZFTW0zFEYpg7ZPidkatlTM6OSN/bOxWaExKe5VQ14AHsy+0ufSXlKVuOuRYAqkTz7a2Z3dS8aW8mj6O8MsZVFDHMpc=</p>
+</li>
+<li>
+<p><strong>寒佬</strong><br>
+bncrsub://3BPeb/Ff4FlBAx372D99jdVghsmvkSgLBq9KU/hngTdwC2GEcEwqYWSWDYKb6RfikHZG1cRp8/VvIGJ786YOuBlGXSIKXzAA1klCLP7Pc80=</p>
+</li>
+<li>
+<p><strong>sumuen</strong><br>
+https://github.com/sumuen/Bncr_plugin</p>
+</li>
+<li>
+<p><strong>小九九</strong><br>
+https://github.com/randomshit699/Bncr_plugins</p>
+</li>
+<li>
+<p><strong>三藏</strong><br>
+https://github.com/3zang/Bncr_plugins</p>
+</li>
+</ul>
+<h2 id="对接微信-wechatferry">对接微信 · WechatFerry</h2>
+<p>WechatFerry 目前有两种部署方案 WeChatFerry HTTP 与 wcf-docker</p>
+<ul>
+<li>
+<p><strong>Windows 环境：WeChatFerry HTTP 客户端</strong></p>
+<ol>
+<li>下载 <a href="https://github.com/lich0821/wcf-client-rust/releases/tag/v39.2.4.2">WcfRust</a>，并安装 <a href="https://github.com/lich0821/WeChatFerry/releases/tag/v39.2.4">3.9.10.27 版本微信</a></li>
+<li>插件内设置回调接口地址：http://Bncr_iP:9090/api/bot/ferry</li>
+<li>WcfRust 上报地址：http://Win_iP:10010</li>
+</ol>
+</li>
+<li>
+<p><strong>Docker 环境：wcf-docker</strong></p>
+<ol>
+<li>通过 Docker Compose 配置 wcf<pre><code>version: &quot;3&quot;
+services:
+  wcf:
+   image: jackytj/wcf-docker:latest
+   container_name: wcf
+   network_mode: bridge
+   volumes:
+     - #pwd:/home/app/wechat  ##替换持久化数据路径
+   ports:
+     - 8080:8080
+     - 8000:8000
+   environment:
+     - CALLBACK_URL=http://127.0.0.1:9090/api/bot/ferry  ##替换本地 Bncr 地址及端口
+   restart: always
+</code></pre>
+</li>
+<li>账号登录地址：http://127.0.0.1:8080 上报地址：http://127.0.0.1:8000</li>
+</ol>
+</li>
+<li>
+<p><strong>配置 Bncr 插件</strong></p>
+<ol>
+<li>下载 <strong>wechatFerry.js</strong> 插件放入 <strong>/Bncr/Adapter/</strong> 目录下，重启无界生效</li>
+<li>进入<strong>插件配置</strong>　&gt;　/Adapter/<strong>wechatFerry.js</strong>　&gt;　<strong>开启适配器</strong>　&gt;　<strong>配置上报地址</strong></li>
+</ol>
+<ul>
+<li>添加管理员 <code>set wechatFerry admin ?</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="对接青龙">对接青龙</h2>
+<p>青龙相关的功能都是基于奶酪插件实现的，但是红灯区暂未适配3.0，需要手动加载插件</p>
+<ol>
+<li>下载 <a href="https://raw.githubusercontent.com/RedLightsDistrict/Bncr_plugins/main/%E5%A5%B6%E9%85%AA.js"><strong>奶酪.js</strong></a> 到无界的 <strong>/bncr/BncrData/plugins/红灯区</strong> 目录下</li>
+<li>一并下载 <a href="https://github.com/RedLightsDistrict/Bncr_plugins/tree/main/mod">mod</a> 文件夹下 AmQlMod.js、AmTool.js 和 CryptoJS.js 到 <strong>/红灯区/mod</strong> 目录下</li>
+<li>下载好后进入文件管理，编辑奶酪插件，将 <code>origin</code> 改成 <code>team</code> 保存</li>
+</ol>
+<ul>
+<li>添加青龙面板：使用管理员身份发送【面板管理】</li>
+</ul>
+<h2 id="账号登录">账号登录</h2>
+<ul>
+<li><strong>RabbitPro</strong>
+<ol>
+<li>插件市场下载 <strong>登录.js</strong> 插件，并安装部分依赖搜索 <code>tool</code> 一并下载，重启无界生效</li>
+<li>进入 <strong>插件配置</strong>　&gt;　/plugins/红灯区/<strong>登录.js</strong>　&gt;　<strong>配置必填项</strong></li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>Rabbit 容器 ID 默认为２，如中间删除过则 +1=3；依次类推</li>
+<li>容器 ID 即使没有也要填写为０，否则无法保存！</li>
+<li>如果登录有报错，请运行D佬的一键依赖并重启，got版本控制在11.8.5；安装：npm i got@11.8.5</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>账密登录</strong><br>
+Docker Compose 部署：</li>
+</ul>
+<pre><code>version: &quot;3&quot;
+services:
+  jd_autologin:
+    image: python:3.12.4
+    container_name: jd_autologin
+    restart: unless-stopped
+    network_mode: host
+    working_dir: /usr/src/app
+    command: &gt;
+      sh -c &quot;apt -y update &amp;&amp; apt -y install libnss3 libnspr4 libatk1.0-0
+      libatk-bridge2.0-0 libcups2 libdrm2 libdbus-1-3 libxkbcommon0
+      libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2
+      libatspi2.0-0 libxshmfence1 &amp;&amp; python -m pip install --upgrade pip &amp;&amp; pip
+      install pyppeteer Pillow asyncio aiohttp opencv-python-headless ddddocr
+      quart &amp;&amp; wget
+      https://proxy.07170501.xyz/proxy/https://raw.githubusercontent.com/randomshit699/Bncr_plugins/main/plugins/%E9%99%84%E4%BB%B6/%E8%B4%A6%E5%AF%86%E7%99%BB%E5%BD%95/api.py
+      -O api.py &amp;&amp; wget
+      https://proxy.07170501.xyz/proxy/https://raw.githubusercontent.com/randomshit699/Bncr_plugins/main/plugins/%E9%99%84%E4%BB%B6/%E8%B4%A6%E5%AF%86%E7%99%BB%E5%BD%95/login.py
+      -O login.py &amp;&amp; python api.py&quot;
+networks: {}
+</code></pre>
+<ul>
+<li>配置插件：进入 <strong>插件配置</strong>　&gt;　/plugins/红灯区/<strong>登录.js</strong>　&gt;　<strong>配置账密部分</strong></li>
+</ul>
+<h3 id="资产查询">资产查询</h3>
+<p>插件市场下载插件：<strong>查询.js</strong> / <strong>h5st.js</strong>，并安装依赖 <code>npm i date-fns</code> 重启无界生效</p>
+<blockquote>
+<ul>
+<li>如果登录有报错，请运行D佬的一键依赖并重启，got版本控制在11.8.5；安装：npm i got@11.8.5</li>
+<li>有火爆的话在 Doraemon_config_tool.js 插件下配置代理</li>
+</ul>
+</blockquote>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[关于盒子 ec6108v9 刷入 HiNas 后实现 WiFi 连接]]></title>
+        <id>https://blog.banana7.cn/post/Yff_Z9DeY/</id>
+        <link href="https://blog.banana7.cn/post/Yff_Z9DeY/">
+        </link>
+        <updated>2023-07-04T01:18:47.000Z</updated>
+        <summary type="html"><![CDATA[<p>为刷入 HiNas 的电视盒子补上WiFi驱动能够实现WiFi连接（实现任意角落吃灰），不必再随身拖着网线限制。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>为刷入 HiNas 的电视盒子补上WiFi驱动能够实现WiFi连接（实现任意角落吃灰），不必再随身拖着网线限制。</p>
+<!-- more -->
+<blockquote>
+<p>华为悦盒 ec6108v9 芯片机型为：hi3798Mv100</p>
+<ul>
+<li><a href="https://www.123pan.com/s/i8ADVv-lxgiH.html">TTL线刷固件包20220808</a></li>
+<li><a href="https://www.123pan.com/s/i8ADVv-lxgiH.html">WiFi 驱动配套内核、驱动、脚本</a></li>
+<li>烧录文章见海纳斯刷机手册：<a href="https://dl.ecoo.top/docs/tutorial-basics/ttl-flash">https://dl.ecoo.top/docs/tutorial-basics/ttl-flash</a></li>
+</ul>
+</blockquote>
+<h2 id="驱动-wifi">驱动 WiFi</h2>
+<p>通过 SSH 连接悦盒，并下载配套内核 <a href="https://www.123pan.com/s/i8ADVv-lxgiH.html">hi_kernel-mv100-0808.bin</a>  上传至根目录后执行</p>
+<pre><code>dd if=hi_kernel-mv100-0808.bin of=/dev/mmcblk0p6
+</code></pre>
+<p>执行完成后<strong>重启盒子</strong>重新连接 SSH ：</p>
+<ol>
+<li>将 rtl8188etv-0808.tar.gz 、 wifi_install.sh 上传至 <strong>/tmp</strong> 文件夹</li>
+<li>执行 <code>cd /tmp</code> 进入文件夹，执行 <code>chmod a+x wifi_install.sh</code> 赋予脚本权限</li>
+<li>使用脚本进行安装 <code>sh wifi_install.sh -f 驱动包 [参数1] [参数1] ...</code></li>
+</ol>
+<pre><code>-f, --file    // 驱动文件包名称 例如 rtl8188ftv.tar.gz
+-s, --ssid    // [可选] WiFi 昵称
+-p, --password    // [可选] WiFi 密码
+-d, --address   // [可选] 固定 iP 地址如 192.168.1.100
+-g, --gateway    // [可选] 网关：一般为网段的第一个 IP 如 192.168.1.1
+-m, --netmask    // [可选] 掩码：一般为 255.255.255.0
+例如：
+sh wifi_install.sh -f rtl8188etv-0808.tar.gz -s ChineaNet-X231 -p 123456 -d 192.168.50.50
+</code></pre>
+<ol start="4">
+<li>运行命令后会提示“安装成功”，此时驱动安装完成。</li>
+</ol>
+<blockquote>
+<ul>
+<li>如果使用了 -s 参数，脚本会尝试连接wifi，成功后提示“连接成功”</li>
+<li>如果填入了 -d 参数，脚本会尝试修改wifi配置，成功后提示“修改地址成功”</li>
+<li>想修改WIFI配置的话可以使用命令 nmcli connection delete &quot;WiFi昵称&quot; 之后再使用本脚本重新配置，此时可无需使用 -f 参数</li>
+</ul>
+</blockquote>
+<h3 id="1-解决拔掉网线后不能正常访问盒子">1. 解决拔掉网线后不能正常访问盒子</h3>
+<p>一旦重新插网线，系统就增加一条优先级更高的默认路由，所有数据都从 eth0 接口出，导致通过 wlan0 的地址不能正常访问盒子了</p>
+<ul>
+<li>
+<p>笨办法就是只能拔掉网线，重新启动。</p>
+</li>
+<li>
+<p>聪明的办法就是手工删掉如下两条路由，命令如下：</p>
+<pre><code>ip route delete 192.168.3.0/24 dev eth0 // 替换为自己的 IP 段地址
+ip route delete default
+</code></pre>
+<p>可以用 <code>ip route show</code> 命令查看系统路由表</p>
+</li>
+</ul>
+<h3 id="2-解决补完-wifi-补丁后启动慢">2. 解决补完 WiFi 补丁后启动慢</h3>
+<p>插入网线等待正常进入系统后 SSH 连接执行</p>
+<pre><code>sudo vim /etc/systemd/system/network-online.target.wants/networking.service
+</code></pre>
+<p>将里面的 TimeoutStartSec=5min 修改为 <code>TimeoutStartSec=2sec</code> 后保存，再执行：</p>
+<pre><code>sudo vim /etc/dhcp/dhclient.conf
+</code></pre>
+<p>修改 <code>timeout</code> 为 <code>15</code> 后保存。</p>
+<h3 id="3-解决-wifi-连接后主页局域网页不能打开">3. 解决 WiFi 连接后主页局域网页不能打开</h3>
+<p>修改首页文件：<code>/var/www/html/index.html</code> 将下面这行的 <code>eth0</code> 替换为 <code>wlan0</code> ：</p>
+<pre><code>$lanip=shell_exec(&quot;ifconfig eth0 | grep '&lt;inet&gt;'| grep -v '127.0.0.1' | awk '{ print $2}' | awk 'NR==1' 2&gt;&amp;1&quot;);
+</code></pre>
+<p>修改后如下所示：</p>
+<pre><code>$lanip=shell_exec(&quot;ifconfig wlan0 | grep '&lt;inet&gt;'| grep -v '127.0.0.1' | awk '{ print $2}' | awk 'NR==1' 2&gt;&amp;1&quot;);
+</code></pre>
+<p>修改同目录下另外一个文件：<code>/var/www/html/index2.html</code> 也是将类似行的 <code>eth0</code> 替换为 <code>wlan0</code><br>
+然后重启nginx服务，命令如下：</p>
+<pre><code>systemctl restart nginx.service
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[恢复 Redmi AX6 至官方固件]]></title>
+        <id>https://blog.banana7.cn/post/PcnB0rJ5_/</id>
+        <link href="https://blog.banana7.cn/post/PcnB0rJ5_/">
+        </link>
+        <updated>2023-06-28T09:55:57.000Z</updated>
+        <summary type="html"><![CDATA[<p>刷uboot后想要退烧、追求稳定或出手需要恢复官方固件方法，<strong>刷机有风险，操作需谨慎</strong>。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>刷uboot后想要退烧、追求稳定或出手需要恢复官方固件方法，<strong>刷机有风险，操作需谨慎</strong>。</p>
+<!-- more -->
+<h3 id=""></h3>
+<p>推荐使用终端：<strong>MobaXterm</strong>  进行 SSH 连接，下载分区表后将解压后的两个ubi格式文件 <code>mibib.bin</code>、<code>appsbl.bin</code> 上传至 /tmp 根目录下，执行 <code>cat /proc/mtd</code> 查看分区确认 <strong>mtd1</strong> 和 <strong>mtd7</strong> 的分区<strong>是否存在</strong></p>
+<pre><code>root@lede:~# cat /proc/mtd
+dev: size erasesize name
+mtd0: 00100000 00020000 “0:sbl1”
+mtd1: 00100000 00020000 “0:mibib”  // 检查是否存在此分区
+mtd2: 00300000 00020000 “0:qsee”
+mtd3: 00080000 00020000 “0:devcfg”
+mtd4: 00080000 00020000 “0:rpm”
+mtd5: 00080000 00020000 “0:cdt”
+mtd6: 00080000 00020000 “0:appsblenv”
+mtd7: 00100000 00020000 “0:appsbl”  // 检查是否存在此分区
+mtd8: 00080000 00020000 “0:art”
+mtd9: 00080000 00020000 “bdata”
+mtd10: 00080000 00020000 “crash”
+mtd11: 00080000 00020000 “crash_syslog”
+mtd12: 023c0000 00020000 “rootfs”
+mtd13: 023c0000 00020000 “rootfs_1”
+mtd14: 01ec0000 00020000 “overlay”
+mtd15: 00080000 00020000 “rsvd0”
+</code></pre>
+<p>确认存在无误后开始刷写，SSH连接路由器依次输入以下</p>
+<pre><code>mtd erase /dev/mtd1
+mtd write /tmp/mibib.bin /dev/mtd1
+mtd erase /dev/mtd7
+mtd write /tmp/appsbl.bin /dev/mtd7
+</code></pre>
+<p>输入完命令后等待一分钟，路由器断电并设置主机 iP 为 <code>192.168.31.100</code></p>
+<p>通过网线电脑与路由器连接，然后打开 <strong>小米路由修复工具</strong> &gt; 按住路由器 <code>reset</code> 开机后修复工具选择 <code>192.168.31.100</code> 的网卡，修复进入救砖待机界面，再次断电，<strong>重新按住 <code>reset</code> 键插电橙灯闪烁后松手</strong></p>
+<blockquote>
+<p>退出杀毒软件&amp;Windows Defender 防火墙 等杀毒软件，避免拦截修复工具</p>
+</blockquote>
+<figure data-type="image" tabindex="1"><img src="https://blog.banana7.cn/post-images/1721922511553.png" alt="" loading="lazy"></figure>
+<p>然后我们看到救砖软件里面开始上传固件后等待蓝灯闪烁等待1分钟断电、重新插电即可恢复到官方系统。</p>
+<blockquote>
+<ul>
+<li><a href="https://www.right.com.cn/forum/forum.php?mod=viewthread&amp;tid=8236039&amp;extra=&amp;highlight=uboot&amp;page=1">恩山论坛 - [AX3600] ax6 ax3600刷uboot后恢复官方系统方法</a></li>
+</ul>
+</blockquote>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Redmi AX6 写入不死 UBoot 引导]]></title>
+        <id>https://blog.banana7.cn/post/R_MbjrT8R/</id>
+        <link href="https://blog.banana7.cn/post/R_MbjrT8R/">
+        </link>
+        <updated>2023-06-21T02:32:10.000Z</updated>
+        <summary type="html"><![CDATA[<p>想要刷入任意 OP 、QSDK、QWRT 等固件的前提，则需先刷入一个不死引导</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>想要刷入任意 OP 、QSDK、QWRT 等固件的前提，则需先刷入一个不死引导</p>
+<!-- more -->
+<h3 id=""></h3>
+<p>推荐使用终端：<strong>MobaXterm</strong> 进行 SSH 连接并依次执行：</p>
+<pre><code>nvram set flag_last_success=0
+nvram set flag_boot_rootfs=0
+nvram set flag_boot_success=1
+nvram set flag_try_sys1_failed=0
+nvram set flag_try_sys2_failed=0
+nvram set boot_wait=on
+nvram set uart_en=1
+nvram set telnet_en=1
+nvram set ssh_en=1
+nvram commit
+</code></pre>
+<p>上传临时固件 <code>xiaomimtd12.bin</code> 至 tmp 目录<br>
+执行 <code>mtd write /tmp/xiaomimtd12.bin rootfs</code> 烧写，完成后<strong>拔电源断电重启</strong></p>
+<blockquote>
+<ul>
+<li>临时固件 LED 不生效默认不亮</li>
+<li>后台地址：<code>192.168.1.1</code>   /   SSH：<code>root</code> NO Password</li>
+</ul>
+</blockquote>
+<p>再次 SSH 连接临时固件后依次执行：</p>
+<pre><code>fw_setenv flag_last_success 0
+fw_setenv flag_boot_rootfs 0
+</code></pre>
+<p>上传 uboot 文件 <code>ax6-mibib.bin</code>、<code>uboot-redmi-ax6.bin</code> 至 tmp 目录，依次执行：</p>
+<pre><code>mtd erase /dev/mtd1
+mtd write /tmp/ax6-mibib.bin /dev/mtd1
+mtd erase /dev/mtd7
+mtd write /tmp/uboot-redmi-ax6.bin /dev/mtd7
+</code></pre>
+<p>烧写完成后<strong>拔电源断电重启</strong></p>
+<h2 id="进入-uboot">进入 Uboot</h2>
+<p>通过网线连接 <code>LAN</code> 口并手动分配主机 iPv4 为：<code>192.168.1.2</code> 浏览器访问: <code>192.168.1.1</code></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[一键解锁 Redmi AX6 SSH： xmir-patcher]]></title>
+        <id>https://blog.banana7.cn/post/6fJkcITaS/</id>
+        <link href="https://blog.banana7.cn/post/6fJkcITaS/">
+        </link>
+        <updated>2023-06-20T05:33:22.000Z</updated>
+        <summary type="html"><![CDATA[<p>最强小米/红米路由器一键ssh工具, 刷机告别ttl, 也不需要另外一个路由器了(比如ax6). 已经测试过CR880X, AX6, AX6S, AX5JDC, AX3000.</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>最强小米/红米路由器一键ssh工具, 刷机告别ttl, 也不需要另外一个路由器了(比如ax6). 已经测试过CR880X, AX6, AX6S, AX5JDC, AX3000.</p>
+<!-- more -->
+<blockquote>
+<ul>
+<li><a href="https://github.com/openwrt-xiaomi/xmir-patcher">https://github.com/openwrt-xiaomi/xmir-patcher</a></li>
+</ul>
+</blockquote>
+<ol>
+<li>
+<p>Windows 运行：<code>run.bat</code></p>
+<ul>
+<li>Linux / Mac OS 运行: 1. <code>Install python 3.8, openssl</code> 2. Run <code>run.sh</code></li>
+</ul>
+</li>
+<li>
+<p>主菜单选 <code>1</code> 输入目标路由器 <code>iP</code> 地址</p>
+</li>
+<li>
+<p>主菜单选 <code>2</code> 开启 SSH (注意此时ssh并没固化,重启会失效,要固化做第四步,也可以直接开始刷分区和uboot)</p>
+</li>
+<li>
+<p>(可选)主菜单选 8 再选 7 固化 SSH</p>
+</li>
+</ol>
+<ul>
+<li>默认账号&amp;密码：root/root 修改root密码：passwd</li>
+</ul>
+<h2 id="补充">补充</h2>
+<p>SSH 默认的密码会改成 root. 即使固化之后，重启之后密码可能会被恢复成 SN 算出来的那个, 原因不明，可能小米有保护机制.<br>
+想要永久固化的话, 在 <code>/etc/rc.local</code> 最后一行上面加一行‘替换root为新密码’</p>
+<pre><code>vi /etc/rc.local
+echo -e 'root\nroot' | passwd root
+</code></pre>
+]]></content>
+    </entry>
+</feed>

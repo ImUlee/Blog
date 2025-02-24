@@ -1,0 +1,352 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>通过 UGlink 将局域网内端口转发到公网 | 有理。</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="shortcut icon" href="https://blog.banana7.cn/favicon.ico?v=1">
+<link rel="stylesheet" href="/media/katex.min.css">
+<link href="/media/remixicon/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="/media/fonts.css">
+<link rel="stylesheet" href="/media/animate.min.css">
+<!-- 适配Safari书签页和iOS桌面图标 --> 
+<link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="有理Ulee">
+<link rel="bookmark" href="/media/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/media/apple-touch-icon.png" >
+
+
+<link rel="stylesheet" href="https://blog.banana7.cn/styles/main.css">
+
+<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?4faae41facfc71bcdb431a4f9471d6cb";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <!-- <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i> -->
+        
+        <a href="https://blog.banana7.cn">
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">有理。</h1>
+        </a>
+        <div class="top1block" style="margin-left: auto;">
+          
+            
+          
+            
+          
+            
+              <a href="https://music.163.com/#/song?id=461518855" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-netease-cloud-music-line"></i>
+              </a>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a href="/post/about"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-profile-line"></i>
+              </a>
+            
+          
+            
+              <a href="/archives"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-archive-line"></i>
+              </a>
+            
+          
+            
+              <a href="/atom.xml" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-rss-line"></i>
+              </a>
+            
+          
+        </div>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li></li>
+<li><a href="#%E9%AA%8C%E8%AF%81%E9%85%8D%E7%BD%AE%E6%98%AF%E5%90%A6%E7%94%9F%E6%95%88">验证配置是否生效</a></li>
+<li><a href="#%E8%AE%BF%E9%97%AE%E8%B7%AF%E5%BE%84%E4%B8%BA-uglinktest">访问路径为 *.ug.link/test/</a></li>
+<li><a href="#%E6%81%A2%E5%A4%8D">恢复</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"><a class="rss" href="https://blog.banana7.cn/post/theme/">主题 </a></div>
+    <a class="rss" href="https://blog.banana7.cn/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">通过 UGlink 将局域网内端口转发到公网</h1>
+        
+        <div class="text-sm text-gray-700 lg:my-8">
+          
+            2024-10-17
+          
+        </div>
+        
+        
+        <div class="post-content yue">
+          <p>UGlink 是一个充满乐趣和可能性的服务，因此请合理使用 UGlink 服务，不将其用于非法目的和任何商业形式。<br>
+让我们共同维护 UGlink 服务的健康运行，使其能够长期为我们提供服务。</p>
+<!-- more -->
+<blockquote>
+<ul>
+<li>拷贝文章<a href="https://post.smzdm.com/p/am3xod74/?send_by=9077734264&amp;invite_code=zdmcdh2bc4inv&amp;zdm_ss=iOS_9077734264_&amp;from=singlemessage"> · 《通过uglink将局域网设备或者docker容器穿透到公网》</a></li>
+</ul>
+</blockquote>
+<h2 id=""></h2>
+<p>执行 <code>cd /etc/nginx</code> 进入目录后备份 ugreen.conf 文件</p>
+<pre><code>cp /etc/nginx/ugreen.conf /etc/nginx/ugreen.conf.bak // 复制一份.bak
+</code></pre>
+<p>执行 <code>vi /etc/nginx/ugreen.conf</code> 进行编辑注释并保存</p>
+<pre><code>#include /etc/nginx/ugreen_nocache.conf;  // 注释该行
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://blog.banana7.cn/post-images/1729143968126.png" alt="" loading="lazy"></figure>
+<p>进入配置目录 <code>cd /etc/nginx/conf.d</code>，执行 <code>touch test.conf</code> 创建 test.conf 文件，复制以下内容粘贴至内，并修改注释处内容</p>
+<pre><code>location /test/ { ## 修改访问路径，但前后的/请保留
+    proxy_pass http://192.168.1.1/;  ## 修改 Nas 可以访问的地址或端口
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header REMOTE-HOST $remote_addr;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $connection_upgrade;
+    proxy_http_version 1.1;
+    # proxy_hide_header Upgrade;
+    add_header X-Cache $upstream_cache_status;
+    #Set Nginx Cache
+    set $static_fileZqpqK5EA 0;
+    if ( $uri ~* &quot;.(gif|png|jpg|css|js|woff|woff2)$&quot; )
+    {
+        set $static_fileZqpqK5EA 1;
+        expires 1m;
+        }
+    if ( $static_fileZqpqK5EA = 0 )
+    {
+    add_header Cache-Control no-cache;
+    }
+}
+</code></pre>
+<p>如需转发多个地址，创建多个 *.conf 文件即可，注意不同配置路径</p>
+<h2 id="验证配置是否生效">验证配置是否生效</h2>
+<ol>
+<li>执行 <code>nginx -t</code> 检查配置是否正确，反馈 <strong>successful</strong> 表明配置正确</li>
+<li>执行 <code>systemctl reload nginx</code> 重启 Nginx 生效</li>
+</ol>
+<h2 id="访问路径为-uglinktest">访问路径为 *.ug.link/test/</h2>
+<p>先通过 UGlink 跳转后，再在域名后缀加上自定义的访问路径 <strong>/test/</strong>，如: <code>*.cn2.ug.link/test/</code></p>
+<h2 id="恢复">恢复</h2>
+<p>将备份的 <strong>ugreen.conf</strong> 文件恢复至 <strong>/etc/nginx</strong>，并删除 <strong>conf.d</strong> 文件夹下创建的配置文件即可</p>
+
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://blog.banana7.cn/post/BkttMC9_Im/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  京东云 AX6000 百里刷入 ImmortalWrt
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://blog.banana7.cn/post/VupFi7cVM/">
+                <h3 class="post-title">
+                  自动跳转领取赏金红包链接
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+          
+        </div>
+        
+
+        
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://blog.banana7.cn/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+    
+     <div class="site-info">
+      <div class="py-4 text-gray-700"><a class="rss" href="https://blog.banana7.cn/post/theme/">主题 </a>| <a class="rss" href="https://blog.banana7.cn/atom.xml" target="_blank">订阅</a> </div>
+    </div>  
+  </body>
+</html>
