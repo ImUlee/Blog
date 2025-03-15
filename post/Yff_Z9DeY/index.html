@@ -1,0 +1,377 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>关于盒子 ec6108v9 刷入 HiNas 后实现 WiFi 连接 | 有理。</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="shortcut icon" href="https://blog.banana7.cn/favicon.ico?v=1">
+<link rel="stylesheet" href="/media/katex.min.css">
+<link href="/media/remixicon/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="/media/fonts.css">
+<link rel="stylesheet" href="/media/animate.min.css">
+<!-- 适配Safari书签页和iOS桌面图标 --> 
+<link rel="apple-touch-icon" href="/media/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="有理Ulee">
+<link rel="bookmark" href="/media/apple-touch-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/media/apple-touch-icon.png" >
+
+
+<link rel="stylesheet" href="https://blog.banana7.cn/styles/main.css">
+
+<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+
+
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?4faae41facfc71bcdb431a4f9471d6cb";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <!-- <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i> -->
+        
+        <a href="https://blog.banana7.cn">
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">有理。</h1>
+        </a>
+        <div class="top1block" style="margin-left: auto;">
+          
+            
+          
+            
+          
+            
+              <a href="https://music.163.com/#/song?id=461518855" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-netease-cloud-music-line"></i>
+              </a>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a href="/post/about"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-profile-line"></i>
+              </a>
+            
+          
+            
+              <a href="/archives"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-archive-line"></i>
+              </a>
+            
+          
+            
+              <a href="/atom.xml" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-rss-line"></i>
+              </a>
+            
+          
+        </div>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E9%A9%B1%E5%8A%A8-wifi">驱动 WiFi</a>
+<ul>
+<li><a href="#1-%E8%A7%A3%E5%86%B3%E6%8B%94%E6%8E%89%E7%BD%91%E7%BA%BF%E5%90%8E%E4%B8%8D%E8%83%BD%E6%AD%A3%E5%B8%B8%E8%AE%BF%E9%97%AE%E7%9B%92%E5%AD%90">1. 解决拔掉网线后不能正常访问盒子</a></li>
+<li><a href="#2-%E8%A7%A3%E5%86%B3%E8%A1%A5%E5%AE%8C-wifi-%E8%A1%A5%E4%B8%81%E5%90%8E%E5%90%AF%E5%8A%A8%E6%85%A2">2. 解决补完 WiFi 补丁后启动慢</a></li>
+<li><a href="#3-%E8%A7%A3%E5%86%B3-wifi-%E8%BF%9E%E6%8E%A5%E5%90%8E%E4%B8%BB%E9%A1%B5%E5%B1%80%E5%9F%9F%E7%BD%91%E9%A1%B5%E4%B8%8D%E8%83%BD%E6%89%93%E5%BC%80">3. 解决 WiFi 连接后主页局域网页不能打开</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"><a class="rss" href="https://blog.banana7.cn/post/theme/">主题 </a></div>
+    <a class="rss" href="https://blog.banana7.cn/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">关于盒子 ec6108v9 刷入 HiNas 后实现 WiFi 连接</h1>
+        
+        <div class="text-sm text-gray-700 lg:my-8">
+          
+            2023-07-04
+          
+        </div>
+        
+        
+        <div class="post-content yue">
+          <p>为刷入 HiNas 的电视盒子补上WiFi驱动能够实现WiFi连接（实现任意角落吃灰），不必再随身拖着网线限制。</p>
+<!-- more -->
+<blockquote>
+<p>华为悦盒 ec6108v9 芯片机型为：hi3798Mv100</p>
+<ul>
+<li><a href="https://www.123pan.com/s/i8ADVv-lxgiH.html">TTL线刷固件包20220808</a></li>
+<li><a href="https://www.123pan.com/s/i8ADVv-lxgiH.html">WiFi 驱动配套内核、驱动、脚本</a></li>
+<li>烧录文章见海纳斯刷机手册：<a href="https://dl.ecoo.top/docs/tutorial-basics/ttl-flash">https://dl.ecoo.top/docs/tutorial-basics/ttl-flash</a></li>
+</ul>
+</blockquote>
+<h2 id="驱动-wifi">驱动 WiFi</h2>
+<p>通过 SSH 连接悦盒，并下载配套内核 <a href="https://www.123pan.com/s/i8ADVv-lxgiH.html">hi_kernel-mv100-0808.bin</a>  上传至根目录后执行</p>
+<pre><code>dd if=hi_kernel-mv100-0808.bin of=/dev/mmcblk0p6
+</code></pre>
+<p>执行完成后<strong>重启盒子</strong>重新连接 SSH ：</p>
+<ol>
+<li>将 rtl8188etv-0808.tar.gz 、 wifi_install.sh 上传至 <strong>/tmp</strong> 文件夹</li>
+<li>执行 <code>cd /tmp</code> 进入文件夹，执行 <code>chmod a+x wifi_install.sh</code> 赋予脚本权限</li>
+<li>使用脚本进行安装 <code>sh wifi_install.sh -f 驱动包 [参数1] [参数1] ...</code></li>
+</ol>
+<pre><code>-f, --file    // 驱动文件包名称 例如 rtl8188ftv.tar.gz
+-s, --ssid    // [可选] WiFi 昵称
+-p, --password    // [可选] WiFi 密码
+-d, --address   // [可选] 固定 iP 地址如 192.168.1.100
+-g, --gateway    // [可选] 网关：一般为网段的第一个 IP 如 192.168.1.1
+-m, --netmask    // [可选] 掩码：一般为 255.255.255.0
+例如：
+sh wifi_install.sh -f rtl8188etv-0808.tar.gz -s ChineaNet-X231 -p 123456 -d 192.168.50.50
+</code></pre>
+<ol start="4">
+<li>运行命令后会提示“安装成功”，此时驱动安装完成。</li>
+</ol>
+<blockquote>
+<ul>
+<li>如果使用了 -s 参数，脚本会尝试连接wifi，成功后提示“连接成功”</li>
+<li>如果填入了 -d 参数，脚本会尝试修改wifi配置，成功后提示“修改地址成功”</li>
+<li>想修改WIFI配置的话可以使用命令 nmcli connection delete &quot;WiFi昵称&quot; 之后再使用本脚本重新配置，此时可无需使用 -f 参数</li>
+</ul>
+</blockquote>
+<h3 id="1-解决拔掉网线后不能正常访问盒子">1. 解决拔掉网线后不能正常访问盒子</h3>
+<p>一旦重新插网线，系统就增加一条优先级更高的默认路由，所有数据都从 eth0 接口出，导致通过 wlan0 的地址不能正常访问盒子了</p>
+<ul>
+<li>
+<p>笨办法就是只能拔掉网线，重新启动。</p>
+</li>
+<li>
+<p>聪明的办法就是手工删掉如下两条路由，命令如下：</p>
+<pre><code>ip route delete 192.168.3.0/24 dev eth0 // 替换为自己的 IP 段地址
+ip route delete default
+</code></pre>
+<p>可以用 <code>ip route show</code> 命令查看系统路由表</p>
+</li>
+</ul>
+<h3 id="2-解决补完-wifi-补丁后启动慢">2. 解决补完 WiFi 补丁后启动慢</h3>
+<p>插入网线等待正常进入系统后 SSH 连接执行</p>
+<pre><code>sudo vim /etc/systemd/system/network-online.target.wants/networking.service
+</code></pre>
+<p>将里面的 TimeoutStartSec=5min 修改为 <code>TimeoutStartSec=2sec</code> 后保存，再执行：</p>
+<pre><code>sudo vim /etc/dhcp/dhclient.conf
+</code></pre>
+<p>修改 <code>timeout</code> 为 <code>15</code> 后保存。</p>
+<h3 id="3-解决-wifi-连接后主页局域网页不能打开">3. 解决 WiFi 连接后主页局域网页不能打开</h3>
+<p>修改首页文件：<code>/var/www/html/index.html</code> 将下面这行的 <code>eth0</code> 替换为 <code>wlan0</code> ：</p>
+<pre><code>$lanip=shell_exec(&quot;ifconfig eth0 | grep '&lt;inet&gt;'| grep -v '127.0.0.1' | awk '{ print $2}' | awk 'NR==1' 2&gt;&amp;1&quot;);
+</code></pre>
+<p>修改后如下所示：</p>
+<pre><code>$lanip=shell_exec(&quot;ifconfig wlan0 | grep '&lt;inet&gt;'| grep -v '127.0.0.1' | awk '{ print $2}' | awk 'NR==1' 2&gt;&amp;1&quot;);
+</code></pre>
+<p>修改同目录下另外一个文件：<code>/var/www/html/index2.html</code> 也是将类似行的 <code>eth0</code> 替换为 <code>wlan0</code><br>
+然后重启nginx服务，命令如下：</p>
+<pre><code>systemctl restart nginx.service
+</code></pre>
+
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://blog.banana7.cn/post/tCt5u-En8/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  拥有无限可能：无界丨Bncr 3.0
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://blog.banana7.cn/post/PcnB0rJ5_/">
+                <h3 class="post-title">
+                  恢复 Redmi AX6 至官方固件
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+          
+        </div>
+        
+
+        
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://blog.banana7.cn/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+    
+     <div class="site-info">
+      <div class="py-4 text-gray-700"><a class="rss" href="https://blog.banana7.cn/post/theme/">主题 </a>| <a class="rss" href="https://blog.banana7.cn/atom.xml" target="_blank">订阅</a> </div>
+    </div>  
+  </body>
+</html>
