@@ -1,0 +1,479 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>提升家庭千兆网络体验更换 2.5g 光猫 | Ulee.Design</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="shortcut icon" href="https://blog.ppia.me/favicon.ico?v=1">
+<link rel="stylesheet" href="/media/katex.min.css">
+<link href="/media/remixicon/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="/media/fonts.css">
+<link rel="stylesheet" href="/media/animate.min.css">
+<link rel="apple-touch-icon" href="/media/apple-touch-icon.jpg">
+<meta name="apple-mobile-web-app-title" content="Ulee">
+<link rel="bookmark" href="/apple-touch-icon.jpg">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/media/apple-touch-icon.jpg" >
+
+
+<link rel="stylesheet" href="https://blog.ppia.me/styles/main.css">
+
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <!-- <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i> -->
+        
+        <a href="https://blog.ppia.me">
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Ulee.Design</h1>
+        </a>
+        <div class="top1block" style="margin-left: auto;">
+          
+            
+          
+            
+          
+            
+              <a href="https://music.163.com/#/song?id=461518855" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-netease-cloud-music-line"></i>
+              </a>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a href="/post/about"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-profile-line"></i>
+              </a>
+            
+          
+            
+              <a href="/archives"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-archive-line"></i>
+              </a>
+            
+          
+            
+              <a href="/atom.xml" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-rss-line"></i>
+              </a>
+            
+          
+        </div>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#%E9%85%8D%E7%BD%AE%E4%BB%8B%E7%BB%8D">配置介绍</a></li>
+<li><a href="#%E5%A4%87%E4%BB%BD%E5%8E%9F%E5%85%89%E7%8C%AB%E4%BF%A1%E6%81%AF">备份原光猫信息</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE%E6%96%B0%E5%85%89%E7%8C%AB">配置新光猫</a></li>
+<li><a href="#itms-%E5%8A%AB%E6%8C%81%E6%B3%A8%E5%86%8C">ITMS 劫持注册</a></li>
+<li><a href="#telnet-%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4">Telnet 其他命令</a></li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"><a class="rss" href="https://blog.ppia.me/post/theme/">主题 </a></div>
+    <a class="rss" href="https://blog.ppia.me/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">提升家庭千兆网络体验更换 2.5g 光猫</h1>
+        
+        <div class="text-sm text-gray-700 lg:my-8">
+          
+            2025-02-24
+          
+        </div>
+        
+        
+        <div class="post-content yue">
+          <p>新装联通千兆宽带配备了一个千兆光猫 F657GV9 实际体验下来并不能完全发挥出千兆速率</p>
+<!-- more -->
+<p>通过恩山等了解到 7015、7005这两款光猫，附带一个 2.5G 网口<br>
+通过黄鱼下单联系卖家会帮忙修改地区以及固化 telnet ，到手后只需注册 LOID 以及劫持 ITMS 即可</p>
+<blockquote>
+<p>不同地区更换光猫方式不一以及线路是否支持 XGPON/XEPON，请搜索：地区+光猫查阅</p>
+</blockquote>
+<hr>
+<h1 id="配置介绍">配置介绍</h1>
+<ul>
+<li><strong>处理器</strong>：ZX279133</li>
+<li><strong>内存</strong>：512MB</li>
+<li><strong>闪存</strong>：512MB</li>
+<li><strong>接口支持</strong>：10G-GPON/10G-EPON双模</li>
+<li><strong>网络接口</strong>：2.5G网口 x 1  千兆网口 x 3  固话口 x 1</li>
+<li><strong>电源</strong>：12V/1A</li>
+</ul>
+<hr>
+<h1 id="备份原光猫信息">备份原光猫信息</h1>
+<p>进入 <code>192.168.1.1</code> 通过设备背面的 useradmin 账户登录进去记录数据</p>
+<ul>
+<li><strong>LOID</strong>（逻辑id）<br>
+网络 - 远程管理 - 宽带识别码认证</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://blog.ppia.me/post-images/1741877488890.png" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>网络连接模式</strong>（🗂️建议截图）<br>
+网络 &gt; 网络设置 &gt; 网络连接，选择带有<code>*_INTERNET</code>开头的项并记录下所有选项以及数值</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://blog.ppia.me/post-images/1741877456698.png" alt="" loading="lazy"></figure>
+<ul>
+<li><strong>VLAN ID</strong><br>
+<code>*_INTERNET_B_VID_41</code> 其中 41 就是 VLAN ID 不同地区不一样</li>
+</ul>
+<hr>
+<h1 id="配置新光猫">配置新光猫</h1>
+<p>将旧光猫拆下备用，换上新光猫<strong>暂时不插入光纤</strong>，然后进入 <code>192.168.1.1</code> 通过超级管理员账户登录光猫后台</p>
+<blockquote>
+<p>password: nE7jA%5m</p>
+</blockquote>
+<p><strong>修改上行模式：</strong> 管理 &gt; 上行方式 &gt; XGPON<br>
+<img src="https://blog.ppia.me/post-images/1741847357305.jpg" alt="" loading="lazy"></p>
+<p><strong>注册光猫：</strong> 网络 &gt; 远程管理 &gt; 宽带识别码<br>
+<img src="https://blog.ppia.me/post-images/1741877488890.png" alt="" loading="lazy"></p>
+<p>将原光猫 LOID 填写内进行注册，保存。然后拔电并插入光纤后重新上电重启</p>
+<p>重启后查看首页信息，宽带识别码以及光路（OLT）认证、管理（ITMS）注册<strong>是否认证/注册成功</strong></p>
+<p><strong>新建网络连接：</strong> 如需光猫拨号直接按照原光猫新建即可，桥接将连接模式改为桥接剩余按照原设置即可</p>
+<hr>
+<h1 id="itms-劫持注册">ITMS 劫持注册</h1>
+<p>如果光路（OLT）认证成功，但管理（ITMS）注册失败，那么访问任意网站都会自动跳转光猫注册，则通过 telnet 执行下方命令进行劫持注册</p>
+<figure data-type="image" tabindex="3"><img src="https://blog.ppia.me/post-images/1741877650351.png" alt="" loading="lazy"></figure>
+<blockquote>
+<p><strong>telnet user:</strong> root   <strong>password:</strong> Zte521</p>
+</blockquote>
+<p>连接 telnet 后逐行执行：</p>
+<pre><code>sendcmd 1 DB set PDTCTUSERINFO 0 Status 0
+sendcmd 1 DB set PDTCTUSERINFO 0 Result 1
+sendcmd 1 DB save
+</code></pre>
+<p>💡 旧光猫建议保留备用以便新光猫寄了直接插上使用</p>
+<hr>
+<h1 id="telnet-其他命令">Telnet 其他命令</h1>
+<p>7615/7015/7005 机型均为通用，恩山等论坛收集所得，建议自行查阅对应机型命令进行使用以避免不可挽回的损失</p>
+<ul>
+<li>
+<p>查看所有配置 <code>setmac show2</code>  修改配置 <code>setmac 1</code></p>
+</li>
+<li>
+<p>普通用户提权为admin</p>
+</li>
+</ul>
+<pre><code>sendcmd 1 DB set DevAuthInfo 1 Level 1
+sendcmd 1 DB save
+</code></pre>
+<ul>
+<li>修改超级用户名和密码:</li>
+</ul>
+<pre><code>sendcmd 1 DB set DevAuthInfo 0 User XXXXxx
+sendcmd 1 DB set DevAuthInfo 0 Pass XXXXxx
+</code></pre>
+<ul>
+<li>以移动中兴老光猫为例：进行参数修改</li>
+</ul>
+<pre><code>VENDORID[ID:  2176] is set to ZTEG
+GPONSN[ID:  2177] is set to 你的SN（一般8位）
+GPONPWD[ID:  2178] is set to set
+REG_ID[ID:  2179] is set to 你的宽带password（注意移动宽带要在这里填写）
+</code></pre>
+<ul>
+<li>让TR069失效</li>
+</ul>
+<pre><code>sendcmd 1 DB p MgtServer （查看一下当前配置，做好记录，以便恢复）
+sendcmd 1 DB set MgtServer 0 URL http://127.0.0.1 把服务器 URL 改掉
+sendcmd 1 DB set MgtServer 0 Tr069Enable 0 禁用TR069远程控制
+sendcmd 1 DB set MgtServer 0 PeriodicInformEnable 0 禁用TR069周期上报
+sendcmd 1 DB save
+</code></pre>
+<ul>
+<li>修改连接数限制</li>
+</ul>
+<pre><code>sendcmd 1 DB p CltLmt  查看一下当前的用户数量
+sendcmd 1 DB set CltLmt 8 Max 60  修改最大用户数为60，建议最大数目不超过255
+输入 sendcmd 1 DB save  保存修改
+</code></pre>
+
+        </div>
+        
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://blog.ppia.me/post/jvRuK1_AYE/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  为 Mango M28c 添加移远 RM500S-CE 5G模板支持
+                </h3>
+              </a>
+            </div>
+          
+          
+            <div class="next-post">
+              <a href="https://blog.ppia.me/post/_QZH49XDvi/">
+                <h3 class="post-title">
+                  免费图片托管解决方案：Telegraph-Image
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+    </div>
+    <script src="https://blog.ppia.me/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+    
+    <!-- 新增灯箱脚本 -->
+    <script src="https://tokinx.github.io/ViewImage/view-image.min.js"></script>
+    <script>
+      window.ViewImage && ViewImage.init('.post-content img, .post-feature-image');
+    </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 创建透明悬浮按钮
+  const createCopyButton = (container) => {
+    const button = document.createElement('button');
+    button.className = 'copy-button';
+    button.textContent = '复制';
+    button.style.position = 'absolute';
+    button.style.top = '-16px'; // 半悬浮在pre边框上
+    button.style.right = '16px';
+    button.style.background = '#eff3fb'; // 完全透明背景 
+    button.style.border = '1px solid #e0e7f780'; // 半透明边框 
+    button.style.color = '#4570c1'; // 新文字颜色
+    button.style.borderRadius = '10px';
+    button.style.padding = '6px 20px';
+    button.style.cursor = 'pointer';
+    button.style.opacity = '0';
+    button.style.transition = 'opacity 0.3s ease';
+    button.style.zIndex = '10';
+    button.style.outline = 'none'; // 去除点击描边 
+    button.style.boxShadow = 'none'; // 去除阴影 
+    
+    // 悬停效果
+    container.addEventListener('mouseenter', () => {
+      button.style.opacity = '1';
+    });
+    container.addEventListener('mouseleave', () => {
+      if (button.textContent === '复制') {
+        button.style.opacity = '0';
+      }
+    });
+    
+    // 复制功能
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const code = container.querySelector('code')?.innerText || container.innerText;
+      copyToClipboard(code, button);
+    });
+    
+    return button;
+  };
+
+  // 复制功能实现
+  const copyToClipboard = (text, button) => {
+    const originalText = button.textContent;
+    
+    const copySuccess = () => {
+      button.textContent = '✓ 已复制';
+      setTimeout(() => {
+        button.textContent = originalText;
+        if (!button.parentElement.matches(':hover')) {
+          button.style.opacity = '0';
+        }
+      }, 2000);
+    };
+    
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(copySuccess).catch(() => {
+        fallbackCopy(text, button, originalText);
+      });
+    } else {
+      fallbackCopy(text, button, originalText);
+    }
+  };
+
+  // 兼容方案
+  const fallbackCopy = (text, button, originalText) => {
+    try {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.opacity = '0';
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      button.textContent = '✓ 已复制';
+      setTimeout(() => button.textContent = originalText, 2000);
+    } catch (err) {
+      button.textContent = '✗ 失败';
+      setTimeout(() => button.textContent = originalText, 2000);
+    }
+  };
+
+  // 为所有pre代码块添加按钮
+  document.querySelectorAll('pre').forEach(pre => {
+    const container = document.createElement('div');
+    container.className = 'code-container';
+    container.style.position = 'relative';
+    
+    pre.parentNode.insertBefore(container, pre);
+    container.appendChild(pre);
+    container.appendChild(createCopyButton(container));
+  });
+});
+</script>
+
+    <div class="site-info">
+      <div class="py-4 text-gray-700"><a class="rss" href="https://blog.ppia.me/post/theme/">主题 </a>| <a class="rss" href="https://blog.ppia.me/atom.xml" target="_blank">订阅</a> </div>
+    </div>  
+  </body>
+</html>

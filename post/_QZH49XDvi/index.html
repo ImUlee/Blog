@@ -1,0 +1,462 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>免费图片托管解决方案：Telegraph-Image | Ulee.Design</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="shortcut icon" href="https://blog.ppia.me/favicon.ico?v=1">
+<link rel="stylesheet" href="/media/katex.min.css">
+<link href="/media/remixicon/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="/media/fonts.css">
+<link rel="stylesheet" href="/media/animate.min.css">
+<link rel="apple-touch-icon" href="/media/apple-touch-icon.jpg">
+<meta name="apple-mobile-web-app-title" content="Ulee">
+<link rel="bookmark" href="/apple-touch-icon.jpg">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/media/apple-touch-icon.jpg" >
+
+
+<link rel="stylesheet" href="https://blog.ppia.me/styles/main.css">
+
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <!-- <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i> -->
+        
+        <a href="https://blog.ppia.me">
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Ulee.Design</h1>
+        </a>
+        <div class="top1block" style="margin-left: auto;">
+          
+            
+          
+            
+          
+            
+              <a href="https://music.163.com/#/song?id=461518855" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-netease-cloud-music-line"></i>
+              </a>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a href="/post/about"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-profile-line"></i>
+              </a>
+            
+          
+            
+              <a href="/archives"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-archive-line"></i>
+              </a>
+            
+          
+            
+              <a href="/atom.xml" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-rss-line"></i>
+              </a>
+            
+          
+        </div>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#%E9%9C%80%E8%A6%81%E5%87%86%E5%A4%87">需要准备</a></li>
+<li><a href="#%E9%83%A8%E7%BD%B2-image">部署 Image</a></li>
+<li><a href="#%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D">设置自定义域名</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA-kv-%E7%A9%BA%E9%97%B4%E5%B9%B6%E5%BC%80%E5%90%AF%E5%9B%BE%E7%89%87%E7%AE%A1%E7%90%86">创建 KV 空间并开启图片管理</a></li>
+<li><a href="#%E6%9C%80%E5%90%8E%E6%B7%BB%E5%8A%A0%E5%8F%98%E9%87%8F">最后添加变量</a></li>
+<li><a href="#%E9%87%8D%E6%96%B0%E9%83%A8%E7%BD%B2%E7%94%9F%E6%95%88">重新部署生效</a></li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"><a class="rss" href="https://blog.ppia.me/post/theme/">主题 </a></div>
+    <a class="rss" href="https://blog.ppia.me/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">免费图片托管解决方案：Telegraph-Image</h1>
+        
+        <div class="text-sm text-gray-700 lg:my-8">
+          
+            2025-01-06
+          
+        </div>
+        
+        
+        <div class="post-content yue">
+          <p>由于原有的 Telegraph API 接口被官方关闭，导致失效，作者更新了新的方式需要将上传渠道切换至 Telegram Channel 故重新整理部署流程</p>
+<!-- more -->
+<hr>
+<h1 id="需要准备">需要准备</h1>
+<ul>
+<li><strong>Cloudflare 账户</strong></li>
+<li><strong>Telegram</strong>
+<ul>
+<li><strong>Bot Token</strong><br>
+向 <a href="https://t.me/BotFather">@BotFather</a> 发送 <code>/newbot</code> 创建新的机器人并获得 BOT_TOKEN</li>
+<li><strong>Chat_ID</strong>
+<ol>
+<li>创建新的频道将 bot 设置为频道管理员并发送任意一条消息</li>
+<li>将刚发的消息转发到此 <a href="https://t.me/VersaToolsBot">@VersaToolsBot</a> 后会返回具体信息，其中<code>-1234512345</code>即为 Chat_ID</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="部署-image">部署 Image</h1>
+<p>Fork <a href="https://github.com/cf-pages/Telegraph-Image"><strong>Telegraph-Image</strong></a> 到自己的库里后，打开 <a href="https://dash.cloudflare.com/">Cloudflare Dashboard</a>　&gt;　<strong>Workers 和 Pages</strong>　&gt;　<strong>创建</strong>　&gt;　<strong>Pages</strong>　&gt;　<strong>连接到 Git</strong></p>
+<figure data-type="image" tabindex="1"><img src="https://blog.ppia.me/post-images/1736130894894.png" alt="" loading="lazy"></figure>
+<p>添加你的 Github 账户后选择刚刚 Fork 到库里的 <strong>Telegraph-Image</strong>　&gt;　<strong>开始设置</strong>，跳转按照页面提示输入项目名称后点击<strong>保存并部署</strong></p>
+<figure data-type="image" tabindex="2"><img src="https://blog.ppia.me/post-images/1736130922480.png" alt="" loading="lazy"></figure>
+<hr>
+<h1 id="设置自定义域名">设置自定义域名</h1>
+<p>前往自定义域　&gt;　设置自定义域　&gt;　<code>Domain</code> &gt;　继续　&gt;　激活域</p>
+<blockquote>
+<p>✨️在 Cloudflare 托管的域名自动会修改 DNS 记录</p>
+</blockquote>
+<figure data-type="image" tabindex="3"><img src="https://blog.ppia.me/post-images/1736131163894.png" alt="" loading="lazy"></figure>
+<hr>
+<h1 id="创建-kv-空间并开启图片管理">创建 KV 空间并开启图片管理</h1>
+<p>回到 Cloudflare Dashboard　&gt;　存储和数据库　&gt;　KV　&gt;　创建名为<code>pic</code>的KV空间</p>
+<figure data-type="image" tabindex="4"><img src="https://blog.ppia.me/post-images/1736131419427.png" alt="" loading="lazy"></figure>
+<p>再回到 设置　&gt;　绑定　&gt;　添加　&gt;　KV命名空间：变量名称：<code>img_url</code> KV命名空间：<code>pic</code></p>
+<figure data-type="image" tabindex="5"><img src="https://blog.ppia.me/post-images/1736134896634.png" alt="" loading="lazy"></figure>
+<hr>
+<h1 id="最后添加变量">最后添加变量</h1>
+<p>跳转 设置　&gt;　变量和机密　&gt;　添加<br>
+将获取到的 Bot Token 、Chat_ID 、 按照对应变量填写</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">变量名称</th>
+<th style="text-align:center">值</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">秘钥</td>
+<td style="text-align:center">BASIC_USER</td>
+<td style="text-align:center">用户名</td>
+<td style="text-align:center">用于后台登陆</td>
+</tr>
+<tr>
+<td style="text-align:center">秘钥</td>
+<td style="text-align:center">BASIC_PASS</td>
+<td style="text-align:center">密码</td>
+<td style="text-align:center">同上</td>
+</tr>
+<tr>
+<td style="text-align:center">秘钥</td>
+<td style="text-align:center">TG_Bot_Token</td>
+<td style="text-align:center">123468:AAxxxGKrn5</td>
+<td style="text-align:center">Bot Token</td>
+</tr>
+<tr>
+<td style="text-align:center">秘钥</td>
+<td style="text-align:center">TG_Chat_ID</td>
+<td style="text-align:center">-1234567</td>
+<td style="text-align:center">频道ID</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="重新部署生效">重新部署生效</h1>
+<p>部署　&gt;　详细信息　&gt;　管理部署　&gt;　重试部署</p>
+<blockquote>
+<ul>
+<li>后台地址： https://Domain.com/admin</li>
+</ul>
+</blockquote>
+
+        </div>
+        
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://blog.ppia.me/post/QqOM_NULXh/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  提升家庭千兆网络体验更换 2.5g 光猫
+                </h3>
+              </a>
+            </div>
+          
+          
+            <div class="next-post">
+              <a href="https://blog.ppia.me/post/BkttMC9_Im/">
+                <h3 class="post-title">
+                  京东云 AX6000 百里刷入 ImmortalWrt
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+    </div>
+    <script src="https://blog.ppia.me/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+    
+    <!-- 新增灯箱脚本 -->
+    <script src="https://tokinx.github.io/ViewImage/view-image.min.js"></script>
+    <script>
+      window.ViewImage && ViewImage.init('.post-content img, .post-feature-image');
+    </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 创建透明悬浮按钮
+  const createCopyButton = (container) => {
+    const button = document.createElement('button');
+    button.className = 'copy-button';
+    button.textContent = '复制';
+    button.style.position = 'absolute';
+    button.style.top = '-16px'; // 半悬浮在pre边框上
+    button.style.right = '16px';
+    button.style.background = '#eff3fb'; // 完全透明背景 
+    button.style.border = '1px solid #e0e7f780'; // 半透明边框 
+    button.style.color = '#4570c1'; // 新文字颜色
+    button.style.borderRadius = '10px';
+    button.style.padding = '6px 20px';
+    button.style.cursor = 'pointer';
+    button.style.opacity = '0';
+    button.style.transition = 'opacity 0.3s ease';
+    button.style.zIndex = '10';
+    button.style.outline = 'none'; // 去除点击描边 
+    button.style.boxShadow = 'none'; // 去除阴影 
+    
+    // 悬停效果
+    container.addEventListener('mouseenter', () => {
+      button.style.opacity = '1';
+    });
+    container.addEventListener('mouseleave', () => {
+      if (button.textContent === '复制') {
+        button.style.opacity = '0';
+      }
+    });
+    
+    // 复制功能
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const code = container.querySelector('code')?.innerText || container.innerText;
+      copyToClipboard(code, button);
+    });
+    
+    return button;
+  };
+
+  // 复制功能实现
+  const copyToClipboard = (text, button) => {
+    const originalText = button.textContent;
+    
+    const copySuccess = () => {
+      button.textContent = '✓ 已复制';
+      setTimeout(() => {
+        button.textContent = originalText;
+        if (!button.parentElement.matches(':hover')) {
+          button.style.opacity = '0';
+        }
+      }, 2000);
+    };
+    
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(copySuccess).catch(() => {
+        fallbackCopy(text, button, originalText);
+      });
+    } else {
+      fallbackCopy(text, button, originalText);
+    }
+  };
+
+  // 兼容方案
+  const fallbackCopy = (text, button, originalText) => {
+    try {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.opacity = '0';
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      button.textContent = '✓ 已复制';
+      setTimeout(() => button.textContent = originalText, 2000);
+    } catch (err) {
+      button.textContent = '✗ 失败';
+      setTimeout(() => button.textContent = originalText, 2000);
+    }
+  };
+
+  // 为所有pre代码块添加按钮
+  document.querySelectorAll('pre').forEach(pre => {
+    const container = document.createElement('div');
+    container.className = 'code-container';
+    container.style.position = 'relative';
+    
+    pre.parentNode.insertBefore(container, pre);
+    container.appendChild(pre);
+    container.appendChild(createCopyButton(container));
+  });
+});
+</script>
+
+    <div class="site-info">
+      <div class="py-4 text-gray-700"><a class="rss" href="https://blog.ppia.me/post/theme/">主题 </a>| <a class="rss" href="https://blog.ppia.me/atom.xml" target="_blank">订阅</a> </div>
+    </div>  
+  </body>
+</html>

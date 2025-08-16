@@ -1,0 +1,586 @@
+<html lang="zh-CN">
+  <head>
+    <meta name="baidu-site-verification" content="codeva-RVW3a4oJsp" />
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ulee.Design</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="shortcut icon" href="https://blog.ppia.me/favicon.ico?v=1">
+<link rel="stylesheet" href="/media/katex.min.css">
+<link href="/media/remixicon/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="/media/fonts.css">
+<link rel="stylesheet" href="/media/animate.min.css">
+<link rel="apple-touch-icon" href="/media/apple-touch-icon.jpg">
+<meta name="apple-mobile-web-app-title" content="Ulee">
+<link rel="bookmark" href="/apple-touch-icon.jpg">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/media/apple-touch-icon.jpg" >
+
+
+<link rel="stylesheet" href="https://blog.ppia.me/styles/main.css">
+
+
+
+
+  </head>
+  <body>
+    <div class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <!-- <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i> -->
+        
+        <a href="https://blog.ppia.me">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://blog.ppia.me/images/avatar.png?v=1" alt="">
+        </a>
+        
+        <a href="https://blog.ppia.me">
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Ulee.Design</h1>
+        </a>
+        <div class="top1block" style="margin-left: auto;">
+          
+            
+          
+            
+          
+            
+              <a href="https://music.163.com/#/song?id=461518855" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-netease-cloud-music-line"></i>
+              </a>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a href="/post/about"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-profile-line"></i>
+              </a>
+            
+          
+            
+              <a href="/archives"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-archive-line"></i>
+              </a>
+            
+          
+            
+              <a href="/atom.xml" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-rss-line"></i>
+              </a>
+            
+          
+        </div>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            Life & Knowledge
+          </p>
+          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
+            
+              
+            
+              
+            
+              
+                <a href="https://music.163.com/#/song?id=461518855" _blank class="mr-4 text-3xl text-gray-400 font-light hover:text-gray-900">
+                  <i class="ri-netease-cloud-music-line"></i>
+                </a>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <a href="/post/about"  class="mr-4 text-3xl text-gray-400 font-light hover:text-gray-900">
+                  <i class="ri-profile-line"></i>
+                </a>
+              
+            
+              
+                <a href="/archives"  class="mr-4 text-3xl text-gray-400 font-light hover:text-gray-900">
+                  <i class="ri-archive-line"></i>
+                </a>
+              
+            
+              
+                <a href="/atom.xml" _blank class="mr-4 text-3xl text-gray-400 font-light hover:text-gray-900">
+                  <i class="ri-rss-line"></i>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"><a class="rss" href="https://blog.ppia.me/post/theme/">主题 </a></div>
+    <a class="rss" href="https://blog.ppia.me/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
+<!--         <h2 class="latest-article text-lg text-gray-700 mb-8">
+          <i class="ri-article-line"></i>
+          最新文章
+        </h2> -->
+        
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${0 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://blog.ppia.me/post/7WV8OTD1Jp/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">华为悦盒 EC6108V9 部署 Shairport Sync 实现 AirPlay2 音频全屋投放</h2>
+        <div class="post-abstract text-gray-700 font-light my-4">
+          <p>多余的机顶盒可以刷为 Ubuntu 继续发光发热作为一个 AirPlay2 音频接收器也很不错。</p>
+
+        </div>
+      </a>
+
+      <div class="text-gray-400 text-sm font-light">2025-07-23 / 读完需3分钟</div>
+      <!-- 
+      
+      <div>text</div>
+      <div>4 min read</div>
+      
+      <div>time</div>
+      <div>208000</div>
+      
+      <div>words</div>
+      <div>781</div>
+      
+      <div>minutes</div>
+      <div>4</div>
+      
+      -->
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${1 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://blog.ppia.me/post/jvRuK1_AYE/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">为 Mango M28c 添加移远 RM500S-CE 5G模板支持</h2>
+        <div class="post-abstract text-gray-700 font-light my-4">
+          <p>为把玩新玩具 Mango M28c，在 <strong>闲鱼@lalisa豆浆</strong> 老板上车了移远 RM500S-CE 模块，由于新品特性尽管有 QWRT 的适配，但 OpenWrt 暂未支持到此模块，好在老板细节教学如何适配模块，故此备忘。</p>
+
+        </div>
+      </a>
+
+      <div class="text-gray-400 text-sm font-light">2025-04-21 / 读完需2分钟</div>
+      <!-- 
+      
+      <div>text</div>
+      <div>2 min read</div>
+      
+      <div>time</div>
+      <div>73000</div>
+      
+      <div>words</div>
+      <div>304</div>
+      
+      <div>minutes</div>
+      <div>2</div>
+      
+      -->
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${2 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://blog.ppia.me/post/QqOM_NULXh/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">提升家庭千兆网络体验更换 2.5g 光猫</h2>
+        <div class="post-abstract text-gray-700 font-light my-4">
+          <p>新装联通千兆宽带配备了一个千兆光猫 F657GV9 实际体验下来并不能完全发挥出千兆速率</p>
+
+        </div>
+      </a>
+
+      <div class="text-gray-400 text-sm font-light">2025-02-24 / 读完需3分钟</div>
+      <!-- 
+      
+      <div>text</div>
+      <div>4 min read</div>
+      
+      <div>time</div>
+      <div>217000</div>
+      
+      <div>words</div>
+      <div>898</div>
+      
+      <div>minutes</div>
+      <div>4</div>
+      
+      -->
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${3 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://blog.ppia.me/post/_QZH49XDvi/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">免费图片托管解决方案：Telegraph-Image</h2>
+        <div class="post-abstract text-gray-700 font-light my-4">
+          <p>由于原有的 Telegraph API 接口被官方关闭，导致失效，作者更新了新的方式需要将上传渠道切换至 Telegram Channel 故重新整理部署流程</p>
+
+        </div>
+      </a>
+
+      <div class="text-gray-400 text-sm font-light">2025-01-06 / 读完需2分钟</div>
+      <!-- 
+      
+      <div>text</div>
+      <div>2 min read</div>
+      
+      <div>time</div>
+      <div>97000</div>
+      
+      <div>words</div>
+      <div>416</div>
+      
+      <div>minutes</div>
+      <div>2</div>
+      
+      -->
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${4 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://blog.ppia.me/post/BkttMC9_Im/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">京东云 AX6000 百里刷入 ImmortalWrt</h2>
+        <div class="post-abstract text-gray-700 font-light my-4">
+          <p>京东云的边缘计算产品，拥有较强配置并且有 64/128G 两种内存版本，争取通过刷入 ImmortalWrt 实现与软路由肩并肩的效果。</p>
+
+        </div>
+      </a>
+
+      <div class="text-gray-400 text-sm font-light">2024-11-17 / 读完需3分钟</div>
+      <!-- 
+      
+      <div>text</div>
+      <div>4 min read</div>
+      
+      <div>time</div>
+      <div>237000</div>
+      
+      <div>words</div>
+      <div>851</div>
+      
+      <div>minutes</div>
+      <div>4</div>
+      
+      -->
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${5 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://blog.ppia.me/post/DlBaLOyKdh/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">通过 UGlink 将局域网内端口转发到公网</h2>
+        <div class="post-abstract text-gray-700 font-light my-4">
+          <p>UGlink 是一个充满乐趣和可能性的服务，因此请合理使用 UGlink 服务，不将其用于非法目的和任何商业形式。<br>
+让我们共同维护 UGlink 服务的健康运行，使其能够长期为我们提供服务。</p>
+
+        </div>
+      </a>
+
+      <div class="text-gray-400 text-sm font-light">2024-10-17 / 读完需2分钟</div>
+      <!-- 
+      
+      <div>text</div>
+      <div>2 min read</div>
+      
+      <div>time</div>
+      <div>105000</div>
+      
+      <div>words</div>
+      <div>414</div>
+      
+      <div>minutes</div>
+      <div>2</div>
+      
+      -->
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${6 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://blog.ppia.me/post/tCt5u-En8/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">拥有无限可能：无界丨Bncr 3.0</h2>
+        <div class="post-abstract text-gray-700 font-light my-4">
+          <p>Bncr 是一个开箱即用的Nodejs Chat RoBot（会话式机器人）框架。它基于OOP函数响应式编程，具有占用小、响应快、开发易等特点，允许开发者创建高度可测试、可扩展、松散耦合且易于维护的应用程序。</p>
+
+        </div>
+      </a>
+
+      <div class="text-gray-400 text-sm font-light">2024-07-29 / 读完需4分钟</div>
+      <!-- 
+      
+      <div>text</div>
+      <div>5 min read</div>
+      
+      <div>time</div>
+      <div>279000</div>
+      
+      <div>words</div>
+      <div>1039</div>
+      
+      <div>minutes</div>
+      <div>5</div>
+      
+      -->
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${7 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://blog.ppia.me/post/PcnB0rJ5_/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">恢复 Redmi AX6 至官方固件</h2>
+        <div class="post-abstract text-gray-700 font-light my-4">
+          <p>刷uboot后想要退烧、追求稳定或出手需要恢复官方固件方法，<strong>刷机有风险，操作需谨慎</strong>。</p>
+
+        </div>
+      </a>
+
+      <div class="text-gray-400 text-sm font-light">2023-06-28 / 读完需2分钟</div>
+      <!-- 
+      
+      <div>text</div>
+      <div>2 min read</div>
+      
+      <div>time</div>
+      <div>110000</div>
+      
+      <div>words</div>
+      <div>432</div>
+      
+      <div>minutes</div>
+      <div>2</div>
+      
+      -->
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${8 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://blog.ppia.me/post/R_MbjrT8R/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Redmi AX6 写入不死 UBoot 引导</h2>
+        <div class="post-abstract text-gray-700 font-light my-4">
+          <p>想要刷入任意 OP 、QSDK、QWRT 等固件的前提，则需先刷入一个不死引导</p>
+
+        </div>
+      </a>
+
+      <div class="text-gray-400 text-sm font-light">2023-06-21 / 读完需2分钟</div>
+      <!-- 
+      
+      <div>text</div>
+      <div>2 min read</div>
+      
+      <div>time</div>
+      <div>69000</div>
+      
+      <div>words</div>
+      <div>247</div>
+      
+      <div>minutes</div>
+      <div>2</div>
+      
+      -->
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${9 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://blog.ppia.me/post/6fJkcITaS/">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">一键解锁 Redmi AX6 SSH： xmir-patcher</h2>
+        <div class="post-abstract text-gray-700 font-light my-4">
+          <p>最强小米/红米路由器一键ssh工具, 刷机告别ttl, 也不需要另外一个路由器了(比如ax6). 已经测试过CR880X, AX6, AX6S, AX5JDC, AX3000.</p>
+
+        </div>
+      </a>
+
+      <div class="text-gray-400 text-sm font-light">2023-06-20 / 读完需1分钟</div>
+      <!-- 
+      
+      <div>text</div>
+      <div>1 min read</div>
+      
+      <div>time</div>
+      <div>59000</div>
+      
+      <div>words</div>
+      <div>244</div>
+      
+      <div>minutes</div>
+      <div>1</div>
+      
+      -->
+    </div>
+  </section>
+
+        <div class="read-more">
+          
+
+          
+        </div>
+        <div class="index-page">
+          <div class="pagination-container animated fadeIn">
+  
+  
+    <a href="https://blog.ppia.me/page/2" class="page-btn">下一页 <i class="ri-arrow-right-line"></i></a>
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://blog.ppia.me/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

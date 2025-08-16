@@ -1,0 +1,353 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Walker Air | Ulee.Design</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="shortcut icon" href="https://blog.ppia.me/favicon.ico?v=1">
+<link rel="stylesheet" href="/media/katex.min.css">
+<link href="/media/remixicon/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="/media/fonts.css">
+<link rel="stylesheet" href="/media/animate.min.css">
+<link rel="apple-touch-icon" href="/media/apple-touch-icon.jpg">
+<meta name="apple-mobile-web-app-title" content="Ulee">
+<link rel="bookmark" href="/apple-touch-icon.jpg">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/media/apple-touch-icon.jpg" >
+
+
+<link rel="stylesheet" href="https://blog.ppia.me/styles/main.css">
+
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <!-- <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i> -->
+        
+        <a href="https://blog.ppia.me">
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Ulee.Design</h1>
+        </a>
+        <div class="top1block" style="margin-left: auto;">
+          
+            
+          
+            
+          
+            
+              <a href="https://music.163.com/#/song?id=461518855" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-netease-cloud-music-line"></i>
+              </a>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a href="/post/about"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-profile-line"></i>
+              </a>
+            
+          
+            
+              <a href="/archives"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-archive-line"></i>
+              </a>
+            
+          
+            
+              <a href="/atom.xml" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-rss-line"></i>
+              </a>
+            
+          
+        </div>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"><a class="rss" href="https://blog.ppia.me/post/theme/">主题 </a></div>
+    <a class="rss" href="https://blog.ppia.me/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Walker Air</h1>
+        
+        <div class="text-sm text-gray-700 lg:my-8">
+          
+            2019-01-26
+          
+        </div>
+        
+        
+        <div class="post-content yue">
+          <p>Gridea 付费主题：<a href="https://mbd.pub/o/bread/aJqU">Walker</a> · 售价￥6.00</p>
+<p>由博主 <a href="https://wzw.pub/"><strong>吴智炜</strong></a> 二次修改；</p>
+<p>在二改基础上再次修改并命名为 Walker Air 👋</p>
+
+        </div>
+        
+        <div class="flex justify-between py-8">
+          
+          
+        </div>
+        
+      </div>
+    </div>
+    <script src="https://blog.ppia.me/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+    
+    <!-- 新增灯箱脚本 -->
+    <script src="https://tokinx.github.io/ViewImage/view-image.min.js"></script>
+    <script>
+      window.ViewImage && ViewImage.init('.post-content img, .post-feature-image');
+    </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 创建透明悬浮按钮
+  const createCopyButton = (container) => {
+    const button = document.createElement('button');
+    button.className = 'copy-button';
+    button.textContent = '复制';
+    button.style.position = 'absolute';
+    button.style.top = '-16px'; // 半悬浮在pre边框上
+    button.style.right = '16px';
+    button.style.background = '#eff3fb'; // 完全透明背景 
+    button.style.border = '1px solid #e0e7f780'; // 半透明边框 
+    button.style.color = '#4570c1'; // 新文字颜色
+    button.style.borderRadius = '10px';
+    button.style.padding = '6px 20px';
+    button.style.cursor = 'pointer';
+    button.style.opacity = '0';
+    button.style.transition = 'opacity 0.3s ease';
+    button.style.zIndex = '10';
+    button.style.outline = 'none'; // 去除点击描边 
+    button.style.boxShadow = 'none'; // 去除阴影 
+    
+    // 悬停效果
+    container.addEventListener('mouseenter', () => {
+      button.style.opacity = '1';
+    });
+    container.addEventListener('mouseleave', () => {
+      if (button.textContent === '复制') {
+        button.style.opacity = '0';
+      }
+    });
+    
+    // 复制功能
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const code = container.querySelector('code')?.innerText || container.innerText;
+      copyToClipboard(code, button);
+    });
+    
+    return button;
+  };
+
+  // 复制功能实现
+  const copyToClipboard = (text, button) => {
+    const originalText = button.textContent;
+    
+    const copySuccess = () => {
+      button.textContent = '✓ 已复制';
+      setTimeout(() => {
+        button.textContent = originalText;
+        if (!button.parentElement.matches(':hover')) {
+          button.style.opacity = '0';
+        }
+      }, 2000);
+    };
+    
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(copySuccess).catch(() => {
+        fallbackCopy(text, button, originalText);
+      });
+    } else {
+      fallbackCopy(text, button, originalText);
+    }
+  };
+
+  // 兼容方案
+  const fallbackCopy = (text, button, originalText) => {
+    try {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.opacity = '0';
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      button.textContent = '✓ 已复制';
+      setTimeout(() => button.textContent = originalText, 2000);
+    } catch (err) {
+      button.textContent = '✗ 失败';
+      setTimeout(() => button.textContent = originalText, 2000);
+    }
+  };
+
+  // 为所有pre代码块添加按钮
+  document.querySelectorAll('pre').forEach(pre => {
+    const container = document.createElement('div');
+    container.className = 'code-container';
+    container.style.position = 'relative';
+    
+    pre.parentNode.insertBefore(container, pre);
+    container.appendChild(pre);
+    container.appendChild(createCopyButton(container));
+  });
+});
+</script>
+
+    <div class="site-info">
+      <div class="py-4 text-gray-700"><a class="rss" href="https://blog.ppia.me/post/theme/">主题 </a>| <a class="rss" href="https://blog.ppia.me/atom.xml" target="_blank">订阅</a> </div>
+    </div>  
+  </body>
+</html>

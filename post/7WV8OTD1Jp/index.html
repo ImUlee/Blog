@@ -1,0 +1,500 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>华为悦盒 EC6108V9 部署 Shairport Sync 实现 AirPlay2 音频全屋投放 | Ulee.Design</title>
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<link rel="shortcut icon" href="https://blog.ppia.me/favicon.ico?v=1">
+<link rel="stylesheet" href="/media/katex.min.css">
+<link href="/media/remixicon/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="/media/fonts.css">
+<link rel="stylesheet" href="/media/animate.min.css">
+<link rel="apple-touch-icon" href="/media/apple-touch-icon.jpg">
+<meta name="apple-mobile-web-app-title" content="Ulee">
+<link rel="bookmark" href="/apple-touch-icon.jpg">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/media/apple-touch-icon.jpg" >
+
+
+<link rel="stylesheet" href="https://blog.ppia.me/styles/main.css">
+
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <!-- <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i> -->
+        
+        <a href="https://blog.ppia.me">
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Ulee.Design</h1>
+        </a>
+        <div class="top1block" style="margin-left: auto;">
+          
+            
+          
+            
+          
+            
+              <a href="https://music.163.com/#/song?id=461518855" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-netease-cloud-music-line"></i>
+              </a>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              <a href="/post/about"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-profile-line"></i>
+              </a>
+            
+          
+            
+              <a href="/archives"  class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-archive-line"></i>
+              </a>
+            
+          
+            
+              <a href="/atom.xml" _blank class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                <i class="ri-rss-line"></i>
+              </a>
+            
+          
+        </div>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#%E7%A1%AC%E4%BB%B6%E5%8F%8A%E5%88%B7%E6%9C%BA%E9%83%A8%E5%88%86">硬件及刷机部分</a></li>
+<li><a href="#%E9%83%A8%E7%BD%B2-shairport-sync">部署 Shairport Sync</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE-shairport-sync">配置 Shairport Sync</a></li>
+<li><a href="#%E5%90%91%E5%AE%B6%E5%BA%ADapp-%E6%B7%BB%E5%8A%A0-airplay2">向“家庭”App 添加 AirPlay2</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85-wifi-%E6%A8%A1%E5%9D%97%E8%84%B1%E7%A6%BB%E6%9C%89%E7%BA%BF">安装 WiFi 模块脱离有线</a></li>
+<li><a href="#%E8%A7%A3%E5%86%B3%E8%A1%A5%E5%AE%8C-wifi-%E8%A1%A5%E4%B8%81%E5%90%8E%E5%90%AF%E5%8A%A8%E6%85%A2">解决补完 WiFi 补丁后启动慢</a></li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          Archives
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          Tags
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"><a class="rss" href="https://blog.ppia.me/post/theme/">主题 </a></div>
+    <a class="rss" href="https://blog.ppia.me/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">华为悦盒 EC6108V9 部署 Shairport Sync 实现 AirPlay2 音频全屋投放</h1>
+        
+        <div class="text-sm text-gray-700 lg:my-8">
+          
+            2025-07-23
+          
+        </div>
+        
+        
+        <div class="post-content yue">
+          <p>多余的机顶盒可以刷为 Ubuntu 继续发光发热作为一个 AirPlay2 音频接收器也很不错。</p>
+<!-- more -->
+<ul>
+<li>项目地址：<a href="https://github.com/mikebrady/shairport-sync">https://github.com/mikebrady/shairport-sync</a></li>
+<li>WiFi 部分摘抄原文：<a href="https://blog.csdn.net/weixin_39504040/article/details/139989280">https://blog.csdn.net/weixin_39504040/article/details/139989280</a></li>
+</ul>
+<hr>
+<h1 id="硬件及刷机部分">硬件及刷机部分</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">型号</th>
+<th style="text-align:center">芯片</th>
+<th style="text-align:center">运存</th>
+<th style="text-align:center">存储类型</th>
+<th style="text-align:center">存储容量</th>
+<th style="text-align:center">fastboot</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">华为悦盒ec6108v9</td>
+<td style="text-align:center">hi3798mv100</td>
+<td style="text-align:center">1G</td>
+<td style="text-align:center">emmc</td>
+<td style="text-align:center">4G</td>
+<td style="text-align:center">mdmo1d</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<ul>
+<li>海纳思系统：<a href="https://www.ecoo.top/">https://www.ecoo.top/</a></li>
+<li>刷机教程：<a href="https://www.ecoo.top/docs/tutorial-basics/ttl-flash">https://www.ecoo.top/docs/tutorial-basics/ttl-flash</a></li>
+</ul>
+</blockquote>
+<hr>
+<h1 id="部署-shairport-sync">部署 Shairport Sync</h1>
+<p>提前安装部署过程中所需依赖</p>
+<pre><code>apt update
+apt upgrade
+apt install --no-install-recommends build-essential git autoconf automake libtool libpopt-dev libconfig-dev libasound2-dev avahi-daemon libavahi-client-dev libssl-dev libsoxr-dev libplist-dev libsodium-dev libavutil-dev libavcodec-dev libavformat-dev uuid-dev libgcrypt-dev xxd
+</code></pre>
+<p>构建并安装 nqptp</p>
+<pre><code>git clone https://github.com/mikebrady/nqptp.git
+cd nqptp
+autoreconf -fi 
+./configure --with-systemd-startup
+make
+make install
+cd ..
+</code></pre>
+<p>启动 nqptp</p>
+<pre><code>systemctl enable nqptp #设置自动启动
+systemctl start nqptp #启动 nqptp
+</code></pre>
+<p>构建并安装 Shairport Sync</p>
+<pre><code>git clone https://github.com/mikebrady/shairport-sync.git
+cd shairport-sync
+autoreconf -fi
+./configure --sysconfdir=/etc --with-alsa \
+    --with-soxr --with-avahi --with-ssl=openssl --with-systemd --with-airplay-2
+make
+make instal
+</code></pre>
+<p>安装 alsa-utils ，以便读取设备id</p>
+<pre><code>sudo apt install alsa-utils
+</code></pre>
+<hr>
+<h1 id="配置-shairport-sync">配置 Shairport Sync</h1>
+<ol>
+<li>通过 USB 转 3.5mm 连接盒子与音响，执行 <code>aplay -l</code> 查看已连接的设备id；例如获取到的为 <code>card 2</code></li>
+<li>编辑 <code>/etc/shairport-sync.conf</code> 文件，可以通过 vi 等命令或 SFTP 进行修改；建议修改以下段落：</li>
+</ol>
+<blockquote>
+<ul>
+<li>name = &quot;BlackBox&quot;  //在Airplay中显示的名称，自己定义</li>
+<li>volume_range_db = 40;  //通过Airplay播放时的音量调整范围，默认60</li>
+<li>audio_backend_latency_offset_in_seconds = -0.04;  //（可选）播放延时</li>
+<li>output_device = &quot;plughw:2&quot;;  //这里要配置音频输出的设备编号；上面获取到的是 card 2 则改为plughw:2</li>
+<li>mixer_control_name = &quot;PCM&quot;;  //不太明白这个参数，但默认有就贴过来用<br>
+记得去除前方 <code>//</code> 注释，不然不生效。</li>
+</ul>
+</blockquote>
+<p>启动Shairport Sync</p>
+<pre><code>systemctl enable shairport-sync #设置自动启动
+systemctl start shairport-sync #启动 Shairport Sync
+</code></pre>
+<hr>
+<h1 id="向家庭app-添加-airplay2">向“家庭”App 添加 AirPlay2</h1>
+<ol>
+<li>在 iPhone 或 iPad 上打开 <strong>“家庭”</strong>  App</li>
+<li>右上角“✚”按钮　&gt;　<strong>选择添加或扫描配件</strong> &gt; <strong>更多选项</strong></li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://blog.ppia.me/post-images/1754245073872.png" alt="" loading="lazy"></figure>
+<ol start="3">
+<li>选择 AirPlay2 设备，点击添加即可。</li>
+</ol>
+<hr>
+<h1 id="安装-wifi-模块脱离有线">安装 WiFi 模块脱离有线</h1>
+<ol>
+<li>执行脚本，执行完成后重启服务器</li>
+</ol>
+<pre><code>bash &lt;(curl -sSL https://gitee.com/xjxjin/scripts/raw/main/install_hi3798mv100_wifi.sh)
+</code></pre>
+<ol start="2">
+<li>安装网卡驱动不知道网络类型则默认安装，如果驱动不成功可以重新执行安装</li>
+</ol>
+<pre><code>bash &lt;(curl -sSL https://gitee.com/xjxjin/scripts/raw/main/install_hi3798mv100_wifi.sh)
+</code></pre>
+<ol start="3">
+<li>执行 <code>nmcli </code> 查看是否有 <code>wlan0</code> 网卡</li>
+</ol>
+<blockquote>
+<ul>
+<li><strong>出现 wlan0</strong>：驱动成功；查看网卡安装状态：<code>nmcli device status</code></li>
+<li><strong>没有 wlan0</strong>：则重新执行步骤 2 脚本，安装 <code>ftv</code> 类型</li>
+</ul>
+</blockquote>
+<ol start="4">
+<li>连接 WiFi ；注意的是盒子仅支持 2.4G 频段，所以连接时注意 WiFi 频段。</li>
+</ol>
+<pre><code>nmcli device wifi connect &quot;WiFi名字&quot; password &quot;WiFi密码&quot; ifname wlan0
+</code></pre>
+<hr>
+<h1 id="解决补完-wifi-补丁后启动慢">解决补完 WiFi 补丁后启动慢</h1>
+<p>WiFi 连接成功后，拔掉网线通过路由器获取新的 iP 进行连接，执行命令进行修改配置：</p>
+<pre><code>sudo vim /etc/systemd/system/network-online.target.wants/networking.service
+</code></pre>
+<p>将里面的 <code>TimeoutStartSec=5min</code> 修改为 <code>TimeoutStartSec=2sec</code> 后保存，再执行：</p>
+<pre><code>sudo vim /etc/dhcp/dhclient.conf
+</code></pre>
+<p>修改 <code>timeout</code> 为 <code>15</code> 后保存。</p>
+
+        </div>
+        
+        <div class="flex justify-between py-8">
+          
+          
+            <div class="next-post">
+              <a href="https://blog.ppia.me/post/jvRuK1_AYE/">
+                <h3 class="post-title">
+                  为 Mango M28c 添加移远 RM500S-CE 5G模板支持
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+    </div>
+    <script src="https://blog.ppia.me/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+    
+    <!-- 新增灯箱脚本 -->
+    <script src="https://tokinx.github.io/ViewImage/view-image.min.js"></script>
+    <script>
+      window.ViewImage && ViewImage.init('.post-content img, .post-feature-image');
+    </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 创建透明悬浮按钮
+  const createCopyButton = (container) => {
+    const button = document.createElement('button');
+    button.className = 'copy-button';
+    button.textContent = '复制';
+    button.style.position = 'absolute';
+    button.style.top = '-16px'; // 半悬浮在pre边框上
+    button.style.right = '16px';
+    button.style.background = '#eff3fb'; // 完全透明背景 
+    button.style.border = '1px solid #e0e7f780'; // 半透明边框 
+    button.style.color = '#4570c1'; // 新文字颜色
+    button.style.borderRadius = '10px';
+    button.style.padding = '6px 20px';
+    button.style.cursor = 'pointer';
+    button.style.opacity = '0';
+    button.style.transition = 'opacity 0.3s ease';
+    button.style.zIndex = '10';
+    button.style.outline = 'none'; // 去除点击描边 
+    button.style.boxShadow = 'none'; // 去除阴影 
+    
+    // 悬停效果
+    container.addEventListener('mouseenter', () => {
+      button.style.opacity = '1';
+    });
+    container.addEventListener('mouseleave', () => {
+      if (button.textContent === '复制') {
+        button.style.opacity = '0';
+      }
+    });
+    
+    // 复制功能
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const code = container.querySelector('code')?.innerText || container.innerText;
+      copyToClipboard(code, button);
+    });
+    
+    return button;
+  };
+
+  // 复制功能实现
+  const copyToClipboard = (text, button) => {
+    const originalText = button.textContent;
+    
+    const copySuccess = () => {
+      button.textContent = '✓ 已复制';
+      setTimeout(() => {
+        button.textContent = originalText;
+        if (!button.parentElement.matches(':hover')) {
+          button.style.opacity = '0';
+        }
+      }, 2000);
+    };
+    
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(copySuccess).catch(() => {
+        fallbackCopy(text, button, originalText);
+      });
+    } else {
+      fallbackCopy(text, button, originalText);
+    }
+  };
+
+  // 兼容方案
+  const fallbackCopy = (text, button, originalText) => {
+    try {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.opacity = '0';
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      button.textContent = '✓ 已复制';
+      setTimeout(() => button.textContent = originalText, 2000);
+    } catch (err) {
+      button.textContent = '✗ 失败';
+      setTimeout(() => button.textContent = originalText, 2000);
+    }
+  };
+
+  // 为所有pre代码块添加按钮
+  document.querySelectorAll('pre').forEach(pre => {
+    const container = document.createElement('div');
+    container.className = 'code-container';
+    container.style.position = 'relative';
+    
+    pre.parentNode.insertBefore(container, pre);
+    container.appendChild(pre);
+    container.appendChild(createCopyButton(container));
+  });
+});
+</script>
+
+    <div class="site-info">
+      <div class="py-4 text-gray-700"><a class="rss" href="https://blog.ppia.me/post/theme/">主题 </a>| <a class="rss" href="https://blog.ppia.me/atom.xml" target="_blank">订阅</a> </div>
+    </div>  
+  </body>
+</html>
